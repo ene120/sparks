@@ -33,9 +33,15 @@ body {
   background-size: cover;
   background-position: center;
 }
-.layer-1 { background: radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.08) 0%, transparent 50%); }
-.layer-2 { background: radial-gradient(circle at 80% 70%, rgba(196, 69, 105, 0.06) 0%, transparent 50%); }
-.layer-3 { background: radial-gradient(circle at 50% 50%, rgba(255, 238, 248, 0.1) 0%, transparent 70%); }
+.layer-1 {
+  background: radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.08) 0%, transparent 50%);
+}
+.layer-2 {
+  background: radial-gradient(circle at 80% 70%, rgba(196, 69, 105, 0.06) 0%, transparent 50%);
+}
+.layer-3 {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 238, 248, 0.1) 0%, transparent 70%);
+}
 .cursor-sparkle {
   position: fixed;
   pointer-events: none;
@@ -59,8 +65,14 @@ body {
   z-index: 9999;
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
-.loading-screen.hidden { opacity: 0; visibility: hidden; }
-.loading-heart { font-size: 4rem; animation: heartbeat 1s ease-in-out infinite; }
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.loading-heart {
+  font-size: 4rem;
+  animation: heartbeat 1s ease-in-out infinite;
+}
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.3); }
@@ -127,10 +139,27 @@ body {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 0.8; }
 }
-.logo { font-size: 1.4rem; font-weight: 600; margin-bottom: 15px; opacity: 0.9; }
-h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
-.subtitle { font-size: 1.1rem; opacity: 0.95; font-weight: 300; }
-.content { padding: 50px 40px; }
+.logo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  font-weight: 300;
+}
+.content {
+  padding: 50px 40px;
+}
 .meta {
   display: flex;
   gap: 30px;
@@ -140,9 +169,22 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   border-radius: 16px;
   border-left: 4px solid #ff6b9d;
 }
-.meta-item { flex: 1; }
-.meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #c44569; font-weight: 600; margin-bottom: 6px; }
-.meta-value { font-size: 1.1rem; font-weight: 500; color: #4a2c3e; }
+.meta-item {
+  flex: 1;
+}
+.meta-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #c44569;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.meta-value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #4a2c3e;
+}
 .countdown {
   background: linear-gradient(135deg, #ff6b9d, #c44569);
   color: white;
@@ -151,11 +193,31 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   margin-bottom: 40px;
   text-align: center;
 }
-.countdown-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 15px; }
-.countdown-timer { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-.countdown-item { text-align: center; }
-.countdown-value { font-size: 2rem; font-weight: 700; display: block; }
-.countdown-label { font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.05em; }
+.countdown-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.countdown-item {
+  text-align: center;
+}
+.countdown-value {
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+}
+.countdown-label {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 .summary {
   background: #fff;
   padding: 35px;
@@ -167,7 +229,10 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.summary.visible { opacity: 1; transform: translateY(0); }
+.summary.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .summary-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
@@ -177,15 +242,25 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   align-items: center;
   gap: 10px;
 }
-.summary-title::before { content: "🌹"; font-size: 1.5rem; }
-.summary p { font-size: 1.05rem; color: #5a3c4e; line-height: 1.8; }
+.summary-title::before {
+  content: "🌹";
+  font-size: 1.5rem;
+}
+.summary p {
+  font-size: 1.05rem;
+  color: #5a3c4e;
+  line-height: 1.8;
+}
 .collapsible-section {
   margin: 30px 0;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.collapsible-section.visible { opacity: 1; transform: translateY(0); }
+.collapsible-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .collapsible-header {
   background: linear-gradient(135deg, #fff5f7, #ffeef8);
   padding: 20px 25px;
@@ -197,7 +272,10 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   border: 2px solid #ffe4f1;
   transition: all 0.3s ease;
 }
-.collapsible-header:hover { background: linear-gradient(135deg, #ffeef8, #ffe4f1); border-color: #ff6b9d; }
+.collapsible-header:hover {
+  background: linear-gradient(135deg, #ffeef8, #ffe4f1);
+  border-color: #ff6b9d;
+}
 .collapsible-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
@@ -206,8 +284,13 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   align-items: center;
   gap: 10px;
 }
-.collapsible-icon { font-size: 1.5rem; transition: transform 0.3s ease; }
-.collapsible-section.open .collapsible-icon { transform: rotate(180deg); }
+.collapsible-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+.collapsible-section.open .collapsible-icon {
+  transform: rotate(180deg);
+}
 .collapsible-content {
   max-height: 0;
   overflow: hidden;
@@ -215,15 +298,24 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   background: white;
   border-radius: 0 0 16px 16px;
 }
-.collapsible-section.open .collapsible-content { max-height: 5000px; }
-.collapsible-inner { padding: 25px; }
+.collapsible-section.open .collapsible-content {
+  max-height: 5000px;
+}
+.collapsible-inner {
+  padding: 25px;
+}
 .weather-widget {
   background: linear-gradient(135deg, #e8f4fd, #c4e1f5);
   border-radius: 16px;
   padding: 25px;
   box-shadow: 0 4px 15px rgba(44, 95, 141, 0.1);
 }
-.weather-widget-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.weather-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
 .weather-widget-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
@@ -240,13 +332,41 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   color: #2c5f8d;
   font-weight: 500;
 }
-.weather-widget-content { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.weather-icon { font-size: 3rem; }
-.weather-info { flex: 1; }
-.weather-temp { font-size: 2rem; font-weight: 700; color: #2c5f8d; margin-bottom: 5px; }
-.weather-desc { color: #2c5f8d; font-size: 0.95rem; }
-.weather-details { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
-.weather-detail-item { display: flex; align-items: center; gap: 8px; color: #2c5f8d; font-size: 0.9rem; }
+.weather-widget-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.weather-icon {
+  font-size: 3rem;
+}
+.weather-info {
+  flex: 1;
+}
+.weather-temp {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c5f8d;
+  margin-bottom: 5px;
+}
+.weather-desc {
+  color: #2c5f8d;
+  font-size: 0.95rem;
+}
+.weather-details {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+.weather-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2c5f8d;
+  font-size: 0.9rem;
+}
 .weather-note {
   background: rgba(44, 95, 141, 0.1);
   padding: 12px 15px;
@@ -279,7 +399,10 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.stop.visible { opacity: 1; transform: translateY(0); }
+.stop.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .stop::before {
   content: attr(data-number);
   position: absolute;
@@ -306,13 +429,38 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   cursor: pointer;
   transition: color 0.3s ease;
 }
-.stop-title:hover { color: #c44569; }
-.stop-title::after { content: " ▼"; font-size: 0.7rem; opacity: 0.5; display: inline-block; transition: transform 0.3s ease; }
-.stop.collapsed .stop-title::after { transform: rotate(-90deg); }
-.stop-content { max-height: 2000px; overflow: hidden; transition: max-height 0.5s ease; }
-.stop.collapsed .stop-content { max-height: 0; }
-.stop-location { color: #c44569; font-size: 0.95rem; margin-bottom: 6px; font-weight: 500; }
-.stop-phone { color: #888; font-size: 0.9rem; margin-bottom: 20px; }
+.stop-title:hover {
+  color: #c44569;
+}
+.stop-title::after {
+  content: " ▼";
+  font-size: 0.7rem;
+  opacity: 0.5;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.stop.collapsed .stop-title::after {
+  transform: rotate(-90deg);
+}
+.stop-content {
+  max-height: 2000px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.stop.collapsed .stop-content {
+  max-height: 0;
+}
+.stop-location {
+  color: #c44569;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.stop-phone {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
 .vibe {
   background: #fff5f7;
   padding: 15px 20px;
@@ -322,12 +470,36 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   font-style: italic;
   color: #5a3c4e;
 }
-.detail-section { margin: 20px 0; }
-.detail-title { font-weight: 600; color: #c44569; margin-bottom: 10px; font-size: 1.05rem; }
-.detail-section ul { list-style: none; padding-left: 0; }
-.detail-section li { padding-left: 25px; position: relative; margin-bottom: 8px; color: #5a3c4e; }
-.detail-section li::before { content: "→"; position: absolute; left: 0; color: #ff6b9d; font-weight: 600; }
-.detail-section p { color: #5a3c4e; margin-bottom: 8px; }
+.detail-section {
+  margin: 20px 0;
+}
+.detail-title {
+  font-weight: 600;
+  color: #c44569;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+.detail-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+.detail-section li {
+  padding-left: 25px;
+  position: relative;
+  margin-bottom: 8px;
+  color: #5a3c4e;
+}
+.detail-section li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #ff6b9d;
+  font-weight: 600;
+}
+.detail-section p {
+  color: #5a3c4e;
+  margin-bottom: 8px;
+}
 .recommendations {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -337,7 +509,10 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.recommendations.visible { opacity: 1; transform: translateY(0); }
+.recommendations.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .rec-card {
   background: linear-gradient(135deg, #fff5f7, #ffeef8);
   padding: 25px;
@@ -345,9 +520,20 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   border: 2px solid #ffe4f1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.rec-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(219, 112, 147, 0.15); }
-.rec-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #c44569; margin-bottom: 20px; text-align: center; }
-.rec-item { margin-bottom: 18px; }
+.rec-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(219, 112, 147, 0.15);
+}
+.rec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: #c44569;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.rec-item {
+  margin-bottom: 18px;
+}
 .rec-number {
   display: inline-block;
   background: #ff6b9d;
@@ -361,7 +547,11 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   font-weight: 600;
   margin-right: 8px;
 }
-.rec-text { color: #5a3c4e; font-size: 0.95rem; line-height: 1.6; }
+.rec-text {
+  color: #5a3c4e;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
 .checklist {
   background: #fff;
   padding: 30px;
@@ -378,8 +568,13 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.checklist-item:last-child { border-bottom: none; }
-.checklist-item:hover { background: #fff5f7; padding-left: 10px; }
+.checklist-item:last-child {
+  border-bottom: none;
+}
+.checklist-item:hover {
+  background: #fff5f7;
+  padding-left: 10px;
+}
 .checklist-checkbox {
   width: 24px;
   height: 24px;
@@ -391,9 +586,18 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   flex-shrink: 0;
   transition: all 0.3s ease;
 }
-.checklist-item.checked .checklist-checkbox { background: #c44569; color: white; }
-.checklist-text { color: #5a3c4e; flex: 1; }
-.checklist-item.checked .checklist-text { text-decoration: line-through; opacity: 0.6; }
+.checklist-item.checked .checklist-checkbox {
+  background: #c44569;
+  color: white;
+}
+.checklist-text {
+  color: #5a3c4e;
+  flex: 1;
+}
+.checklist-item.checked .checklist-text {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
 .share-section {
   margin: 40px 0;
   text-align: center;
@@ -401,9 +605,22 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.share-section.visible { opacity: 1; transform: translateY(0); }
-.share-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; margin-bottom: 15px; }
-.share-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+.share-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.share-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: #c44569;
+  margin-bottom: 15px;
+}
+.share-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 .share-btn {
   padding: 12px 24px;
   border-radius: 25px;
@@ -417,9 +634,18 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   align-items: center;
   gap: 8px;
 }
-.share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
-.share-copy { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; }
-.tooltip { position: relative; display: inline-block; }
+.share-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.share-copy {
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
 .tooltip-text {
   visibility: hidden;
   width: 180px;
@@ -437,7 +663,10 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   pointer-events: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
-.tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
 .love-note-trigger {
   position: fixed;
   bottom: 30px;
@@ -455,7 +684,9 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   transition: all 0.3s ease;
   animation: pulse 2s ease-in-out infinite;
 }
-.love-note-trigger:hover { transform: scale(1.1); }
+.love-note-trigger:hover {
+  transform: scale(1.1);
+}
 .love-note-modal {
   position: fixed;
   top: 0;
@@ -469,7 +700,9 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   z-index: 1000;
   padding: 20px;
 }
-.love-note-modal.active { display: flex; }
+.love-note-modal.active {
+  display: flex;
+}
 .love-note-content {
   background: white;
   padding: 40px;
@@ -479,7 +712,10 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   position: relative;
   animation: slideIn 0.3s ease;
 }
-@keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 .love-note-close {
   position: absolute;
   top: 15px;
@@ -508,12 +744,34 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.budget.visible { opacity: 1; transform: translateY(0); }
-.budget-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; }
-.budget-items { display: flex; justify-content: space-around; margin: 25px 0; flex-wrap: wrap; }
-.budget-item { text-align: center; margin: 10px; }
-.budget-label { font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px; }
-.budget-value { font-size: 1.3rem; font-weight: 600; }
+.budget.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.budget-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+.budget-items {
+  display: flex;
+  justify-content: space-around;
+  margin: 25px 0;
+  flex-wrap: wrap;
+}
+.budget-item {
+  text-align: center;
+  margin: 10px;
+}
+.budget-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+.budget-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
 .budget-total {
   font-size: 1.4rem;
   font-weight: 600;
@@ -530,8 +788,15 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   font-size: 0.95rem;
   color: #8b6914;
 }
-.backup strong { color: #d4a017; }
-.btns { margin: 15px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.backup strong {
+  color: #d4a017;
+}
+.btns {
+  margin: 15px 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 .btn {
   display: inline-flex;
   align-items: center;
@@ -544,12 +809,29 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
   border: none;
   cursor: pointer;
 }
-.dir-btn { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; }
-.dir-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3); }
-.ph-btn { background: #4a2c3e; color: white; }
-.ph-btn:hover { background: #5a3c4e; }
-.menu-btn { background: #fff5f7; color: #c44569; border: 2px solid #c44569; }
-.menu-btn:hover { background: #ffeef8; }
+.dir-btn {
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+}
+.dir-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
+}
+.ph-btn {
+  background: #4a2c3e;
+  color: white;
+}
+.ph-btn:hover {
+  background: #5a3c4e;
+}
+.menu-btn {
+  background: #fff5f7;
+  color: #c44569;
+  border: 2px solid #c44569;
+}
+.menu-btn:hover {
+  background: #ffeef8;
+}
 @media (max-width: 768px) {
   .recommendations { grid-template-columns: 1fr; }
   .meta { flex-direction: column; gap: 15px; }
@@ -606,10 +888,22 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
     <div class="countdown" id="countdown">
       <h3 class="countdown-title">⏰ Countdown to Your Date</h3>
       <div class="countdown-timer">
-        <div class="countdown-item"><span class="countdown-value" id="days">00</span><span class="countdown-label">Days</span></div>
-        <div class="countdown-item"><span class="countdown-value" id="hours">00</span><span class="countdown-label">Hours</span></div>
-        <div class="countdown-item"><span class="countdown-value" id="minutes">00</span><span class="countdown-label">Minutes</span></div>
-        <div class="countdown-item"><span class="countdown-value" id="seconds">00</span><span class="countdown-label">Seconds</span></div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="days">00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="hours">00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="minutes">00</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="seconds">00</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
       </div>
     </div>
     <div class="summary" id="summary">
@@ -619,14 +913,20 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
     </div>
     <div class="collapsible-section" id="weatherSection">
       <div class="collapsible-header" onclick="toggleCollapsible('weatherSection')">
-        <div class="collapsible-title"><span>🌤️</span><span>Weather Forecast - Feb 26, 2026</span></div>
+        <div class="collapsible-title">
+          <span>🌤️</span>
+          <span>Weather Forecast - Feb 26, 2026</span>
+        </div>
         <span class="collapsible-icon">▼</span>
       </div>
       <div class="collapsible-content">
         <div class="collapsible-inner">
           <div class="weather-widget">
             <div class="weather-widget-header">
-              <div class="weather-widget-title"><span>📅</span><span>Little Italy, San Diego</span></div>
+              <div class="weather-widget-title">
+                <span>📅</span>
+                <span>Little Italy, San Diego</span>
+              </div>
               <div class="weather-date-badge">6:30 PM - 9:30 PM</div>
             </div>
             <div class="weather-widget-content">
@@ -637,11 +937,23 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
               </div>
             </div>
             <div class="weather-details">
-              <div class="weather-detail-item"><span>🌡️</span><span>Evening: 63° → 58°F</span></div>
-              <div class="weather-detail-item"><span>🌧️</span><span>No rain expected</span></div>
-              <div class="weather-detail-item"><span>💨</span><span>Ocean breeze possible</span></div>
+              <div class="weather-detail-item">
+                <span>🌡️</span>
+                <span>Evening: 63° → 58°F</span>
+              </div>
+              <div class="weather-detail-item">
+                <span>🌧️</span>
+                <span>No rain expected</span>
+              </div>
+              <div class="weather-detail-item">
+                <span>💨</span>
+                <span>Ocean breeze possible</span>
+              </div>
             </div>
-            <div class="weather-note"><span>💡</span><span>Bring a light layer! Ocean breeze can show up fast after sunset.</span></div>
+            <div class="weather-note">
+              <span>💡</span>
+              <span>Bring a light layer! Ocean breeze can show up fast after sunset.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -649,15 +961,33 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
     <div class="recommendations" id="recommendations">
       <div class="rec-card">
         <h3 class="rec-title">For Amanda 💙</h3>
-        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">Pick a tiny "phone-free" pocket during the first walk.</span></div>
-        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Choose the dinner order around sharing: one slice each plus something you split.</span></div>
-        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Bring a light layer for the ocean breeze after sunset.</span></div>
+        <div class="rec-item">
+          <span class="rec-number">1</span>
+          <span class="rec-text">Pick a tiny "phone-free" pocket during the first walk.</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-number">2</span>
+          <span class="rec-text">Choose the dinner order around sharing: one slice each plus something you split.</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-number">3</span>
+          <span class="rec-text">Bring a light layer for the ocean breeze after sunset.</span>
+        </div>
       </div>
       <div class="rec-card">
         <h3 class="rec-title">For Partner 💕</h3>
-        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">Park once and stay parked. Keep the night calm and "together".</span></div>
-        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Take the lead on the walking loop for the first 10 minutes.</span></div>
-        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">At gelato, pick one "safe" and one "wild card" flavor to share.</span></div>
+        <div class="rec-item">
+          <span class="rec-number">1</span>
+          <span class="rec-text">Park once and stay parked. Keep the night calm and "together".</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-number">2</span>
+          <span class="rec-text">Take the lead on the walking loop for the first 10 minutes.</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-number">3</span>
+          <span class="rec-text">At gelato, pick one "safe" and one "wild card" flavor to share.</span>
+        </div>
       </div>
     </div>
     <h2 class="section-title">✨ The Plan</h2>
@@ -666,12 +996,27 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
       <div class="stop-content">
         <div class="stop-location">📍 Start at: Piazza della Famiglia</div>
         <div class="btns">
-          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Piazza%20della%20Famiglia%20Little%20Italy%20San%20Diego" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
-          <div class="tooltip"><a href="https://www.littleitalysd.com/" target="_blank" class="btn menu-btn"><i data-lucide="globe"></i></a><span class="tooltip-text">View Little Italy guide</span></div>
+          <div class="tooltip">
+            <a href="https://www.google.com/maps/search/?api=1&query=Piazza%20della%20Famiglia%20Little%20Italy%20San%20Diego" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a>
+            <span class="tooltip-text">Get directions via Google Maps</span>
+          </div>
+          <div class="tooltip">
+            <a href="https://www.littleitalysd.com/" target="_blank" class="btn menu-btn"><i data-lucide="globe"></i></a>
+            <span class="tooltip-text">View Little Italy guide</span>
+          </div>
         </div>
         <div class="vibe">Bright, romantic-in-a-city-way. Perfect for a shared stroll and discovery.</div>
-        <div class="detail-section"><div class="detail-title">What you do:</div><p>Do a simple loop: piazza → stroll north/south along India Street for people-watching → cut over toward the waterfront for open views → wander back through the heart of Little Italy.</p></div>
-        <div class="detail-section"><div class="detail-title">🚗 Parking:</div><ul><li><strong>Best bet:</strong> 610 WEST ASH at Little Italy Parking</li><li><strong>Backup:</strong> Ace Parking - <a href="tel:+16192336624" style="color: #c44569;">(619) 233-6624</a></li></ul></div>
+        <div class="detail-section">
+          <div class="detail-title">What you do:</div>
+          <p>Do a simple loop: piazza → stroll north/south along India Street for people-watching → cut over toward the waterfront for open views → wander back through the heart of Little Italy.</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">🚗 Parking:</div>
+          <ul>
+            <li><strong>Best bet:</strong> 610 WEST ASH at Little Italy Parking</li>
+            <li><strong>Backup:</strong> Ace Parking - <a href="tel:+16192336624" style="color: #c44569;">(619) 233-6624</a></li>
+          </ul>
+        </div>
         <div class="backup"><strong>🔄 Backup:</strong> Keep it fully in Little Italy and linger around the public plazas and landmark sign area.</div>
       </div>
     </div>
@@ -681,12 +1026,28 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
         <div class="stop-location">📍 Landini's Pizzeria, Little Italy</div>
         <div class="stop-phone">☎️ (619) 238-3502</div>
         <div class="btns">
-          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Landinis%20Pizzeria%20Little%20Italy%20San%20Diego" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
-          <div class="tooltip"><a href="tel:+16192383502" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call Landini's Pizzeria</span></div>
-          <div class="tooltip"><a href="https://landinispizzeria.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View full menu online</span></div>
+          <div class="tooltip">
+            <a href="https://www.google.com/maps/search/?api=1&query=Landinis%20Pizzeria%20Little%20Italy%20San%20Diego" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a>
+            <span class="tooltip-text">Get directions via Google Maps</span>
+          </div>
+          <div class="tooltip">
+            <a href="tel:+16192383502" class="btn ph-btn"><i data-lucide="phone"></i></a>
+            <span class="tooltip-text">Call Landini's Pizzeria</span>
+          </div>
+          <div class="tooltip">
+            <a href="https://landinispizzeria.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a>
+            <span class="tooltip-text">View full menu online</span>
+          </div>
         </div>
         <div class="vibe">Casual, warm, no-pressure. Budget-smart and share-forward.</div>
-        <div class="detail-section"><div class="detail-title">Menu picks:</div><ul><li><strong>Slice + Salad + Soda</strong> - easy "date combo" for value</li><li><strong>MeatBall Ricotta slice</strong> - hearty and classic</li><li><strong>Greek Salad</strong> - nice shared side</li></ul></div>
+        <div class="detail-section">
+          <div class="detail-title">Menu picks:</div>
+          <ul>
+            <li><strong>Slice + Salad + Soda</strong> - easy "date combo" for value</li>
+            <li><strong>MeatBall Ricotta slice</strong> - hearty and classic</li>
+            <li><strong>Greek Salad</strong> - nice shared side</li>
+          </ul>
+        </div>
         <div class="backup"><strong>🍜 Backup:</strong> <strong>Mona Lisa Italian Foods</strong> - Same neighborhood. <a href="tel:+16192395367" style="color: #d4a017">(619) 239-5367</a></div>
       </div>
     </div>
@@ -696,29 +1057,66 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
         <div class="stop-location">📍 Bobboi Natural Gelato, Kettner Blvd</div>
         <div class="stop-phone">☎️ (858) 214-8240</div>
         <div class="btns">
-          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Bobboi%20Natural%20Gelato%20Kettner%20Blvd%20San%20Diego" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
-          <div class="tooltip"><a href="tel:+18582148240" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call Bobboi Gelato</span></div>
-          <div class="tooltip"><a href="https://www.bobboi.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View flavors online</span></div>
+          <div class="tooltip">
+            <a href="https://www.google.com/maps/search/?api=1&query=Bobboi%20Natural%20Gelato%20Kettner%20Blvd%20San%20Diego" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a>
+            <span class="tooltip-text">Get directions via Google Maps</span>
+          </div>
+          <div class="tooltip">
+            <a href="tel:+18582148240" class="btn ph-btn"><i data-lucide="phone"></i></a>
+            <span class="tooltip-text">Call Bobboi Gelato</span>
+          </div>
+          <div class="tooltip">
+            <a href="https://www.bobboi.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a>
+            <span class="tooltip-text">View flavors online</span>
+          </div>
         </div>
         <div class="vibe">Sweet, cozy, end-on-a-high-note. Split two flavors and take a slow walk back.</div>
-        <div class="detail-section"><div class="detail-title">Menu picks:</div><ul><li><strong>Vegan Pistachio</strong> - fun to share</li><li><strong>Bacio or Stracciatella</strong> - classic Italian gelato</li><li><strong>Dark chocolate sorbet</strong> - vegan, super chocolatey</li></ul></div>
+        <div class="detail-section">
+          <div class="detail-title">Menu picks:</div>
+          <ul>
+            <li><strong>Vegan Pistachio</strong> - fun to share</li>
+            <li><strong>Bacio or Stracciatella</strong> - classic Italian gelato</li>
+            <li><strong>Dark chocolate sorbet</strong> - vegan, super chocolatey</li>
+          </ul>
+        </div>
         <div class="backup"><strong>🍰 Backup:</strong> <strong>Salt & Straw (Little Italy)</strong> - <a href="tel:+16195429394" style="color: #d4a017">(619) 542-9394</a></div>
       </div>
     </div>
     <div class="collapsible-section" id="checklistSection">
       <div class="collapsible-header" onclick="toggleCollapsible('checklistSection')">
-        <div class="collapsible-title"><span>✅</span><span>Date Checklist</span></div>
+        <div class="collapsible-title">
+          <span>✅</span>
+          <span>Date Checklist</span>
+        </div>
         <span class="collapsible-icon">▼</span>
       </div>
       <div class="collapsible-content">
         <div class="collapsible-inner">
           <div class="checklist">
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="0"><div class="checklist-checkbox"></div><span class="checklist-text">Park once and stay parked</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="1"><div class="checklist-checkbox"></div><span class="checklist-text">Bring a light layer for the evening breeze</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="2"><div class="checklist-checkbox"></div><span class="checklist-text">Do a "phone-free" pocket during the walk</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="3"><div class="checklist-checkbox"></div><span class="checklist-text">Order dinner share-style</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="4"><div class="checklist-checkbox"></div><span class="checklist-text">Pick one "safe" and one "wild card" gelato flavor</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="5"><div class="checklist-checkbox"></div><span class="checklist-text">Take a slow walk back through the neighborhood</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="0">
+              <div class="checklist-checkbox"></div>
+              <span class="checklist-text">Park once and stay parked</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="1">
+              <div class="checklist-checkbox"></div>
+              <span class="checklist-text">Bring a light layer for the evening breeze</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="2">
+              <div class="checklist-checkbox"></div>
+              <span class="checklist-text">Do a "phone-free" pocket during the walk</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="3">
+              <div class="checklist-checkbox"></div>
+              <span class="checklist-text">Order dinner share-style</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="4">
+              <div class="checklist-checkbox"></div>
+              <span class="checklist-text">Pick one "safe" and one "wild card" gelato flavor</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="5">
+              <div class="checklist-checkbox"></div>
+              <span class="checklist-text">Take a slow walk back through the neighborhood</span>
+            </div>
           </div>
         </div>
       </div>
@@ -726,15 +1124,27 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
     <div class="share-section" id="share">
       <h3 class="share-title">💕 Share This Date Plan</h3>
       <div class="share-buttons">
-        <button class="share-btn share-copy" onclick="copyLink()"><i data-lucide="copy"></i>Copy Link</button>
+        <button class="share-btn share-copy" onclick="copyLink()">
+          <i data-lucide="copy"></i>
+          Copy Link
+        </button>
       </div>
     </div>
     <div class="budget" id="budget">
       <h3 class="budget-title">💰 Estimated Budget for Two</h3>
       <div class="budget-items">
-        <div class="budget-item"><div class="budget-label">Dinner</div><div class="budget-value">$20-$32</div></div>
-        <div class="budget-item"><div class="budget-label">Gelato</div><div class="budget-value">$10-$18</div></div>
-        <div class="budget-item"><div class="budget-label">Parking</div><div class="budget-value">Varies</div></div>
+        <div class="budget-item">
+          <div class="budget-label">Dinner</div>
+          <div class="budget-value">$20-$32</div>
+        </div>
+        <div class="budget-item">
+          <div class="budget-label">Gelato</div>
+          <div class="budget-value">$10-$18</div>
+        </div>
+        <div class="budget-item">
+          <div class="budget-label">Parking</div>
+          <div class="budget-value">Varies</div>
+        </div>
       </div>
       <div class="budget-total">Total (without parking): $30-$50</div>
     </div>
@@ -773,22 +1183,27 @@ window.addEventListener('scroll', function(e) {
 });
 document.addEventListener('mousemove', function(e) {
   if (Math.random() > 0.92) {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'cursor-sparkle';
-    sparkle.textContent = ['✨', '💕', '💫', '💖'][Math.floor(Math.random() * 4)];
-    sparkle.style.left = e.clientX + 'px';
-    sparkle.style.top = e.clientY + 'px';
-    sparkle.style.position = 'fixed';
-    sparkle.style.fontSize = (Math.random() * 10 + 10) + 'px';
-    document.body.appendChild(sparkle);
-    setTimeout(() => sparkle.remove(), 1000);
+    createCursorSparkle(e.clientX, e.clientY);
   }
 });
+function createCursorSparkle(x, y) {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'cursor-sparkle';
+  sparkle.textContent = ['✨', '💕', '💫', '💖'][Math.floor(Math.random() * 4)];
+  sparkle.style.left = x + 'px';
+  sparkle.style.top = y + 'px';
+  sparkle.style.position = 'fixed';
+  sparkle.style.fontSize = (Math.random() * 10 + 10) + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1000);
+}
 window.addEventListener('load', function() {
-  setTimeout(function() { document.getElementById('loadingScreen').classList.add('hidden'); }, 1500);
+  setTimeout(function() {
+    document.getElementById('loadingScreen').classList.add('hidden');
+  }, 1500);
 });
-(function() {
-  const container = document.getElementById('particles');
+function createParticles() {
+  const particlesContainer = document.getElementById('particles');
   const emojis = ['💕', '✨', '💖', '💫', '🌸'];
   for (let i = 0; i < 20; i++) {
     const particle = document.createElement('div');
@@ -798,9 +1213,10 @@ window.addEventListener('load', function() {
     particle.style.animationDuration = (15 + Math.random() * 10) + 's';
     particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     particle.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
-    container.appendChild(particle);
+    particlesContainer.appendChild(particle);
   }
-})();
+}
+createParticles();
 const typewriterText = "A lively Little Italy stroll that feels like a mini-adventure, then pizza-by-the-slice for an easy budget win, finished with handcrafted Italian gelato.";
 let charIndex = 0;
 function typeWriter() {
@@ -815,30 +1231,60 @@ function updateCountdown() {
   const now = new Date().getTime();
   const difference = targetDate - now;
   if (difference > 0) {
-    document.getElementById('days').textContent = String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(2, '0');
-    document.getElementById('hours').textContent = String(Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-    document.getElementById('minutes').textContent = String(Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(Math.floor((difference % (1000 * 60)) / 1000)).padStart(2, '0');
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
   }
 }
 setInterval(updateCountdown, 1000);
 updateCountdown();
 function handleScroll() {
-  ['summary', 'recommendations', 'stop1', 'stop2', 'stop3', 'weatherSection', 'checklistSection', 'share', 'budget'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('visible');
+  const elements = [
+    document.getElementById('summary'),
+    document.getElementById('recommendations'),
+    document.getElementById('stop1'),
+    document.getElementById('stop2'),
+    document.getElementById('stop3'),
+    document.getElementById('weatherSection'),
+    document.getElementById('checklistSection'),
+    document.getElementById('share'),
+    document.getElementById('budget')
+  ];
+  elements.forEach(element => {
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight - 100;
+      if (isVisible) {
+        element.classList.add('visible');
+      }
+    }
   });
 }
 window.addEventListener('scroll', handleScroll);
 window.addEventListener('load', handleScroll);
 const summaryObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) { typeWriter(); summaryObserver.unobserve(entry.target); } });
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      typeWriter();
+      summaryObserver.unobserve(entry.target);
+    }
+  });
 }, { threshold: 0.5 });
 summaryObserver.observe(document.getElementById('summary'));
 document.querySelectorAll('.stop-title').forEach(title => {
-  title.addEventListener('click', function() { this.parentElement.classList.toggle('collapsed'); });
+  title.addEventListener('click', function() {
+    this.parentElement.classList.toggle('collapsed');
+  });
 });
-function toggleCollapsible(sectionId) { document.getElementById(sectionId).classList.toggle('open'); }
+function toggleCollapsible(sectionId) {
+  const section = document.getElementById(sectionId);
+  section.classList.toggle('open');
+}
 function toggleCheck(item) {
   item.classList.toggle('checked');
   const checkbox = item.querySelector('.checklist-checkbox');
@@ -851,20 +1297,34 @@ function toggleCheck(item) {
     localStorage.removeItem('dateChecklist_' + itemIndex);
   }
 }
-(function() {
+function loadChecklistState() {
   document.querySelectorAll('.checklist-item').forEach(item => {
     const itemIndex = item.getAttribute('data-item');
-    if (localStorage.getItem('dateChecklist_' + itemIndex) === 'checked') {
+    const isChecked = localStorage.getItem('dateChecklist_' + itemIndex) === 'checked';
+    if (isChecked) {
       item.classList.add('checked');
-      item.querySelector('.checklist-checkbox').textContent = '✓';
+      const checkbox = item.querySelector('.checklist-checkbox');
+      checkbox.textContent = '✓';
     }
   });
-})();
-document.getElementById('loveNoteTrigger').addEventListener('click', function() { document.getElementById('loveNoteModal').classList.add('active'); });
-document.getElementById('loveNoteClose').addEventListener('click', function() { document.getElementById('loveNoteModal').classList.remove('active'); });
-document.getElementById('loveNoteModal').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
-function copyLink() { navigator.clipboard.writeText(window.location.href).then(function() { alert('Link copied to clipboard! 💕'); }); }
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') document.getElementById('loveNoteModal').classList.remove('active'); });
+}
+loadChecklistState();
+document.getElementById('loveNoteTrigger').addEventListener('click', function() {
+  document.getElementById('loveNoteModal').classList.add('active');
+});
+document.getElementById('loveNoteClose').addEventListener('click', function() {
+  document.getElementById('loveNoteModal').classList.remove('active');
+});
+document.getElementById('loveNoteModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.classList.remove('active');
+  }
+});
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(function() {
+    alert('Link copied to clipboard! 💕');
+  });
+}
 </script>
 </body>
 </html>
