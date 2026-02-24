@@ -56,23 +56,6 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
 .summary-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 .summary-title::before { content: "🌹"; font-size: 1.5rem; }
 .summary p { font-size: 1.05rem; color: #5a3c4e; line-height: 1.8; }
-.carousel-section { margin: 40px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.carousel-section.visible { opacity: 1; transform: translateY(0); }
-.carousel-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #c44569; text-align: center; margin-bottom: 20px; }
-.carousel-container { position: relative; width: 100%; max-width: 800px; margin: 0 auto; overflow: hidden; border-radius: 16px; box-shadow: 0 8px 25px rgba(219, 112, 147, 0.15); }
-.carousel-track { display: flex; transition: transform 0.5s ease; }
-.carousel-slide { min-width: 100%; height: 400px; background: linear-gradient(135deg, #fff5f7, #ffeef8); display: flex; align-items: center; justify-content: center; flex-direction: column; color: #c44569; font-size: 1.1rem; position: relative; overflow: hidden; }
-.carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
-.carousel-slide-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; padding: 30px 20px 20px; }
-.carousel-slide-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 5px; }
-.carousel-slide-subtitle { font-size: 0.95rem; opacity: 0.9; }
-.carousel-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.9); border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-.carousel-prev { left: 15px; }
-.carousel-next { right: 15px; }
-.carousel-nav:hover { background: #ff6b9d; color: white; }
-.carousel-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
-.carousel-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.5); border: none; cursor: pointer; transition: all 0.3s ease; }
-.carousel-dot.active { background: #ff6b9d; transform: scale(1.2); }
 .collapsible-section { margin: 30px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .collapsible-section.visible { opacity: 1; transform: translateY(0); }
 .collapsible-header { background: linear-gradient(135deg, #fff5f7, #ffeef8); padding: 20px 25px; border-radius: 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 2px solid #ffe4f1; transition: all 0.3s ease; }
@@ -168,7 +151,7 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
 .menu-btn:hover { background: #ffeef8; }
 .parking-link { display: inline-block; background: #fff5f7; color: #c44569; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; border: 2px solid #c44569; margin: 5px 0; transition: all 0.3s ease; }
 .parking-link:hover { background: #ffeef8; transform: translateY(-2px); }
-@media (max-width: 768px) { .recommendations { grid-template-columns: 1fr; } .meta { flex-direction: column; gap: 15px; } .budget-items { flex-direction: column; gap: 15px; } h1 { font-size: 2rem; } .countdown-timer { gap: 15px; } .countdown-value { font-size: 1.5rem; } .love-note-trigger { bottom: 20px; right: 20px; width: 50px; height: 50px; } .carousel-nav { width: 40px; height: 40px; } }
+@media (max-width: 768px) { .recommendations { grid-template-columns: 1fr; } .meta { flex-direction: column; gap: 15px; } .budget-items { flex-direction: column; gap: 15px; } h1 { font-size: 2rem; } .countdown-timer { gap: 15px; } .countdown-value { font-size: 1.5rem; } .love-note-trigger { bottom: 20px; right: 20px; width: 50px; height: 50px; } }
 </style>
 </head>
 <body>
@@ -176,49 +159,332 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
 <div class="loading-screen" id="loadingScreen"><div class="loading-heart">💕</div></div>
 <div id="particles"></div>
 <div class="love-note-trigger" id="loveNoteTrigger"><span style="font-size: 2rem;">💝</span></div>
-<div class="love-note-modal" id="loveNoteModal"><div class="love-note-content"><button class="love-note-close" id="loveNoteClose">✕</button><h2 style="font-family: 'Playfair Display', serif; color: #c44569; margin-bottom: 15px;">💕 A Note for You</h2><p class="love-note-text">"May your coastal adventure be filled with ocean breezes, delicious flavors, and moments that make your heart smile."</p><p style="color: #5a3c4e; font-style: italic; margin-top: 20px;">— Made with love by DateFlo ✨</p></div></div>
+<div class="love-note-modal" id="loveNoteModal">
+  <div class="love-note-content">
+    <button class="love-note-close" id="loveNoteClose">✕</button>
+    <h2 style="font-family: 'Playfair Display', serif; color: #c44569; margin-bottom: 15px;">💕 A Note for You</h2>
+    <p class="love-note-text">"May your coastal adventure be filled with ocean breezes, delicious flavors, and moments that make your heart smile."</p>
+    <p style="color: #5a3c4e; font-style: italic; margin-top: 20px;">— Made with love by DateFlo ✨</p>
+  </div>
+</div>
 <div class="container">
-  <div class="header"><div class="logo">💕 DateFlo</div><h1>Kavindi's Coastal Date</h1><p class="subtitle">Ocean Views, Flavorful Bites & Sweet Moments ✨</p></div>
+  <div class="header">
+    <div class="logo">💕 DateFlo</div>
+    <h1>Kavindi's Coastal Date</h1>
+    <p class="subtitle">Ocean Views, Flavorful Bites & Sweet Moments ✨</p>
+  </div>
   <div class="content">
-    <div class="meta"><div class="meta-item"><div class="meta-label">Date</div><div class="meta-value">Monday, March 30, 2026</div></div><div class="meta-item"><div class="meta-label">Time</div><div class="meta-value">2:00 PM - 6:00 PM</div></div><div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">4-5 hours</div></div></div>
-    <div class="countdown" id="countdown"><h3 class="countdown-title">⏰ Countdown to Your Date</h3><div class="countdown-timer"><div class="countdown-item"><span class="countdown-value" id="days">00</span><span class="countdown-label">Days</span></div><div class="countdown-item"><span class="countdown-value" id="hours">00</span><span class="countdown-label">Hours</span></div><div class="countdown-item"><span class="countdown-value" id="minutes">00</span><span class="countdown-label">Minutes</span></div><div class="countdown-item"><span class="countdown-value" id="seconds">00</span><span class="countdown-label">Seconds</span></div></div></div>
-    <div class="carousel-section" id="carousel"><h3 class="carousel-title">📸 Date Highlights Gallery</h3><div class="carousel-container"><div class="carousel-track" id="carouselTrack"><div class="carousel-slide"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/f4/26/c9/high-tide-in-sunny-jim.jpg?w=1200&h=1200&s=1" alt="Sunny Jim Sea Cave"><div class="carousel-slide-overlay"><div class="carousel-slide-title">Sunny Jim Sea Cave</div><div class="carousel-slide-subtitle">Coastal Adventure</div></div></div><div class="carousel-slide"><i data-lucide="sunset" style="font-size: 4rem; margin-bottom: 15px;"></i><p><strong>Coastal Sunset Views</strong></p><p style="font-size: 0.9rem;">La Jolla Cove</p></div><div class="carousel-slide"><i data-lucide="utensils" style="font-size: 4rem; margin-bottom: 15px;"></i><p><strong>Artisan Sushi</strong></p><p style="font-size: 0.9rem;">Sushi Nekosan</p></div><div class="carousel-slide"><i data-lucide="ice-cream-bowl" style="font-size: 4rem; margin-bottom: 15px;"></i><p><strong>Natural Gelato</strong></p><p style="font-size: 0.9rem;">Bobboi</p></div></div><button class="carousel-nav carousel-prev" onclick="prevSlide()">◀</button><button class="carousel-nav carousel-next" onclick="nextSlide()">▶</button><div class="carousel-dots" id="carouselDots"></div></div></div>
-    <div class="summary" id="summary"><h2 class="summary-title">The Evening</h2><p id="typewriterText"></p><p style="margin-top: 12px; font-style: italic; opacity: 0.8;">Pickup in Mira Mesa, then one drive to La Jolla Cove. Everything is walkable after that.</p></div>
-    <div class="collapsible-section" id="weatherSection"><div class="collapsible-header" onclick="toggleCollapsible('weatherSection')"><div class="collapsible-title"><span>🌤️</span><span>Weather Forecast - March 30, 2026</span></div><span class="collapsible-icon">▼</span></div><div class="collapsible-content"><div class="collapsible-inner"><div class="weather-widget"><div class="weather-widget-header"><div class="weather-widget-title"><span>📅</span><span>La Jolla Cove</span></div><div class="weather-date-badge">2:00 PM - 6:00 PM</div></div><div class="weather-widget-content"><div class="weather-icon">🌤️</div><div class="weather-info"><div class="weather-temp">65°F → 60°F</div><div class="weather-desc">Pleasant afternoon, cooling evening</div></div></div><div class="weather-details"><div class="weather-detail-item"><span>🌡️</span><span>Afternoon: 65°F</span></div><div class="weather-detail-item"><span>🌊</span><span>Ocean breeze</span></div><div class="weather-detail-item"><span>☀️</span><span>Partly cloudy</span></div></div><div class="weather-note"><span>ℹ️</span><span>Weather forecast for your date day. Data from Open-Meteo API.</span></div></div></div></div></div>
-    <div style="background: #e8f4fd; border: 2px solid #c4e1f5; border-radius: 16px; padding: 20px; margin: 30px 0; color: #2c5f8d;"><strong>🚗 Parking Reservation:</strong> Reserve your spot at ACE Lot 0545 near La Jolla Cove<br><div class="tooltip"><a href="https://space.aceparking.com/site/reserve/4c56ff4ce4aaf9573aa5dff913df997a" target="_blank" class="parking-link">Reserve Parking Here →</a><span class="tooltip-text">Reserve your parking spot in advance to save time!</span></div></div>
-    <div class="recommendations" id="recommendations"><div class="rec-card"><h3 class="rec-title">For Kavindi 💙</h3><div class="rec-item"><span class="rec-number">1</span><span class="rec-text">At Sushi Nekosan: Chicken Karage + Grilled Pork Belly as your "flavor anchor."</span></div><div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Your seafood comfort lane: Tuna nigiri (clean, not fishy).</span></div><div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Bobboi pairing: Pistacchio + Salted Caramel (rich, bold, not subtle).</span></div></div><div class="rec-card"><h3 class="rec-title">For Partner 💕</h3><div class="rec-item"><span class="rec-number">1</span><span class="rec-text">At Sushi Nekosan: Fresh Water Eel nigiri (mellow) + Veggie Gyoza.</span></div><div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Cherrywine backup: Chicken and Potatoes Curry (comforting, not fish-forward).</span></div><div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Bobboi pairing: Dark Chocolate Sorbet (simple, bold) + Strawberry Sorbet (bright).</span></div></div></div>
+    <div class="meta">
+      <div class="meta-item"><div class="meta-label">Date</div><div class="meta-value">Monday, March 30, 2026</div></div>
+      <div class="meta-item"><div class="meta-label">Time</div><div class="meta-value">2:00 PM - 6:00 PM</div></div>
+      <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">4-5 hours</div></div>
+    </div>
+    <div class="countdown" id="countdown">
+      <h3 class="countdown-title">⏰ Countdown to Your Date</h3>
+      <div class="countdown-timer">
+        <div class="countdown-item"><span class="countdown-value" id="days">00</span><span class="countdown-label">Days</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="hours">00</span><span class="countdown-label">Hours</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="minutes">00</span><span class="countdown-label">Minutes</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="seconds">00</span><span class="countdown-label">Seconds</span></div>
+      </div>
+    </div>
+    <div class="summary" id="summary">
+      <h2 class="summary-title">The Evening</h2>
+      <p id="typewriterText"></p>
+      <p style="margin-top: 12px; font-style: italic; opacity: 0.8;">Pickup in Mira Mesa, then one drive to La Jolla Cove. Everything is walkable after that.</p>
+    </div>
+    <div class="collapsible-section" id="weatherSection">
+      <div class="collapsible-header" onclick="toggleCollapsible('weatherSection')">
+        <div class="collapsible-title"><span>🌤️</span><span>Weather Forecast - March 30, 2026</span></div>
+        <span class="collapsible-icon">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="collapsible-inner">
+          <div class="weather-widget">
+            <div class="weather-widget-header">
+              <div class="weather-widget-title"><span>📅</span><span>La Jolla Cove</span></div>
+              <div class="weather-date-badge">2:00 PM - 6:00 PM</div>
+            </div>
+            <div class="weather-widget-content">
+              <div class="weather-icon">🌤️</div>
+              <div class="weather-info">
+                <div class="weather-temp">68°F → 62°F</div>
+                <div class="weather-desc">Partly cloudy, pleasant afternoon</div>
+              </div>
+            </div>
+            <div class="weather-details">
+              <div class="weather-detail-item"><span>🌡️</span><span>Afternoon: 68°F</span></div>
+              <div class="weather-detail-item"><span>🌅</span><span>Evening: 62°F</span></div>
+              <div class="weather-detail-item"><span>💨</span><span>Coastal breeze</span></div>
+            </div>
+            <div class="weather-note"><span>💡</span><span>Bring a light jacket for the evening coastal breeze!</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background: #e8f4fd; border: 2px solid #c4e1f5; border-radius: 16px; padding: 20px; margin: 30px 0; color: #2c5f8d;">
+      <strong>🚗 Parking Reservation:</strong> Reserve your spot at ACE Lot 0545 near La Jolla Cove<br>
+      <div class="tooltip">
+        <a href="https://space.aceparking.com/site/reserve/4c56ff4ce4aaf9573aa5dff913df997a" target="_blank" class="parking-link">Reserve Parking Here →</a>
+        <span class="tooltip-text">Reserve your parking spot in advance to save time!</span>
+      </div>
+    </div>
+    <div class="recommendations" id="recommendations">
+      <div class="rec-card">
+        <h3 class="rec-title">For Kavindi 💙</h3>
+        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">At Sushi Nekosan: Chicken Karage + Grilled Pork Belly as your "flavor anchor."</span></div>
+        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Your seafood comfort lane: Tuna nigiri (clean, not fishy).</span></div>
+        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Bobboi pairing: Pistacchio + Salted Caramel (rich, bold).</span></div>
+      </div>
+      <div class="rec-card">
+        <h3 class="rec-title">For Partner 💕</h3>
+        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">At Sushi Nekosan: Fresh Water Eel nigiri (mellow) + Veggie Gyoza.</span></div>
+        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Cherrywine backup: Chicken and Potatoes Curry (comforting).</span></div>
+        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Bobboi pairing: Dark Chocolate Sorbet + Strawberry Sorbet.</span></div>
+      </div>
+    </div>
     <h2 class="section-title">✨ The Date Plan</h2>
-    <div class="stop" data-number="1" id="stop1"><h3 class="stop-title">Coastal Start + Sea Cave Adventure</h3><div class="stop-content"><div class="stop-location">📍 The Cave Store - Sunny Jim's Sea Cave</div><div class="stop-phone">☎️ (858) 459-0746</div><div class="btns"><div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=The%20Cave%20Store%201325%20Coast%20Blvd%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div><div class="tooltip"><a href="tel:+18584590746" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call The Cave Store</span></div><div class="tooltip"><a href="https://www.cavestore.com/" target="_blank" class="btn menu-btn"><i data-lucide="globe"></i></a><span class="tooltip-text">Visit official website</span></div></div><div class="vibe">Coastal, sweet, low-pressure. Start with a slow walk along the bluff by La Jolla Cove and Scripps Park.</div><div class="detail-section"><div class="detail-title">What you do:</div><p>Start with a slow walk along the bluff by La Jolla Cove and Scripps Park, then decide if you want the Sea Cave "micro-adventure." The cave tour is self-guided and short, but it includes 145 stairs each way.</p></div><div class="detail-section"><div class="detail-title">🚗 Parking:</div><ul><li><strong>Primary:</strong> ACE Lot 0545 (paid lot near the Cove) - <a href="https://space.aceparking.com/site/reserve/4c56ff4ce4aaf9573aa5dff913df997a" target="_blank" style="color: #c44569;">Reserve here</a></li><li><strong>Backup:</strong> Neighborhood streets (Ivanhoe, Silverado, Cave St)</li></ul></div><div class="backup"><strong>🌤️ Backup:</strong> Ellen Browning Scripps Park - keeps the same "ocean-view quality time" feeling with zero stair commitment.</div></div></div>
-    <div class="stop" data-number="2" id="stop2"><h3 class="stop-title">Dinner at Sushi Nekosan</h3><div class="stop-content"><div class="stop-location">📍 1119 Wall Street, La Jolla, CA 92037</div><div class="stop-phone">☎️ (858) 999-099</div><div class="btns"><div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Sushi%20Nekosan%201119%20Wall%20Street%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div><div class="tooltip"><a href="tel:+18589990990" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call Sushi Nekosan</span></div><div class="tooltip"><a href="https://sushinekosan.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View full menu online</span></div></div><div class="vibe">Cozy, intimate, "we picked a good one." Go earlier than peak dinner so it feels calm.</div><div class="detail-section"><div class="detail-title">Menu picks:</div><ul><li><strong>Beef Gyoza or Veggie Gyoza</strong> - perfect starter</li><li><strong>Chicken Karage</strong> - Kavindi's flavor anchor</li><li><strong>Grilled Pork Belly</strong> - rich and satisfying</li><li><strong>Tuna, Salmon, Fresh Water Eel nigiri</strong> - mild, not "fishy"</li></ul></div><div class="backup"><strong>🍜 Backup:</strong> <strong>Cherrywine Modern Asian Cuisine</strong> - Same neighborhood. <a href="tel:+18582467755" style="color: #d4a017">(858) 246-7755</a></div></div></div>
-    <div class="stop" data-number="3" id="stop3"><h3 class="stop-title">Sweet Finish at Bobboi Natural Gelato</h3><div class="stop-content"><div class="stop-location">📍 8008 Girard Ave, La Jolla, CA 92037</div><div class="stop-phone">☎️ (858) 255-8693</div><div class="btns"><div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Bobboi%20Natural%20Gelato%208008%20Girard%20Ave%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div><div class="tooltip"><a href="tel:+18582558693" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call Bobboi Gelato</span></div><div class="tooltip"><a href="https://www.bobboi.com/la-jolla" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View flavors online</span></div></div><div class="vibe">Cute, easy, "let's linger." Split a couple scoops and take it back toward the water.</div><div class="detail-section"><div class="detail-title">Menu-friendly flavors:</div><ul><li><strong>Pistacchio</strong> - Kavindi's pick (rich, bold)</li><li><strong>Salted Caramel</strong> - Kavindi's pick (not subtle)</li><li><strong>Dark Chocolate Sorbet</strong> - Partner's pick (simple, bold)</li><li><strong>Strawberry Sorbet</strong> - Partner's pick (bright)</li></ul></div><div class="backup"><strong>🍰 Backup:</strong> <strong>Parfait Paris</strong> - Still walkable on Girard Ave. <a href="tel:+18589643714" style="color: #d4a017">(858) 964-3714</a></div></div></div>
-    <div class="collapsible-section" id="checklistSection"><div class="collapsible-header" onclick="toggleCollapsible('checklistSection')"><div class="collapsible-title"><span>✅</span><span>Date Checklist</span></div><span class="collapsible-icon">▼</span></div><div class="collapsible-content"><div class="collapsible-inner"><div class="checklist"><div class="checklist-item" onclick="toggleCheck(this)" data-item="0"><div class="checklist-checkbox"></div><span class="checklist-text">Reserve parking at ACE Lot 0545</span></div><div class="checklist-item" onclick="toggleCheck(this)" data-item="1"><div class="checklist-checkbox"></div><span class="checklist-text">Bring a light layer for ocean breeze</span></div><div class="checklist-item" onclick="toggleCheck(this)" data-item="2"><div class="checklist-checkbox"></div><span class="checklist-text">Sea Cave: 145 stairs each way</span></div><div class="checklist-item" onclick="toggleCheck(this)" data-item="3"><div class="checklist-checkbox"></div><span class="checklist-text">Order Kavindi's picks at Sushi Nekosan</span></div><div class="checklist-item" onclick="toggleCheck(this)" data-item="4"><div class="checklist-checkbox"></div><span class="checklist-text">Try Bobboi gelato pairings</span></div><div class="checklist-item" onclick="toggleCheck(this)" data-item="5"><div class="checklist-checkbox"></div><span class="checklist-text">End with sunset walk by the water</span></div></div></div></div></div>
-    <div class="share-section" id="share"><h3 class="share-title">💕 Share This Date Plan</h3><div class="share-buttons"><button class="share-btn share-copy" onclick="copyLink()"><i data-lucide="copy"></i>Copy Link</button></div></div>
-    <div class="budget" id="budget"><h3 class="budget-title">💰 Estimated Budget for Two</h3><div class="budget-items"><div class="budget-item"><div class="budget-label">Sea Cave</div><div class="budget-value">$10-$20</div></div><div class="budget-item"><div class="budget-label">Dinner</div><div class="budget-value">$60-$90</div></div><div class="budget-item"><div class="budget-label">Gelato</div><div class="budget-value">$12-$18</div></div><div class="budget-item"><div class="budget-label">Parking</div><div class="budget-value">$10-$20</div></div></div><div class="budget-total">Total: $92-$148</div></div>
+    <div class="stop" data-number="1" id="stop1">
+      <h3 class="stop-title">Coastal Start + Sea Cave Adventure</h3>
+      <div class="stop-content">
+        <div class="stop-location">📍 The Cave Store - Sunny Jim's Sea Cave</div>
+        <div class="stop-phone">☎️ (858) 459-0746</div>
+        <div class="btns">
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=The%20Cave%20Store%201325%20Coast%20Blvd%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
+          <div class="tooltip"><a href="tel:+18584590746" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call The Cave Store</span></div>
+          <div class="tooltip"><a href="https://www.cavestore.com/" target="_blank" class="btn menu-btn"><i data-lucide="globe"></i></a><span class="tooltip-text">Visit official website</span></div>
+        </div>
+        <div class="vibe">Coastal, sweet, low-pressure. Start with a slow walk along the bluff by La Jolla Cove and Scripps Park.</div>
+        <div class="detail-section"><div class="detail-title">What you do:</div><p>Start with a slow walk along the bluff by La Jolla Cove and Scripps Park, then decide if you want the Sea Cave "micro-adventure." The cave tour is self-guided and short, but it includes 145 stairs each way.</p></div>
+        <div class="detail-section"><div class="detail-title">🚗 Parking:</div><ul><li><strong>Primary:</strong> ACE Lot 0545 (paid lot near the Cove) - <a href="https://space.aceparking.com/site/reserve/4c56ff4ce4aaf9573aa5dff913df997a" target="_blank" style="color: #c44569;">Reserve here</a></li><li><strong>Backup:</strong> Neighborhood streets (Ivanhoe, Silverado, Cave St)</li></ul></div>
+        <div class="backup"><strong>🌤️ Backup Activity:</strong> Ellen Browning Scripps Park - keeps the same "ocean-view quality time" feeling with zero stair commitment.</div>
+      </div>
+    </div>
+    <div class="stop" data-number="2" id="stop2">
+      <h3 class="stop-title">Dinner at Sushi Nekosan</h3>
+      <div class="stop-content">
+        <div class="stop-location">📍 1119 Wall Street, La Jolla, CA 92037</div>
+        <div class="stop-phone">☎️ (858) 999-099</div>
+        <div class="btns">
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Sushi%20Nekosan%201119%20Wall%20Street%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
+          <div class="tooltip"><a href="tel:+18589990990" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call Sushi Nekosan</span></div>
+          <div class="tooltip"><a href="https://sushinekosan.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View full menu online</span></div>
+        </div>
+        <div class="vibe">Cozy, intimate, "we picked a good one." Go earlier than peak dinner so it feels calm.</div>
+        <div class="detail-section"><div class="detail-title">Menu picks:</div><ul><li><strong>Beef Gyoza or Veggie Gyoza</strong> - perfect starter</li><li><strong>Chicken Karage</strong> - Kavindi's flavor anchor</li><li><strong>Grilled Pork Belly</strong> - rich and satisfying</li><li><strong>Tuna, Salmon, Fresh Water Eel nigiri</strong> - mild, not "fishy"</li></ul></div>
+        <div class="backup"><strong>🍜 Backup Dinner:</strong> <strong>Cherrywine Modern Asian Cuisine</strong> - Same neighborhood. <a href="tel:+18582467755" style="color: #d4a017">(858) 246-7755</a></div>
+      </div>
+    </div>
+    <div class="stop" data-number="3" id="stop3">
+      <h3 class="stop-title">Sweet Finish at Bobboi Natural Gelato</h3>
+      <div class="stop-content">
+        <div class="stop-location">📍 8008 Girard Ave, La Jolla, CA 92037</div>
+        <div class="stop-phone">☎️ (858) 255-8693</div>
+        <div class="btns">
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Bobboi%20Natural%20Gelato%208008%20Girard%20Ave%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
+          <div class="tooltip"><a href="tel:+18582558693" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call Bobboi Gelato</span></div>
+          <div class="tooltip"><a href="https://www.bobboi.com/la-jolla" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View flavors online</span></div>
+        </div>
+        <div class="vibe">Cute, easy, "let's linger." Split a couple scoops and take it back toward the water for a slow, end-of-date walk.</div>
+        <div class="detail-section"><div class="detail-title">Menu-friendly flavors:</div><ul><li><strong>Pistacchio</strong> - Kavindi's pick (rich, bold)</li><li><strong>Salted Caramel</strong> - Kavindi's pick (not subtle)</li><li><strong>Dark Chocolate Sorbet</strong> - Partner's pick</li><li><strong>Strawberry Sorbet</strong> - Partner's pick (bright)</li></ul></div>
+        <div class="backup"><strong>🍰 Backup Dessert:</strong> <strong>Parfait Paris</strong> - Still walkable on Girard Ave. <a href="tel:+18589643714" style="color: #d4a017">(858) 964-3714</a></div>
+      </div>
+    </div>
+    <div class="collapsible-section" id="checklistSection">
+      <div class="collapsible-header" onclick="toggleCollapsible('checklistSection')">
+        <div class="collapsible-title"><span>✅</span><span>Date Checklist</span></div>
+        <span class="collapsible-icon">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="collapsible-inner">
+          <div class="checklist">
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="0"><div class="checklist-checkbox"></div><span class="checklist-text">Reserve parking at ACE Lot 0545</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="1"><div class="checklist-checkbox"></div><span class="checklist-text">Bring a light jacket for evening breeze</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="2"><div class="checklist-checkbox"></div><span class="checklist-text">Start with coastal bluff walk</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="3"><div class="checklist-checkbox"></div><span class="checklist-text">Sea Cave tour (if you both want it)</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="4"><div class="checklist-checkbox"></div><span class="checklist-text">Dinner at Sushi Nekosan</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="5"><div class="checklist-checkbox"></div><span class="checklist-text">Gelato at Bobboi</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="6"><div class="checklist-checkbox"></div><span class="checklist-text">End-of-date sunset walk by the water</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="share-section" id="share">
+      <h3 class="share-title">💕 Share This Date Plan</h3>
+      <div class="share-buttons">
+        <button class="share-btn share-copy" onclick="copyLink()"><i data-lucide="copy"></i>Copy Link</button>
+      </div>
+    </div>
+    <div class="budget" id="budget">
+      <h3 class="budget-title">💰 Estimated Budget for Two</h3>
+      <div class="budget-items">
+        <div class="budget-item"><div class="budget-label">Sea Cave</div><div class="budget-value">$20</div></div>
+        <div class="budget-item"><div class="budget-label">Dinner</div><div class="budget-value">$60-$80</div></div>
+        <div class="budget-item"><div class="budget-label">Gelato</div><div class="budget-value">$12-$18</div></div>
+        <div class="budget-item"><div class="budget-label">Parking</div><div class="budget-value">$10-$15</div></div>
+      </div>
+      <div class="budget-total">Total: $100-$135</div>
+    </div>
   </div>
 </div>
 <script>
 lucide.createIcons();
-document.querySelectorAll('.tooltip').forEach(tooltip => { tooltip.addEventListener('mouseenter', function(e) { const tooltipText = this.querySelector('.tooltip-text'); if (tooltipText) { const rect = this.getBoundingClientRect(); tooltipText.style.left = (rect.left + rect.width / 2 - 90) + 'px'; tooltipText.style.top = (rect.top - 50) + 'px'; } }); });
-let ticking = false; window.addEventListener('scroll', function(e) { if (!ticking) { window.requestAnimationFrame(function() { const scrolled = window.pageYOffset; const layer1 = document.getElementById('layer1'); const layer2 = document.getElementById('layer2'); const layer3 = document.getElementById('layer3'); if (layer1) layer1.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)'; if (layer2) layer2.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)'; if (layer3) layer3.style.transform = 'translateY(' + (scrolled * 0.7) + 'px)'; ticking = false; }); ticking = true; } });
-document.addEventListener('mousemove', function(e) { if (Math.random() > 0.92) { const sparkle = document.createElement('div'); sparkle.className = 'cursor-sparkle'; sparkle.textContent = ['✨', '💕', '💫', '💖'][Math.floor(Math.random() * 4)]; sparkle.style.left = e.clientX + 'px'; sparkle.style.top = e.clientY + 'px'; sparkle.style.position = 'fixed'; sparkle.style.fontSize = (Math.random() * 10 + 10) + 'px'; document.body.appendChild(sparkle); setTimeout(() => sparkle.remove(), 1000); } });
-window.addEventListener('load', function() { setTimeout(function() { document.getElementById('loadingScreen').classList.add('hidden'); }, 1500); });
-(function() { const container = document.getElementById('particles'); const emojis = ['💕', '✨', '💖', '💫', '🌸']; for (let i = 0; i < 20; i++) { const particle = document.createElement('div'); particle.className = 'particle'; particle.style.left = Math.random() * 100 + 'vw'; particle.style.animationDelay = Math.random() * 15 + 's'; particle.style.animationDuration = (15 + Math.random() * 10) + 's'; particle.textContent = emojis[Math.floor(Math.random() * emojis.length)]; particle.style.fontSize = (1 + Math.random() * 1.5) + 'rem'; container.appendChild(particle); } })();
-const typewriterText = "A coastal afternoon that starts with ocean views and an optional sea cave adventure, flows into a cozy sushi dinner at Sushi Nekosan, and ends with handcrafted gelato at Bobboi."; let charIndex = 0; function typeWriter() { if (charIndex < typewriterText.length) { document.getElementById("typewriterText").textContent += typewriterText.charAt(charIndex); charIndex++; setTimeout(typeWriter, 30); } }
-function updateCountdown() { const targetDate = new Date('March 30, 2026 14:00:00').getTime(); const now = new Date().getTime(); const difference = targetDate - now; if (difference > 0) { document.getElementById('days').textContent = String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(2, '0'); document.getElementById('hours').textContent = String(Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'); document.getElementById('minutes').textContent = String(Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'); document.getElementById('seconds').textContent = String(Math.floor((difference % (1000 * 60)) / 1000)).padStart(2, '0'); } }
-setInterval(updateCountdown, 1000); updateCountdown();
-function handleScroll() { ['summary', 'recommendations', 'stop1', 'stop2', 'stop3', 'weatherSection', 'checklistSection', 'share', 'budget', 'carousel'].forEach(id => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('visible'); }); }
-window.addEventListener('scroll', handleScroll); window.addEventListener('load', handleScroll);
-const summaryObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { typeWriter(); summaryObserver.unobserve(entry.target); } }); }, { threshold: 0.5 }); summaryObserver.observe(document.getElementById('summary'));
-document.querySelectorAll('.stop-title').forEach(title => { title.addEventListener('click', function() { this.parentElement.classList.toggle('collapsed'); }); });
-function toggleCollapsible(sectionId) { document.getElementById(sectionId).classList.toggle('open'); }
-function toggleCheck(item) { item.classList.toggle('checked'); const checkbox = item.querySelector('.checklist-checkbox'); const itemIndex = item.getAttribute('data-item'); if (item.classList.contains('checked')) { checkbox.textContent = '✓'; localStorage.setItem('dateChecklist_' + itemIndex, 'checked'); } else { checkbox.textContent = ''; localStorage.removeItem('dateChecklist_' + itemIndex); } }
-(function() { document.querySelectorAll('.checklist-item').forEach(item => { const itemIndex = item.getAttribute('data-item'); if (localStorage.getItem('dateChecklist_' + itemIndex) === 'checked') { item.classList.add('checked'); item.querySelector('.checklist-checkbox').textContent = '✓'; } }); })();
-document.getElementById('loveNoteTrigger').addEventListener('click', function() { document.getElementById('loveNoteModal').classList.add('active'); });
-document.getElementById('loveNoteClose').addEventListener('click', function() { document.getElementById('loveNoteModal').classList.remove('active'); });
-document.getElementById('loveNoteModal').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
-function copyLink() { navigator.clipboard.writeText(window.location.href).then(function() { alert('Link copied to clipboard! 💕'); }); }
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') document.getElementById('loveNoteModal').classList.remove('active'); });
-let currentSlide = 0; const slides = document.querySelectorAll('.carousel-slide'); const dotsContainer = document.getElementById('carouselDots'); function createDots() { for (let i = 0; i < slides.length; i++) { const dot = document.createElement('button'); dot.className = 'carousel-dot' + (i === 0 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); } } createDots(); function updateCarousel() { document.getElementById('carouselTrack').style.transform = 'translateX(-' + (currentSlide * 100) + '%)'; document.querySelectorAll('.carousel-dot').forEach((dot, i) => { dot.classList.toggle('active', i === currentSlide); }); } function nextSlide() { currentSlide = (currentSlide + 1) % slides.length; updateCarousel(); } function prevSlide() { currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateCarousel(); } function goToSlide(index) { currentSlide = index; updateCarousel(); }
+document.querySelectorAll('.tooltip').forEach(tooltip => {
+  tooltip.addEventListener('mouseenter', function(e) {
+    const tooltipText = this.querySelector('.tooltip-text');
+    if (tooltipText) {
+      const rect = this.getBoundingClientRect();
+      tooltipText.style.left = (rect.left + rect.width / 2 - 90) + 'px';
+      tooltipText.style.top = (rect.top - 50) + 'px';
+    }
+  });
+});
+let ticking = false;
+window.addEventListener('scroll', function(e) {
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      const scrolled = window.pageYOffset;
+      const layer1 = document.getElementById('layer1');
+      const layer2 = document.getElementById('layer2');
+      const layer3 = document.getElementById('layer3');
+      if (layer1) layer1.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)';
+      if (layer2) layer2.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
+      if (layer3) layer3.style.transform = 'translateY(' + (scrolled * 0.7) + 'px)';
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+document.addEventListener('mousemove', function(e) {
+  if (Math.random() > 0.92) {
+    createCursorSparkle(e.clientX, e.clientY);
+  }
+});
+function createCursorSparkle(x, y) {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'cursor-sparkle';
+  sparkle.textContent = ['✨', '💕', '💫', '💖'][Math.floor(Math.random() * 4)];
+  sparkle.style.left = x + 'px';
+  sparkle.style.top = y + 'px';
+  sparkle.style.position = 'fixed';
+  sparkle.style.fontSize = (Math.random() * 10 + 10) + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1000);
+}
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loadingScreen').classList.add('hidden');
+  }, 1500);
+});
+function createParticles() {
+  const particlesContainer = document.getElementById('particles');
+  const emojis = ['💕', '✨', '💖', '💫', '🌸'];
+  for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+    particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    particle.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    particlesContainer.appendChild(particle);
+  }
+}
+createParticles();
+const typewriterText = "A coastal afternoon that blends ocean views, a touch of adventure, flavorful bites, and a sweet finish.";
+let charIndex = 0;
+function typeWriter() {
+  if (charIndex < typewriterText.length) {
+    document.getElementById("typewriterText").textContent += typewriterText.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeWriter, 30);
+  }
+}
+function updateCountdown() {
+  const targetDate = new Date('March 30, 2026 14:00:00').getTime();
+  const now = new Date().getTime();
+  const difference = targetDate - now;
+  if (difference > 0) {
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+function handleScroll() {
+  const elements = [document.getElementById('summary'), document.getElementById('recommendations'), document.getElementById('stop1'), document.getElementById('stop2'), document.getElementById('stop3'), document.getElementById('weatherSection'), document.getElementById('checklistSection'), document.getElementById('share'), document.getElementById('budget')];
+  elements.forEach(element => {
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight - 100;
+      if (isVisible) element.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('load', handleScroll);
+const summaryObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      typeWriter();
+      summaryObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+summaryObserver.observe(document.getElementById('summary'));
+document.querySelectorAll('.stop-title').forEach(title => {
+  title.addEventListener('click', function() {
+    this.parentElement.classList.toggle('collapsed');
+  });
+});
+function toggleCollapsible(sectionId) {
+  const section = document.getElementById(sectionId);
+  section.classList.toggle('open');
+}
+function toggleCheck(item) {
+  item.classList.toggle('checked');
+  const checkbox = item.querySelector('.checklist-checkbox');
+  const itemIndex = item.getAttribute('data-item');
+  if (item.classList.contains('checked')) {
+    checkbox.textContent = '✓';
+    localStorage.setItem('dateChecklist_' + itemIndex, 'checked');
+  } else {
+    checkbox.textContent = '';
+    localStorage.removeItem('dateChecklist_' + itemIndex);
+  }
+}
+function loadChecklistState() {
+  document.querySelectorAll('.checklist-item').forEach(item => {
+    const itemIndex = item.getAttribute('data-item');
+    const isChecked = localStorage.getItem('dateChecklist_' + itemIndex) === 'checked';
+    if (isChecked) {
+      item.classList.add('checked');
+      const checkbox = item.querySelector('.checklist-checkbox');
+      checkbox.textContent = '✓';
+    }
+  });
+}
+loadChecklistState();
+document.getElementById('loveNoteTrigger').addEventListener('click', function() {
+  document.getElementById('loveNoteModal').classList.add('active');
+});
+document.getElementById('loveNoteClose').addEventListener('click', function() {
+  document.getElementById('loveNoteModal').classList.remove('active');
+});
+document.getElementById('loveNoteModal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('active');
+});
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(function() {
+    alert('Link copied to clipboard! 💕');
+  });
+}
 </script>
 </body>
 </html>
