@@ -51,6 +51,14 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
 .countdown-item { text-align: center; }
 .countdown-value { font-size: 2rem; font-weight: 700; display: block; }
 .countdown-label { font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.05em; }
+.calendar-section { background: white; border: 2px solid #ffe4f1; border-radius: 16px; padding: 20px 25px; margin-bottom: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.calendar-section.visible { opacity: 1; transform: translateY(0); }
+.calendar-info { display: flex; align-items: center; gap: 12px; }
+.calendar-icon { font-size: 2rem; }
+.calendar-text h4 { font-family: 'Playfair Display', serif; color: #c44569; font-size: 1.1rem; margin-bottom: 3px; }
+.calendar-text p { color: #5a3c4e; font-size: 0.85rem; }
+.calendar-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, #4285f4, #34a853); color: white; border: none; border-radius: 25px; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3); }
+.calendar-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4); }
 .summary { background: #fff; padding: 35px; border-radius: 16px; border: 2px solid #ffe4f1; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .summary.visible { opacity: 1; transform: translateY(0); }
 .summary-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
@@ -159,7 +167,7 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
 .menu-btn:hover { background: #ffeef8; }
 .parking-link { display: inline-block; background: #fff5f7; color: #c44569; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; border: 2px solid #c44569; margin: 5px 0; transition: all 0.3s ease; }
 .parking-link:hover { background: #ffeef8; transform: translateY(-2px); }
-@media (max-width: 768px) { .recommendations { grid-template-columns: 1fr; } .meta { flex-direction: column; gap: 15px; } .budget-items { flex-direction: column; gap: 15px; } h1 { font-size: 2rem; } .countdown-timer { gap: 15px; } .countdown-value { font-size: 1.5rem; } .love-note-trigger { bottom: 20px; right: 20px; width: 50px; height: 50px; } }
+@media (max-width: 768px) { .recommendations { grid-template-columns: 1fr; } .meta { flex-direction: column; gap: 15px; } .budget-items { flex-direction: column; gap: 15px; } h1 { font-size: 2rem; } .countdown-timer { gap: 15px; } .countdown-value { font-size: 1.5rem; } .love-note-trigger { bottom: 20px; right: 20px; width: 50px; height: 50px; } .calendar-section { flex-direction: column; text-align: center; } }
 </style>
 </head>
 <body>
@@ -195,6 +203,21 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
         <div class="countdown-item"><span class="countdown-value" id="minutes">00</span><span class="countdown-label">Minutes</span></div>
         <div class="countdown-item"><span class="countdown-value" id="seconds">00</span><span class="countdown-label">Seconds</span></div>
       </div>
+    </div>
+    
+    <!-- Google Calendar Section -->
+    <div class="calendar-section" id="calendarSection">
+      <div class="calendar-info">
+        <span class="calendar-icon">📅</span>
+        <div class="calendar-text">
+          <h4>Add to Google Calendar</h4>
+          <p>Never miss your date – save it to your calendar!</p>
+        </div>
+      </div>
+      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Rakin%27s%20Gaslamp%20Anniversary%20Date&dates=20260307T180000/20260307T220000&details=Escape%20Room%20Adventure%20at%20The%20Escape%20Game%2C%20Mediterranean%20Dinner%20at%20Mez%C3%A9%2C%20Dessert%20at%20Chocolate%20SD%2C%20Waterfront%20Walk.%0A%0A%F0%9F%8E%AE%20Escape%20Room%3A%206%3A30%20PM%20-%207%3A45%20PM%0A%F0%9F%8D%BD%EF%B8%8F%20Dinner%3A%208%3A00%20PM%0A%F0%9F%8D%A8%20Dessert%3A%209%3A00%20PM%0A%F0%9F%8C%85%20Waterfront%3A%209%3A30%20PM%0A%0ABudget%3A%20%24170-%24200&location=Gaslamp%20Quarter%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+        <i data-lucide="calendar-plus"></i>
+        Add to Calendar
+      </a>
     </div>
     
     <div class="personal-note" id="personalNote">
@@ -515,7 +538,7 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 function handleScroll() {
-  const elements = [document.getElementById('summary'), document.getElementById('personalNote'), document.getElementById('recommendations'), document.getElementById('stop1'), document.getElementById('stop2'), document.getElementById('stop3'), document.getElementById('stop4'), document.getElementById('stop5'), document.getElementById('weatherSection'), document.getElementById('checklistSection'), document.getElementById('share'), document.getElementById('budget')];
+  const elements = [document.getElementById('summary'), document.getElementById('personalNote'), document.getElementById('calendarSection'), document.getElementById('recommendations'), document.getElementById('stop1'), document.getElementById('stop2'), document.getElementById('stop3'), document.getElementById('stop4'), document.getElementById('stop5'), document.getElementById('weatherSection'), document.getElementById('checklistSection'), document.getElementById('share'), document.getElementById('budget')];
   elements.forEach(element => {
     if (element) {
       const rect = element.getBoundingClientRect();
