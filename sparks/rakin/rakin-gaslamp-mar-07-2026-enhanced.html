@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rakin's Gaslamp Anniversary Date</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe4f1 100%);
+  color: #4a2c3e;
+  line-height: 1.7;
+  padding: 40px 20px;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+.parallax-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.parallax-layer { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; }
+.layer-1 { background: radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.08) 0%, transparent 50%); }
+.layer-2 { background: radial-gradient(circle at 80% 70%, rgba(196, 69, 105, 0.06) 0%, transparent 50%); }
+.layer-3 { background: radial-gradient(circle at 50% 50%, rgba(255, 238, 248, 0.1) 0%, transparent 70%); }
+.cursor-sparkle { position: fixed; pointer-events: none; z-index: 9999; animation: sparkleFloat 1s ease-out forwards; }
+@keyframes sparkleFloat { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(0) translateY(-50px); } }
+.loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #ff6b9d, #c44569); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s ease; }
+.loading-screen.hidden { opacity: 0; visibility: hidden; }
+.loading-heart { font-size: 4rem; animation: heartbeat 1s ease-in-out infinite; }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+.particle { position: fixed; pointer-events: none; opacity: 0.6; z-index: 1; animation: float 15s infinite ease-in-out; }
+@keyframes float { 0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
+.container { max-width: 900px; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 20px 60px rgba(219, 112, 147, 0.15); overflow: visible; position: relative; z-index: 2; }
+.header { background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%); padding: 60px 40px; text-align: center; color: white; position: relative; animation: gradientShift 10s ease-in-out infinite; background-size: 200% 200%; }
+@keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+.header::before { content: "💕"; position: absolute; top: 20px; left: 40px; font-size: 2rem; opacity: 0.3; animation: pulse 3s ease-in-out infinite; }
+.header::after { content: "✨"; position: absolute; top: 20px; right: 40px; font-size: 2rem; opacity: 0.3; animation: sparkle 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.2); opacity: 0.5; } }
+@keyframes sparkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+.logo { font-size: 1.4rem; font-weight: 600; margin-bottom: 15px; opacity: 0.9; }
+h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+.subtitle { font-size: 1.1rem; opacity: 0.95; font-weight: 300; }
+.content { padding: 50px 40px; }
+.meta { display: flex; gap: 30px; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #fff5f7, #ffeef8); border-radius: 16px; border-left: 4px solid #ff6b9d; }
+.meta-item { flex: 1; }
+.meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #c44569; font-weight: 600; margin-bottom: 6px; }
+.meta-value { font-size: 1.1rem; font-weight: 500; color: #4a2c3e; }
+.countdown { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; padding: 25px; border-radius: 16px; margin-bottom: 40px; text-align: center; }
+.countdown-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 15px; }
+.countdown-timer { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.countdown-item { text-align: center; }
+.countdown-value { font-size: 2rem; font-weight: 700; display: block; }
+.countdown-label { font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.05em; }
+.progress-tracker { background: white; border: 2px solid #ffe4f1; border-radius: 16px; padding: 20px 25px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08); }
+.progress-title { font-family: 'Playfair Display', serif; color: #c44569; font-size: 1.1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+.progress-bar-container { background: #ffe4f1; border-radius: 20px; height: 12px; overflow: hidden; margin-bottom: 10px; }
+.progress-bar { background: linear-gradient(135deg, #ff6b9d, #c44569); height: 100%; border-radius: 20px; transition: width 0.5s ease; width: 0%; }
+.progress-stops { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.progress-stop { font-size: 0.75rem; color: #888; padding: 4px 10px; border-radius: 12px; background: #f5f5f5; transition: all 0.3s ease; cursor: pointer; }
+.progress-stop.completed { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; }
+.progress-stop.active { background: #ffe4f1; color: #c44569; font-weight: 600; }
+.calendar-section { background: white; border: 2px solid #ffe4f1; border-radius: 16px; padding: 20px 25px; margin-bottom: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.calendar-section.visible { opacity: 1; transform: translateY(0); }
+.calendar-info { display: flex; align-items: center; gap: 12px; }
+.calendar-icon { font-size: 2rem; }
+.calendar-text h4 { font-family: 'Playfair Display', serif; color: #c44569; font-size: 1.1rem; margin-bottom: 3px; }
+.calendar-text p { color: #5a3c4e; font-size: 0.85rem; }
+.calendar-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, #4285f4, #34a853); color: white; border: none; border-radius: 25px; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3); }
+.calendar-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4); }
+.outfit-section { background: linear-gradient(135deg, #f0e6ff, #e6f0ff); border: 2px solid #c4b5e0; border-radius: 16px; padding: 25px; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.outfit-section.visible { opacity: 1; transform: translateY(0); }
+.outfit-title { font-family: 'Playfair Display', serif; color: #6b5b95; font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.outfit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+.outfit-card { background: white; border-radius: 12px; padding: 15px; text-align: center; border: 2px solid #e6e0f0; transition: all 0.3s ease; }
+.outfit-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(107, 91, 149, 0.15); }
+.outfit-icon { font-size: 2rem; margin-bottom: 8px; }
+.outfit-label { font-weight: 600; color: #6b5b95; font-size: 0.9rem; margin-bottom: 4px; }
+.outfit-desc { font-size: 0.8rem; color: #7a7a8c; }
+.what-to-bring { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 2px solid #81c784; border-radius: 16px; padding: 25px; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.what-to-bring.visible { opacity: 1; transform: translateY(0); }
+.bring-title { font-family: 'Playfair Display', serif; color: #388e3c; font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+.bring-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.bring-item { background: white; border-radius: 10px; padding: 12px 15px; display: flex; align-items: center; gap: 10px; border: 1px solid #a5d6a7; }
+.bring-item-icon { font-size: 1.3rem; }
+.bring-item-text { font-size: 0.9rem; color: #2e7d32; }
+.conversation-section { background: linear-gradient(135deg, #fff3e0, #ffe0b2); border: 2px solid #ffb74d; border-radius: 16px; padding: 25px; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.conversation-section.visible { opacity: 1; transform: translateY(0); }
+.conversation-title { font-family: 'Playfair Display', serif; color: #e65100; font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.conversation-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+.convo-card { background: white; border-radius: 12px; padding: 18px; border-left: 4px solid #ff9800; box-shadow: 0 2px 8px rgba(255, 152, 0, 0.1); transition: all 0.3s ease; }
+.convo-card:hover { transform: translateX(5px); box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2); }
+.convo-category { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #ff9800; margin-bottom: 8px; font-weight: 600; }
+.convo-question { font-size: 0.95rem; color: #5a3c4e; font-style: italic; }
+.summary { background: #fff; padding: 35px; border-radius: 16px; border: 2px solid #ffe4f1; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.summary.visible { opacity: 1; transform: translateY(0); }
+.summary-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.summary-title::before { content: "🌹"; font-size: 1.5rem; }
+.summary p { font-size: 1.05rem; color: #5a3c4e; line-height: 1.8; }
+.personal-note { background: linear-gradient(135deg, #fff9e6, #fff3cd); border: 2px solid #ffd966; border-radius: 16px; padding: 25px; margin-bottom: 40px; }
+.personal-note-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #8b6914; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.personal-note-title::before { content: "💌"; font-size: 1.3rem; }
+.personal-note p { color: #5a4a2e; font-size: 0.95rem; line-height: 1.8; }
+.collapsible-section { margin: 30px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.collapsible-section.visible { opacity: 1; transform: translateY(0); }
+.collapsible-header { background: linear-gradient(135deg, #fff5f7, #ffeef8); padding: 20px 25px; border-radius: 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 2px solid #ffe4f1; transition: all 0.3s ease; }
+.collapsible-header:hover { background: linear-gradient(135deg, #ffeef8, #ffe4f1); border-color: #ff6b9d; }
+.collapsible-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; display: flex; align-items: center; gap: 10px; }
+.collapsible-icon { font-size: 1.5rem; transition: transform 0.3s ease; }
+.collapsible-section.open .collapsible-icon { transform: rotate(180deg); }
+.collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; background: white; border-radius: 0 0 16px 16px; }
+.collapsible-section.open .collapsible-content { max-height: 5000px; }
+.collapsible-inner { padding: 25px; }
+.weather-widget { background: linear-gradient(135deg, #e8f4fd, #c4e1f5); border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(44, 95, 141, 0.1); }
+.weather-widget-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.weather-widget-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #2c5f8d; display: flex; align-items: center; gap: 10px; }
+.weather-date-badge { background: rgba(44, 95, 141, 0.15); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; color: #2c5f8d; font-weight: 500; }
+.weather-widget-content { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.weather-icon { font-size: 3rem; }
+.weather-info { flex: 1; }
+.weather-temp { font-size: 2rem; font-weight: 700; color: #2c5f8d; margin-bottom: 5px; }
+.weather-desc { color: #2c5f8d; font-size: 0.95rem; }
+.weather-details { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
+.weather-detail-item { display: flex; align-items: center; gap: 8px; color: #2c5f8d; font-size: 0.9rem; }
+.weather-note { background: rgba(44, 95, 141, 0.1); padding: 12px 15px; border-radius: 10px; margin-top: 15px; font-size: 0.85rem; color: #2c5f8d; display: flex; align-items: center; gap: 8px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #c44569; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
+.stop { background: linear-gradient(135deg, #fff 0%, #fffbfc 100%); padding: 35px; border-radius: 20px; margin-bottom: 35px; border: 2px solid #ffe4f1; position: relative; box-shadow: 0 8px 25px rgba(219, 112, 147, 0.1); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.stop.visible { opacity: 1; transform: translateY(0); }
+.stop::before { content: attr(data-number); position: absolute; top: -15px; left: 30px; background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3); }
+.stop-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #4a2c3e; margin-bottom: 8px; margin-top: 10px; cursor: pointer; transition: color 0.3s ease; }
+.stop-title:hover { color: #c44569; }
+.stop-title::after { content: " ▼"; font-size: 0.7rem; opacity: 0.5; display: inline-block; transition: transform 0.3s ease; }
+.stop.collapsed .stop-title::after { transform: rotate(-90deg); }
+.stop-content { max-height: 2000px; overflow: hidden; transition: max-height 0.5s ease; }
+.stop.collapsed .stop-content { max-height: 0; }
+.stop-location { color: #c44569; font-size: 0.95rem; margin-bottom: 6px; font-weight: 500; }
+.stop-phone { color: #888; font-size: 0.9rem; margin-bottom: 20px; }
+.vibe { background: #fff5f7; padding: 15px 20px; border-radius: 12px; margin: 20px 0; border-left: 3px solid #ff6b9d; font-style: italic; color: #5a3c4e; }
+.detail-section { margin: 20px 0; }
+.detail-title { font-weight: 600; color: #c44569; margin-bottom: 10px; font-size: 1.05rem; }
+.detail-section ul { list-style: none; padding-left: 0; }
+.detail-section li { padding-left: 25px; position: relative; margin-bottom: 8px; color: #5a3c4e; }
+.detail-section li::before { content: "→"; position: absolute; left: 0; color: #ff6b9d; font-weight: 600; }
+.detail-section p { color: #5a3c4e; margin-bottom: 8px; }
+.game-option { background: #fff5f7; padding: 15px 20px; border-radius: 12px; margin: 10px 0; border: 2px solid #ffe4f1; transition: all 0.3s ease; }
+.game-option:hover { border-color: #ff6b9d; transform: translateX(5px); }
+.game-option-title { font-weight: 600; color: #c44569; margin-bottom: 5px; }
+.game-option-desc { color: #5a3c4e; font-size: 0.9rem; }
+.recommendations { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 40px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.recommendations.visible { opacity: 1; transform: translateY(0); }
+.rec-card { background: linear-gradient(135deg, #fff5f7, #ffeef8); padding: 25px; border-radius: 16px; border: 2px solid #ffe4f1; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.rec-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(219, 112, 147, 0.15); }
+.rec-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #c44569; margin-bottom: 20px; text-align: center; }
+.rec-item { margin-bottom: 18px; }
+.rec-number { display: inline-block; background: #ff6b9d; color: white; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 0.85rem; font-weight: 600; margin-right: 8px; }
+.rec-text { color: #5a3c4e; font-size: 0.95rem; line-height: 1.6; }
+.quick-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+.quick-action-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: all 0.3s ease; border: 2px solid; }
+.uber-btn { background: #000; color: white; border-color: #000; }
+.uber-btn:hover { background: #333; transform: translateY(-2px); }
+.lyft-btn { background: #ff00bf; color: white; border-color: #ff00bf; }
+.lyft-btn:hover { background: #e600a8; transform: translateY(-2px); }
+.reserve-btn { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; border-color: #ff6b9d; }
+.reserve-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3); }
+.checklist { background: #fff; padding: 30px; border-radius: 16px; border: 2px solid #ffe4f1; box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08); }
+.checklist-item { padding: 12px 0; border-bottom: 1px solid #ffe4f1; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.3s ease; }
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item:hover { background: #fff5f7; padding-left: 10px; }
+.checklist-checkbox { width: 24px; height: 24px; border: 2px solid #c44569; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s ease; }
+.checklist-item.checked .checklist-checkbox { background: #c44569; color: white; }
+.checklist-text { color: #5a3c4e; flex: 1; }
+.checklist-item.checked .checklist-text { text-decoration: line-through; opacity: 0.6; }
+.share-section { margin: 40px 0; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.share-section.visible { opacity: 1; transform: translateY(0); }
+.share-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; margin-bottom: 15px; }
+.share-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+.share-btn { padding: 12px 24px; border-radius: 25px; border: none; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+.share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
+.share-copy { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; }
+.tooltip { position: relative; display: inline-block; }
+.tooltip-text { visibility: hidden; width: 180px; background-color: #4a2c3e; color: #fff; text-align: center; border-radius: 8px; padding: 8px 10px; position: fixed; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; font-size: 0.8rem; line-height: 1.3; pointer-events: none; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+.tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+.love-note-trigger { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #ff6b9d, #c44569); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3); z-index: 100; transition: all 0.3s ease; animation: pulse 2s ease-in-out infinite; }
+.love-note-trigger:hover { transform: scale(1.1); }
+.love-note-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+.love-note-modal.active { display: flex; }
+.love-note-content { background: white; padding: 40px; border-radius: 20px; max-width: 500px; text-align: center; position: relative; animation: slideIn 0.3s ease; }
+@keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.love-note-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #c44569; }
+.love-note-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #c44569; margin: 20px 0; font-style: italic; }
+.budget { background: linear-gradient(135deg, #c44569, #ff6b9d); color: white; padding: 35px; border-radius: 20px; margin-top: 50px; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.budget.visible { opacity: 1; transform: translateY(0); }
+.budget-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; }
+.budget-items { display: flex; justify-content: space-around; margin: 25px 0; flex-wrap: wrap; }
+.budget-item { text-align: center; margin: 10px; }
+.budget-label { font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px; }
+.budget-value { font-size: 1.3rem; font-weight: 600; }
+.budget-total { font-size: 1.4rem; font-weight: 600; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.3); }
+.backup { background: #fff9e6; border: 2px solid #ffd966; border-radius: 12px; padding: 15px 20px; margin: 15px 0; font-size: 0.95rem; color: #8b6914; }
+.backup strong { color: #d4a017; }
+.btns { margin: 15px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
+.dir-btn { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; }
+.dir-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3); }
+.apple-btn { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; }
+.apple-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26, 26, 46, 0.3); }
+.ph-btn { background: #4a2c3e; color: white; }
+.ph-btn:hover { background: #5a3c4e; }
+.menu-btn { background: #fff5f7; color: #c44569; border: 2px solid #c44569; }
+.menu-btn:hover { background: #ffeef8; }
+@media (max-width: 768px) { .recommendations { grid-template-columns: 1fr; } .meta { flex-direction: column; gap: 15px; } .budget-items { flex-direction: column; gap: 15px; } h1 { font-size: 2rem; } .countdown-timer { gap: 15px; } .countdown-value { font-size: 1.5rem; } .love-note-trigger { bottom: 20px; right: 20px; width: 50px; height: 50px; } .calendar-section { flex-direction: column; text-align: center; } .outfit-grid, .bring-grid, .conversation-cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="parallax-bg"><div class="parallax-layer layer-1" id="layer1"></div><div class="parallax-layer layer-2" id="layer2"></div><div class="parallax-layer layer-3" id="layer3"></div></div>
+<div class="loading-screen" id="loadingScreen"><div class="loading-heart">💕</div></div>
+<div id="particles"></div>
+<div class="love-note-trigger" id="loveNoteTrigger"><span style="font-size: 2rem;">💝</span></div>
+<div class="love-note-modal" id="loveNoteModal">
+  <div class="love-note-content">
+    <button class="love-note-close" id="loveNoteClose">✕</button>
+    <h2 style="font-family: 'Playfair Display', serif; color: #c44569; margin-bottom: 15px;">💕 A Note for You</h2>
+    <p class="love-note-text">"Puzzles are more fun when you're solving them together. May your escape room adventure be filled with teamwork, laughter, and sweet moments."</p>
+    <p style="color: #5a3c4e; font-style: italic; margin-top: 20px;">— Made with love by DateFlo ✨</p>
+  </div>
+</div>
+<div class="container">
+  <div class="header">
+    <div class="logo">💕 DateFlo</div>
+    <h1>Rakin's Gaslamp Anniversary</h1>
+    <p class="subtitle">Escape Rooms, Mediterranean Flavors & Sweet Downtown Strolls ✨</p>
+  </div>
+  <div class="content">
+    <div class="meta">
+      <div class="meta-item"><div class="meta-label">Date</div><div class="meta-value">Saturday, March 7, 2026</div></div>
+      <div class="meta-item"><div class="meta-label">Time</div><div class="meta-value">6:00 PM - 10:00 PM</div></div>
+      <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">~4 hours</div></div>
+    </div>
+    <div class="countdown" id="countdown">
+      <h3 class="countdown-title">⏰ Countdown to Your Date</h3>
+      <div class="countdown-timer">
+        <div class="countdown-item"><span class="countdown-value" id="days">00</span><span class="countdown-label">Days</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="hours">00</span><span class="countdown-label">Hours</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="minutes">00</span><span class="countdown-label">Minutes</span></div>
+        <div class="countdown-item"><span class="countdown-value" id="seconds">00</span><span class="countdown-label">Seconds</span></div>
+      </div>
+    </div>
+    
+    <!-- Progress Tracker -->
+    <div class="progress-tracker">
+      <div class="progress-title">📍 Your Date Progress</div>
+      <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-stops">
+        <span class="progress-stop" data-stop="1" onclick="markStopComplete(1)">🎮 Escape Room</span>
+        <span class="progress-stop" data-stop="2" onclick="markStopComplete(2)">🚶 Stroll</span>
+        <span class="progress-stop" data-stop="3" onclick="markStopComplete(3)">🍽️ Dinner</span>
+        <span class="progress-stop" data-stop="4" onclick="markStopComplete(4)">🍨 Dessert</span>
+        <span class="progress-stop" data-stop="5" onclick="markStopComplete(5)">🌅 Waterfront</span>
+      </div>
+    </div>
+    
+    <!-- Google Calendar Section -->
+    <div class="calendar-section" id="calendarSection">
+      <div class="calendar-info">
+        <span class="calendar-icon">📅</span>
+        <div class="calendar-text">
+          <h4>Add to Google Calendar</h4>
+          <p>Never miss your date – save it to your calendar!</p>
+        </div>
+      </div>
+      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Rakin%27s%20Gaslamp%20Anniversary%20Date&dates=20260307T180000/20260307T220000&details=Escape%20Room%20Adventure%20at%20The%20Escape%20Game%2C%20Mediterranean%20Dinner%20at%20Mez%C3%A9%2C%20Dessert%20at%20Chocolate%20SD%2C%20Waterfront%20Walk.%0A%0A%F0%9F%8E%AE%20Escape%20Room%3A%206%3A30%20PM%20-%207%3A45%20PM%0A%F0%9F%8D%BD%EF%B8%8F%20Dinner%3A%208%3A00%20PM%0A%F0%9F%8D%A8%20Dessert%3A%209%3A00%20PM%0A%F0%9F%8C%85%20Waterfront%3A%209%3A30%20PM%0A%0ABudget%3A%20%24170-%24200&location=Gaslamp%20Quarter%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+        <i data-lucide="calendar-plus"></i>
+        Add to Calendar
+      </a>
+    </div>
+    
+    <!-- Outfit Suggestions -->
+    <div class="outfit-section" id="outfitSection">
+      <h3 class="outfit-title">👗 What to Wear</h3>
+      <div class="outfit-grid">
+        <div class="outfit-card">
+          <div class="outfit-icon">👔</div>
+          <div class="outfit-label">Smart Casual</div>
+          <div class="outfit-desc">Nice jeans + button-down or stylish top</div>
+        </div>
+        <div class="outfit-card">
+          <div class="outfit-icon">🧥</div>
+          <div class="outfit-label">Light Jacket</div>
+          <div class="outfit-desc">65°F evening, 58°F at night</div>
+        </div>
+        <div class="outfit-card">
+          <div class="outfit-icon">👟</div>
+          <div class="outfit-label">Comfy Shoes</div>
+          <div class="outfit-desc">Walking between stops ~15 min total</div>
+        </div>
+        <div class="outfit-card">
+          <div class="outfit-icon">✨</div>
+          <div class="outfit-label">Date Night Vibes</div>
+          <div class="outfit-desc">Elevated casual for dinner</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- What to Bring -->
+    <div class="what-to-bring" id="bringSection">
+      <h3 class="bring-title">🎒 What to Bring</h3>
+      <div class="bring-grid">
+        <div class="bring-item"><span class="bring-item-icon">💳</span><span class="bring-item-text">Card/Cash (~$200)</span></div>
+        <div class="bring-item"><span class="bring-item-icon">📱</span><span class="bring-item-text">Phone (reservations)</span></div>
+        <div class="bring-item"><span class="bring-item-icon">🅿️</span><span class="bring-item-text">Parking apps ready</span></div>
+        <div class="bring-item"><span class="bring-item-icon">💨</span><span class="bring-item-text">Breath mints</span></div>
+        <div class="bring-item"><span class="bring-item-icon">🧴</span><span class="bring-item-text">Light jacket for bay</span></div>
+        <div class="bring-item"><span class="bring-item-icon">💕</span><span class="bring-item-text">Your best self!</span></div>
+      </div>
+    </div>
+    
+    <!-- Conversation Starters -->
+    <div class="conversation-section" id="convoSection">
+      <h3 class="conversation-title">💬 Conversation Starters</h3>
+      <div class="conversation-cards">
+        <div class="convo-card">
+          <div class="convo-category">🎮 Escape Room</div>
+          <div class="convo-question">"What was your favorite puzzle? I loved how we worked together on..."</div>
+        </div>
+        <div class="convo-card">
+          <div class="convo-category">🍽️ Over Dinner</div>
+          <div class="convo-question">"If you could travel anywhere right now, where would we go?"</div>
+        </div>
+        <div class="convo-card">
+          <div class="convo-category">🍨 Sweet Moments</div>
+          <div class="convo-question">"What's been your favorite part of tonight so far?"</div>
+        </div>
+        <div class="convo-card">
+          <div class="convo-category">🌅 Waterfront Walk</div>
+          <div class="convo-question">"What's one thing you're looking forward to this year?"</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="personal-note" id="personalNote">
+      <h3 class="personal-note-title">A Personal Note</h3>
+      <p>Before your date plan, I put a lot of care into this for you and I'm also testing whether this could become a real app. If you genuinely find it helpful, imagine you got it from a random app and think about what you would have paid for it. You can text me how much you'd be willing to pay for this date plan. I only want your honest thoughts about how useful this is for you and your partner. I want to see how much people are willing to pay for this result. Please do not support me just because we know each other! 💕</p>
+    </div>
+    
+    <div class="summary" id="summary">
+      <h2 class="summary-title">The Evening</h2>
+      <p id="typewriterText"></p>
+      <p style="margin-top: 12px; font-style: italic; opacity: 0.8;">Pick her up in Downtown, park once near Gaslamp. Everything is walkable after that.</p>
+    </div>
+    
+    <div class="collapsible-section" id="weatherSection">
+      <div class="collapsible-header" onclick="toggleCollapsible('weatherSection')">
+        <div class="collapsible-title"><span>🌤️</span><span>Weather Forecast - March 7, 2026</span></div>
+        <span class="collapsible-icon">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="collapsible-inner">
+          <div class="weather-widget">
+            <div class="weather-widget-header">
+              <div class="weather-widget-title"><span>📅</span><span>Downtown San Diego</span></div>
+              <div class="weather-date-badge">6:00 PM - 10:00 PM</div>
+            </div>
+            <div class="weather-widget-content">
+              <div class="weather-icon">🌅</div>
+              <div class="weather-info">
+                <div class="weather-temp">65°F → 58°F</div>
+                <div class="weather-desc">Clear evening, perfect for walking</div>
+              </div>
+            </div>
+            <div class="weather-details">
+              <div class="weather-detail-item"><span>🌡️</span><span>Evening: 65°F</span></div>
+              <div class="weather-detail-item"><span>🌙</span><span>Night: 58°F</span></div>
+              <div class="weather-detail-item"><span>🚶</span><span>Great walking weather</span></div>
+            </div>
+            <div class="weather-note"><span>💡</span><span>Light jacket recommended for the waterfront walk!</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="recommendations" id="recommendations">
+      <div class="rec-card">
+        <h3 class="rec-title">For the Escape Room 🔐</h3>
+        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">Book 6:30 PM or 6:45 PM at the Gaslamp location, NOT UTC.</span></div>
+        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Add a note that it's an anniversary-ish date – staff are usually extra sweet!</span></div>
+        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">"Timeliner" is the most couple-friendly, wholesome theme.</span></div>
+      </div>
+      <div class="rec-card">
+        <h3 class="rec-title">Pro Tips 💡</h3>
+        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">At Mezé: Skip cocktails here to stay under $200 – save sweetness for dessert.</span></div>
+        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Order the Meze Platter + Watermelon Feta Salad – perfect shared meal.</span></div>
+        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Post-dessert: Stroll to Waterfront Park for bay views & decompress.</span></div>
+      </div>
+    </div>
+    
+    <h2 class="section-title">✨ The Date Plan</h2>
+
+    <div class="stop" data-number="1" id="stop1">
+      <h3 class="stop-title">Escape Room Adventure at The Escape Game</h3>
+      <div class="stop-content">
+        <div class="stop-location">📍 The Escape Game San Diego – Gaslamp</div>
+        <div class="stop-phone">☎️ 232 Fifth Ave, San Diego, CA 92101</div>
+        <div class="btns">
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=The%20Escape%20Game%20San%20Diego%20232%20Fifth%20Ave%20San%20Diego%20CA%2092101" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Google Maps</span></div>
+          <div class="tooltip"><a href="https://maps.apple.com/?address=232%20Fifth%20Ave,San%20Diego,CA%2092101" target="_blank" class="btn apple-btn"><i data-lucide="navigation"></i></a><span class="tooltip-text">Apple Maps</span></div>
+          <div class="tooltip"><a href="tel:+16194325000" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call venue</span></div>
+          <div class="tooltip"><a href="https://theescapegame.com/san-diego/" target="_blank" class="btn menu-btn"><i data-lucide="globe"></i></a><span class="tooltip-text">Book now</span></div>
+        </div>
+        <div class="quick-actions">
+          <a href="https://theescapegame.com/san-diego/" target="_blank" class="quick-action-btn reserve-btn"><i data-lucide="calendar-check"></i> Reserve 6:30 PM Slot</a>
+        </div>
+        <div class="vibe">Activity + puzzle + teamwork – not just food. Feels like a "museum-style" interactive exhibit with immersive sets and problem solving together.</div>
+        <div class="detail-section">
+          <div class="detail-title">🎮 Game Options (choose based on her vibe):</div>
+          <div class="game-option">
+            <div class="game-option-title">⭐ Timeliner: Train Through Time</div>
+            <div class="game-option-desc">Sci-fi/wholesome theme, lighter and perfect for couples. RECOMMENDED!</div>
+          </div>
+          <div class="game-option">
+            <div class="game-option-title">🕵️ Special Ops: Mysterious Market</div>
+            <div class="game-option-desc">Secret-agent/mystery vibe – still not scary!</div>
+          </div>
+          <div class="game-option">
+            <div class="game-option-title">🌊 The Depths</div>
+            <div class="game-option-desc">Underwater science lab theme with very cool sets.</div>
+          </div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">What to do:</div>
+          <ul>
+            <li>Book a <strong>6:30 PM or 6:45 PM</strong> slot at the Gaslamp location</li>
+            <li>Add a note that it's an anniversary-ish date</li>
+            <li>~75 minutes total including briefing/debrief</li>
+          </ul>
+        </div>
+        <div class="backup"><strong>📍 Parking:</strong> Park once near Gaslamp – everything is walkable from here!</div>
+      </div>
+    </div>
+
+    <div class="stop" data-number="2" id="stop2">
+      <h3 class="stop-title">Stroll Through Gaslamp Lights</h3>
+      <div class="stop-content">
+        <div class="stop-location">📍 Gaslamp Quarter Streets</div>
+        <div class="stop-phone">⏱️ 7:45 PM - 8:00 PM (15 min)</div>
+        <div class="vibe">Decompress from the escape room. Slow stroll under the Gaslamp sign and lights – perfect for chatting about your favorite puzzles.</div>
+        <div class="detail-section">
+          <div class="detail-title">What you do:</div>
+          <p>Walk through the heart of Gaslamp, people-watch, and debrief the escape room. "What was your favorite puzzle?" – great conversation starter.</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">🚶 Route:</div>
+          <p>Walk down 5th Ave toward Mezé – about 5-7 minutes. Enjoy the neon lights and downtown energy!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop" data-number="3" id="stop3">
+      <h3 class="stop-title">Shared Mediterranean Dinner at Mezé</h3>
+      <div class="stop-content">
+        <div class="stop-location">📍 Mezé Greek Fusion</div>
+        <div class="stop-phone">☎️ 345 6th Ave, San Diego, CA 92101</div>
+        <div class="btns">
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Meze%20Greek%20Fusion%20345%206th%20Ave%20San%20Diego%20CA%2092101" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Google Maps</span></div>
+          <div class="tooltip"><a href="https://maps.apple.com/?address=345%206th%20Ave,San%20Diego,CA%2092101" target="_blank" class="btn apple-btn"><i data-lucide="navigation"></i></a><span class="tooltip-text">Apple Maps</span></div>
+          <div class="tooltip"><a href="tel:+16192329633" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call restaurant</span></div>
+          <div class="tooltip"><a href="https://www.mezefusion.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View menu</span></div>
+        </div>
+        <div class="quick-actions">
+          <a href="https://www.opentable.com/r/meze-greek-fusion" target="_blank" class="quick-action-btn reserve-btn"><i data-lucide="calendar-check"></i> Reserve Table</a>
+        </div>
+        <div class="vibe">Lively Greek/Mediterranean spot with meze (small plates) focus – perfect to avoid the "sit silently across a white tablecloth" formal dinner she dislikes.</div>
+        <div class="detail-section">
+          <div class="detail-title">🍽️ What to order (lighter + in budget):</div>
+          <ul>
+            <li><strong>Meze Platter for Two</strong> (~$34) – hummus, dips, pita, dolmas – try different flavors together!</li>
+            <li><strong>Watermelon Feta Salad</strong> (~$15-16) – refreshing, not greasy; checks the "cheese" box</li>
+            <li><em>Optional if hungrier:</em> <strong>Chicken Souvlaki</strong> (~$26-31) or <strong>Solomos</strong> (spinach & feta stuffed salmon)</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">💡 Budget tip:</div>
+          <p>Skip cocktails here or share one glass of wine max – you'll get something sweet at dessert anyway. Tap water is totally fine!</p>
+        </div>
+        <div class="backup"><strong>🍜 Backup Dinner:</strong> <strong>ZZAN Sushi & Soju</strong> – 1100 5th Ave. Korean comfort dishes + sushi. Mains $14-23, lean toward rice bowls and bibimbap. <a href="tel:+16195448688" style="color: #d4a017">(619) 544-8688</a></div>
+      </div>
+    </div>
+
+    <div class="stop" data-number="4" id="stop4">
+      <h3 class="stop-title">Sweet Finish at Chocolate SD</h3>
+      <div class="stop-content">
+        <div class="stop-location">📍 Chocolate SD / Chocolat Cremerie</div>
+        <div class="stop-phone">☎️ 509 5th Ave, San Diego, CA 92101</div>
+        <div class="btns">
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Chocolate%20SD%20509%205th%20Ave%20San%20Diego%20CA%2092101" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Google Maps</span></div>
+          <div class="tooltip"><a href="https://maps.apple.com/?address=509%205th%20Ave,San%20Diego,CA%2092101" target="_blank" class="btn apple-btn"><i data-lucide="navigation"></i></a><span class="tooltip-text">Apple Maps</span></div>
+          <div class="tooltip"><a href="tel:+16197296999" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call café</span></div>
+          <div class="tooltip"><a href="https://www.yelp.com/biz/chocolate-sd-san-diego" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View menu</span></div>
+        </div>
+        <div class="vibe">Dessert café with gelato, crepes, cakes, and coffee – open until midnight on weekdays so no rushing!</div>
+        <div class="detail-section">
+          <div class="detail-title">🍨 Budget-friendly combo for two:</div>
+          <ul>
+            <li><strong>1 shared crepe</strong> (~$13) – Berries & Vanilla Bean or Strawberries & Chocolate</li>
+            <li><strong>1 small/medium gelato</strong> (~$6-7) – your pick!</li>
+            <li><strong>1 coffee/latte to share</strong> (~$4-5)</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">⏱️ Timing:</div>
+          <p>Aim to arrive by 9:00 PM. Hang out 25-30 minutes eating and chatting before the waterfront walk.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop" data-number="5" id="stop5">
+      <h3 class="stop-title">Waterfront Walk & Bay Views</h3>
+      <div class="stop-content">
+        <div class="stop-location">📍 Waterfront Park / Broadway Pier</div>
+        <div class="stop-phone">⏱️ 9:30 PM - 9:45 PM</div>
+        <div class="btns">
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Waterfront%20Park%20San%20Diego" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Google Maps</span></div>
+          <div class="tooltip"><a href="https://maps.apple.com/?address=Waterfront%20Park,San%20Diego,CA" target="_blank" class="btn apple-btn"><i data-lucide="navigation"></i></a><span class="tooltip-text">Apple Maps</span></div>
+        </div>
+        <div class="vibe">Hit her "parks/walking/garden" preferences. Open until 10 PM with lawns, fountains, and beautiful bay views at night.</div>
+        <div class="detail-section">
+          <div class="detail-title">🚶 What you do:</div>
+          <ul>
+            <li>Stroll through Gaslamp down 5th Ave under the lights</li>
+            <li>Quick walk or drive to Waterfront Park</li>
+            <li>Sit on a bench, decompress, do the "what was your favorite puzzle" debrief</li>
+            <li>Head back to car around 9:40-9:45 PM</li>
+          </ul>
+        </div>
+        <div class="backup"><strong>🌅 Perfect ending:</strong> Bay views, night breeze, and a sweet moment before driving her home by 10:00 PM.</div>
+      </div>
+    </div>
+
+    <div class="collapsible-section" id="checklistSection">
+      <div class="collapsible-header" onclick="toggleCollapsible('checklistSection')">
+        <div class="collapsible-title"><span>✅</span><span>Date Checklist</span></div>
+        <span class="collapsible-icon">▼</span>
+      </div>
+      <div class="collapsible-content">
+        <div class="collapsible-inner">
+          <div class="checklist">
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="0"><div class="checklist-checkbox"></div><span class="checklist-text">Book escape room for 6:30-6:45 PM at Gaslamp location</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="1"><div class="checklist-checkbox"></div><span class="checklist-text">Add note that it's an anniversary-ish date</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="2"><div class="checklist-checkbox"></div><span class="checklist-text">Bring a light jacket for waterfront walk</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="3"><div class="checklist-checkbox"></div><span class="checklist-text">Park once near Gaslamp (everything walkable)</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="4"><div class="checklist-checkbox"></div><span class="checklist-text">Escape room adventure (~75 min)</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="5"><div class="checklist-checkbox"></div><span class="checklist-text">Stroll through Gaslamp lights</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="6"><div class="checklist-checkbox"></div><span class="checklist-text">Dinner at Mezé – Meze Platter + Salad</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="7"><div class="checklist-checkbox"></div><span class="checklist-text">Dessert at Chocolate SD</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="8"><div class="checklist-checkbox"></div><span class="checklist-text">Waterfront Park walk</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="9"><div class="checklist-checkbox"></div><span class="checklist-text">Drive her home by 10 PM</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="share-section" id="share">
+      <h3 class="share-title">💕 Share This Date Plan</h3>
+      <div class="share-buttons">
+        <button class="share-btn share-copy" onclick="copyLink()"><i data-lucide="copy"></i>Copy Link</button>
+      </div>
+    </div>
+    
+    <div class="budget" id="budget">
+      <h3 class="budget-title">💰 Estimated Budget for Two</h3>
+      <div class="budget-items">
+        <div class="budget-item"><div class="budget-label">Escape Room</div><div class="budget-value">$80-$95</div></div>
+        <div class="budget-item"><div class="budget-label">Dinner at Mezé</div><div class="budget-value">$60-$70</div></div>
+        <div class="budget-item"><div class="budget-label">Dessert</div><div class="budget-value">$30-$35</div></div>
+      </div>
+      <div class="budget-total">Total: $170-$200 (no alcohol)</div>
+      <p style="font-size: 0.85rem; margin-top: 15px; opacity: 0.9;">💡 Add cocktails at dinner → $210-$230 range</p>
+    </div>
+  </div>
+</div>
+<script>
+lucide.createIcons();
+document.querySelectorAll('.tooltip').forEach(tooltip => {
+  tooltip.addEventListener('mouseenter', function(e) {
+    const tooltipText = this.querySelector('.tooltip-text');
+    if (tooltipText) {
+      const rect = this.getBoundingClientRect();
+      tooltipText.style.left = (rect.left + rect.width / 2 - 90) + 'px';
+      tooltipText.style.top = (rect.top - 50) + 'px';
+    }
+  });
+});
+let ticking = false;
+window.addEventListener('scroll', function(e) {
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      const scrolled = window.pageYOffset;
+      const layer1 = document.getElementById('layer1');
+      const layer2 = document.getElementById('layer2');
+      const layer3 = document.getElementById('layer3');
+      if (layer1) layer1.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)';
+      if (layer2) layer2.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
+      if (layer3) layer3.style.transform = 'translateY(' + (scrolled * 0.7) + 'px)';
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+document.addEventListener('mousemove', function(e) {
+  if (Math.random() > 0.92) {
+    createCursorSparkle(e.clientX, e.clientY);
+  }
+});
+function createCursorSparkle(x, y) {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'cursor-sparkle';
+  sparkle.textContent = ['✨', '💕', '💫', '💖'][Math.floor(Math.random() * 4)];
+  sparkle.style.left = x + 'px';
+  sparkle.style.top = y + 'px';
+  sparkle.style.position = 'fixed';
+  sparkle.style.fontSize = (Math.random() * 10 + 10) + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1000);
+}
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loadingScreen').classList.add('hidden');
+  }, 1500);
+});
+function createParticles() {
+  const particlesContainer = document.getElementById('particles');
+  const emojis = ['💕', '✨', '💖', '💫', '🌸'];
+  for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+    particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    particle.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+    particlesContainer.appendChild(particle);
+  }
+}
+createParticles();
+const typewriterText = "A Downtown adventure that blends teamwork puzzles, shared Mediterranean flavors, and a sweet waterfront finish under the city lights.";
+let charIndex = 0;
+function typeWriter() {
+  if (charIndex < typewriterText.length) {
+    document.getElementById("typewriterText").textContent += typewriterText.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeWriter, 30);
+  }
+}
+function updateCountdown() {
+  const targetDate = new Date('March 7, 2026 18:00:00').getTime();
+  const now = new Date().getTime();
+  const difference = targetDate - now;
+  if (difference > 0) {
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+function handleScroll() {
+  const elements = [document.getElementById('summary'), document.getElementById('personalNote'), document.getElementById('calendarSection'), document.getElementById('outfitSection'), document.getElementById('bringSection'), document.getElementById('convoSection'), document.getElementById('recommendations'), document.getElementById('stop1'), document.getElementById('stop2'), document.getElementById('stop3'), document.getElementById('stop4'), document.getElementById('stop5'), document.getElementById('weatherSection'), document.getElementById('checklistSection'), document.getElementById('share'), document.getElementById('budget')];
+  elements.forEach(element => {
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight - 100;
+      if (isVisible) element.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('load', handleScroll);
+const summaryObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      typeWriter();
+      summaryObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+summaryObserver.observe(document.getElementById('summary'));
+document.querySelectorAll('.stop-title').forEach(title => {
+  title.addEventListener('click', function() {
+    this.parentElement.classList.toggle('collapsed');
+  });
+});
+function toggleCollapsible(sectionId) {
+  const section = document.getElementById(sectionId);
+  section.classList.toggle('open');
+}
+function toggleCheck(item) {
+  item.classList.toggle('checked');
+  const checkbox = item.querySelector('.checklist-checkbox');
+  const itemIndex = item.getAttribute('data-item');
+  if (item.classList.contains('checked')) {
+    checkbox.textContent = '✓';
+    localStorage.setItem('dateChecklist_' + itemIndex, 'checked');
+  } else {
+    checkbox.textContent = '';
+    localStorage.removeItem('dateChecklist_' + itemIndex);
+  }
+}
+function loadChecklistState() {
+  document.querySelectorAll('.checklist-item').forEach(item => {
+    const itemIndex = item.getAttribute('data-item');
+    const isChecked = localStorage.getItem('dateChecklist_' + itemIndex) === 'checked';
+    if (isChecked) {
+      item.classList.add('checked');
+      const checkbox = item.querySelector('.checklist-checkbox');
+      checkbox.textContent = '✓';
+    }
+  });
+}
+loadChecklistState();
+// Progress Tracker
+function markStopComplete(stopNum) {
+  const stops = document.querySelectorAll('.progress-stop');
+  stops.forEach((stop, index) => {
+    if (index < stopNum) {
+      stop.classList.add('completed');
+      stop.classList.remove('active');
+    } else if (index === stopNum - 1) {
+      stop.classList.add('active');
+      stop.classList.remove('completed');
+    } else {
+      stop.classList.remove('completed', 'active');
+    }
+  });
+  const progressPercent = ((stopNum - 1) / 5) * 100;
+  document.getElementById('progressBar').style.width = progressPercent + '%';
+  localStorage.setItem('dateProgress', stopNum);
+}
+function loadProgress() {
+  const savedProgress = localStorage.getItem('dateProgress');
+  if (savedProgress) {
+    markStopComplete(parseInt(savedProgress));
+  }
+}
+loadProgress();
+document.getElementById('loveNoteTrigger').addEventListener('click', function() {
+  document.getElementById('loveNoteModal').classList.add('active');
+});
+document.getElementById('loveNoteClose').addEventListener('click', function() {
+  document.getElementById('loveNoteModal').classList.remove('active');
+});
+document.getElementById('loveNoteModal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('active');
+});
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(function() {
+    alert('Link copied to clipboard! 💕');
+  });
+}
+</script>
+</body>
+</html>
