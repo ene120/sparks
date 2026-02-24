@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kavindi's Coastal Date</title>
+<title>Kavindi's La Jolla Coastal Date</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe4f1 100%);
-  color: #4a2c3e;
+  background: linear-gradient(135deg, #e8f4fd 0%, #f0f8ff 50%, #e6f3ff 100%);
+  color: #2c5f8d;
   line-height: 1.7;
   padding: 40px 20px;
   scroll-behavior: smooth;
@@ -19,48 +19,110 @@ body {
 }
 .parallax-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
 .parallax-layer { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; }
-.layer-1 { background: radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.08) 0%, transparent 50%); }
-.layer-2 { background: radial-gradient(circle at 80% 70%, rgba(196, 69, 105, 0.06) 0%, transparent 50%); }
-.layer-3 { background: radial-gradient(circle at 50% 50%, rgba(255, 238, 248, 0.1) 0%, transparent 70%); }
+.layer-1 { background: radial-gradient(circle at 20% 30%, rgba(44, 95, 141, 0.08) 0%, transparent 50%); }
+.layer-2 { background: radial-gradient(circle at 80% 70%, rgba(100, 149, 237, 0.06) 0%, transparent 50%); }
+.layer-3 { background: radial-gradient(circle at 50% 50%, rgba(230, 243, 255, 0.1) 0%, transparent 70%); }
 .cursor-sparkle { position: fixed; pointer-events: none; z-index: 9999; animation: sparkleFloat 1s ease-out forwards; }
 @keyframes sparkleFloat { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(0) translateY(-50px); } }
-.loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #ff6b9d, #c44569); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s ease; }
+.loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #4a90d9, #2c5f8d); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s ease; }
 .loading-screen.hidden { opacity: 0; visibility: hidden; }
-.loading-heart { font-size: 4rem; animation: heartbeat 1s ease-in-out infinite; }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
-.particle { position: fixed; pointer-events: none; opacity: 0.6; z-index: 1; animation: float 15s infinite ease-in-out; }
-@keyframes float { 0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
-.container { max-width: 900px; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 20px 60px rgba(219, 112, 147, 0.15); overflow: visible; position: relative; z-index: 2; }
-.header { background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%); padding: 60px 40px; text-align: center; color: white; position: relative; animation: gradientShift 10s ease-in-out infinite; background-size: 200% 200%; }
+.loading-wave { font-size: 3rem; animation: wave 1.5s ease-in-out infinite; }
+@keyframes wave { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.particle { position: fixed; pointer-events: none; opacity: 0.5; z-index: 1; animation: float 20s infinite ease-in-out; }
+@keyframes float { 0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.5; } 90% { opacity: 0.5; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
+.container { max-width: 900px; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 20px 60px rgba(44, 95, 141, 0.12); overflow: visible; position: relative; z-index: 2; }
+.header { background: linear-gradient(135deg, #4a90d9 0%, #2c5f8d 100%); padding: 60px 40px; text-align: center; color: white; position: relative; animation: gradientShift 10s ease-in-out infinite; background-size: 200% 200%; }
 @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-.header::before { content: "💕"; position: absolute; top: 20px; left: 40px; font-size: 2rem; opacity: 0.3; animation: pulse 3s ease-in-out infinite; }
-.header::after { content: "✨"; position: absolute; top: 20px; right: 40px; font-size: 2rem; opacity: 0.3; animation: sparkle 2s ease-in-out infinite; }
+.header::before { content: "🌊"; position: absolute; top: 20px; left: 40px; font-size: 2rem; opacity: 0.3; animation: pulse 3s ease-in-out infinite; }
+.header::after { content: "🐚"; position: absolute; top: 20px; right: 40px; font-size: 2rem; opacity: 0.3; animation: sparkle 2s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.2); opacity: 0.5; } }
 @keyframes sparkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
 .logo { font-size: 1.4rem; font-weight: 600; margin-bottom: 15px; opacity: 0.9; }
 h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
 .subtitle { font-size: 1.1rem; opacity: 0.95; font-weight: 300; }
 .content { padding: 50px 40px; }
-.meta { display: flex; gap: 30px; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #fff5f7, #ffeef8); border-radius: 16px; border-left: 4px solid #ff6b9d; }
+.meta { display: flex; gap: 30px; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #e8f4fd, #f0f8ff); border-radius: 16px; border-left: 4px solid #4a90d9; }
 .meta-item { flex: 1; }
-.meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #c44569; font-weight: 600; margin-bottom: 6px; }
-.meta-value { font-size: 1.1rem; font-weight: 500; color: #4a2c3e; }
-.countdown { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; padding: 25px; border-radius: 16px; margin-bottom: 40px; text-align: center; }
+.meta-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #4a90d9; font-weight: 600; margin-bottom: 6px; }
+.meta-value { font-size: 1.1rem; font-weight: 500; color: #2c5f8d; }
+.countdown { background: linear-gradient(135deg, #4a90d9, #2c5f8d); color: white; padding: 25px; border-radius: 16px; margin-bottom: 40px; text-align: center; }
 .countdown-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 15px; }
 .countdown-timer { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 .countdown-item { text-align: center; }
 .countdown-value { font-size: 2rem; font-weight: 700; display: block; }
 .countdown-label { font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.05em; }
-.summary { background: #fff; padding: 35px; border-radius: 16px; border: 2px solid #ffe4f1; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.progress-tracker { background: white; border: 2px solid #c4e1f5; border-radius: 16px; padding: 20px 25px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(44, 95, 141, 0.08); }
+.progress-title { font-family: 'Playfair Display', serif; color: #2c5f8d; font-size: 1.1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+.progress-bar-container { background: #c4e1f5; border-radius: 20px; height: 12px; overflow: hidden; margin-bottom: 10px; }
+.progress-bar { background: linear-gradient(135deg, #4a90d9, #2c5f8d); height: 100%; border-radius: 20px; transition: width 0.5s ease; width: 0%; }
+.progress-stops { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.progress-stop { font-size: 0.75rem; color: #5a8ab8; padding: 4px 10px; border-radius: 12px; background: #e8f4fd; transition: all 0.3s ease; cursor: pointer; }
+.progress-stop.completed { background: linear-gradient(135deg, #4a90d9, #2c5f8d); color: white; }
+.progress-stop.active { background: #c4e1f5; color: #2c5f8d; font-weight: 600; }
+.calendar-section { background: white; border: 2px solid #c4e1f5; border-radius: 16px; padding: 20px 25px; margin-bottom: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(44, 95, 141, 0.08); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.calendar-section.visible { opacity: 1; transform: translateY(0); }
+.calendar-info { display: flex; align-items: center; gap: 12px; }
+.calendar-icon { font-size: 2rem; }
+.calendar-text h4 { font-family: 'Playfair Display', serif; color: #2c5f8d; font-size: 1.1rem; margin-bottom: 3px; }
+.calendar-text p { color: #5a8ab8; font-size: 0.85rem; }
+.calendar-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, #4285f4, #34a853); color: white; border: none; border-radius: 25px; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3); }
+.calendar-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4); }
+.parking-section { background: linear-gradient(135deg, #fff3e0, #ffe8cc); border: 2px solid #ffb74d; border-radius: 16px; padding: 25px; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.parking-section.visible { opacity: 1; transform: translateY(0); }
+.parking-title { font-family: 'Playfair Display', serif; color: #e65100; font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+.parking-options { display: flex; flex-direction: column; gap: 12px; }
+.parking-option { background: white; border-radius: 12px; padding: 15px 20px; border: 1px solid #ffd9a0; }
+.parking-option-label { font-weight: 600; color: #e65100; font-size: 0.9rem; margin-bottom: 5px; }
+.parking-option-desc { font-size: 0.85rem; color: #5a4a2e; }
+.parking-option a { color: #ff9800; text-decoration: none; font-weight: 500; }
+.parking-option a:hover { text-decoration: underline; }
+.outfit-section { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); border: 2px solid #4dd0e1; border-radius: 16px; padding: 25px; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.outfit-section.visible { opacity: 1; transform: translateY(0); }
+.outfit-title { font-family: 'Playfair Display', serif; color: #00838f; font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.outfit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+.outfit-card { background: white; border-radius: 12px; padding: 15px; text-align: center; border: 2px solid #b2ebf2; transition: all 0.3s ease; }
+.outfit-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 131, 143, 0.15); }
+.outfit-icon { font-size: 2rem; margin-bottom: 8px; }
+.outfit-label { font-weight: 600; color: #00838f; font-size: 0.9rem; margin-bottom: 4px; }
+.outfit-desc { font-size: 0.8rem; color: #5a9ca8; }
+.what-to-bring { background: linear-gradient(135deg, #f3e5f5, #e1bee7); border: 2px solid #ba68c8; border-radius: 16px; padding: 25px; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.what-to-bring.visible { opacity: 1; transform: translateY(0); }
+.bring-title { font-family: 'Playfair Display', serif; color: #7b1fa2; font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+.bring-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.bring-item { background: white; border-radius: 10px; padding: 12px 15px; display: flex; align-items: center; gap: 10px; border: 1px solid #ce93d8; }
+.bring-item-icon { font-size: 1.3rem; }
+.bring-item-text { font-size: 0.9rem; color: #6a1b9a; }
+.personalized-section { background: linear-gradient(135deg, #fce4ec, #f8bbd9); border: 2px solid #f48fb1; border-radius: 16px; padding: 25px; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.personalized-section.visible { opacity: 1; transform: translateY(0); }
+.personalized-title { font-family: 'Playfair Display', serif; color: #c2185b; font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.personalized-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.person-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #f8bbd9; }
+.person-name { font-weight: 600; color: #c2185b; font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.person-pref { font-size: 0.85rem; color: #5a3c4e; margin-bottom: 10px; padding: 8px 12px; background: #fce4ec; border-radius: 8px; }
+.person-pref strong { color: #c2185b; }
+.conversation-section { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 2px solid #81c784; border-radius: 16px; padding: 25px; margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.conversation-section.visible { opacity: 1; transform: translateY(0); }
+.conversation-title { font-family: 'Playfair Display', serif; color: #388e3c; font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.conversation-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+.convo-card { background: white; border-radius: 12px; padding: 18px; border-left: 4px solid #66bb6a; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1); transition: all 0.3s ease; }
+.convo-card:hover { transform: translateX(5px); box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2); }
+.convo-category { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #4caf50; margin-bottom: 8px; font-weight: 600; }
+.convo-question { font-size: 0.95rem; color: #2e7d32; font-style: italic; }
+.summary { background: #fff; padding: 35px; border-radius: 16px; border: 2px solid #c4e1f5; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(44, 95, 141, 0.08); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .summary.visible { opacity: 1; transform: translateY(0); }
-.summary-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.summary-title::before { content: "🌹"; font-size: 1.5rem; }
-.summary p { font-size: 1.05rem; color: #5a3c4e; line-height: 1.8; }
+.summary-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #2c5f8d; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.summary-title::before { content: "🌊"; font-size: 1.5rem; }
+.summary p { font-size: 1.05rem; color: #2c5f8d; line-height: 1.8; }
+.weather-alert { background: linear-gradient(135deg, #e3f2fd, #bbdefb); border: 2px solid #64b5f6; border-radius: 12px; padding: 15px 20px; margin: 20px 0; display: flex; align-items: flex-start; gap: 12px; }
+.weather-alert-icon { font-size: 1.5rem; }
+.weather-alert-text { flex: 1; }
+.weather-alert-text strong { color: #1565c0; }
+.weather-alert-text p { font-size: 0.9rem; color: #1565c0; margin-top: 5px; }
 .collapsible-section { margin: 30px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .collapsible-section.visible { opacity: 1; transform: translateY(0); }
-.collapsible-header { background: linear-gradient(135deg, #fff5f7, #ffeef8); padding: 20px 25px; border-radius: 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 2px solid #ffe4f1; transition: all 0.3s ease; }
-.collapsible-header:hover { background: linear-gradient(135deg, #ffeef8, #ffe4f1); border-color: #ff6b9d; }
-.collapsible-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; display: flex; align-items: center; gap: 10px; }
+.collapsible-header { background: linear-gradient(135deg, #e8f4fd, #f0f8ff); padding: 20px 25px; border-radius: 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 2px solid #c4e1f5; transition: all 0.3s ease; }
+.collapsible-header:hover { background: linear-gradient(135deg, #d4ecfc, #e8f4fd); border-color: #4a90d9; }
+.collapsible-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #2c5f8d; display: flex; align-items: center; gap: 10px; }
 .collapsible-icon { font-size: 1.5rem; transition: transform 0.3s ease; }
 .collapsible-section.open .collapsible-icon { transform: rotate(180deg); }
 .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; background: white; border-radius: 0 0 16px 16px; }
@@ -78,60 +140,67 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
 .weather-details { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
 .weather-detail-item { display: flex; align-items: center; gap: 8px; color: #2c5f8d; font-size: 0.9rem; }
 .weather-note { background: rgba(44, 95, 141, 0.1); padding: 12px 15px; border-radius: 10px; margin-top: 15px; font-size: 0.85rem; color: #2c5f8d; display: flex; align-items: center; gap: 8px; }
-.section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #c44569; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
-.stop { background: linear-gradient(135deg, #fff 0%, #fffbfc 100%); padding: 35px; border-radius: 20px; margin-bottom: 35px; border: 2px solid #ffe4f1; position: relative; box-shadow: 0 8px 25px rgba(219, 112, 147, 0.1); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #2c5f8d; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
+.stop { background: linear-gradient(135deg, #fff 0%, #f8fbff 100%); padding: 35px; border-radius: 20px; margin-bottom: 35px; border: 2px solid #c4e1f5; position: relative; box-shadow: 0 8px 25px rgba(44, 95, 141, 0.08); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .stop.visible { opacity: 1; transform: translateY(0); }
-.stop::before { content: attr(data-number); position: absolute; top: -15px; left: 30px; background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3); }
-.stop-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #4a2c3e; margin-bottom: 8px; margin-top: 10px; cursor: pointer; transition: color 0.3s ease; }
-.stop-title:hover { color: #c44569; }
+.stop::before { content: attr(data-number); position: absolute; top: -15px; left: 30px; background: linear-gradient(135deg, #4a90d9, #2c5f8d); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(44, 95, 141, 0.3); }
+.stop-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #2c5f8d; margin-bottom: 8px; margin-top: 10px; cursor: pointer; transition: color 0.3s ease; }
+.stop-title:hover { color: #4a90d9; }
 .stop-title::after { content: " ▼"; font-size: 0.7rem; opacity: 0.5; display: inline-block; transition: transform 0.3s ease; }
 .stop.collapsed .stop-title::after { transform: rotate(-90deg); }
 .stop-content { max-height: 2000px; overflow: hidden; transition: max-height 0.5s ease; }
 .stop.collapsed .stop-content { max-height: 0; }
-.stop-location { color: #c44569; font-size: 0.95rem; margin-bottom: 6px; font-weight: 500; }
-.stop-phone { color: #888; font-size: 0.9rem; margin-bottom: 20px; }
-.vibe { background: #fff5f7; padding: 15px 20px; border-radius: 12px; margin: 20px 0; border-left: 3px solid #ff6b9d; font-style: italic; color: #5a3c4e; }
+.stop-location { color: #4a90d9; font-size: 0.95rem; margin-bottom: 6px; font-weight: 500; }
+.stop-phone { color: #5a8ab8; font-size: 0.9rem; margin-bottom: 20px; }
+.vibe { background: #e8f4fd; padding: 15px 20px; border-radius: 12px; margin: 20px 0; border-left: 3px solid #4a90d9; font-style: italic; color: #2c5f8d; }
 .detail-section { margin: 20px 0; }
-.detail-title { font-weight: 600; color: #c44569; margin-bottom: 10px; font-size: 1.05rem; }
+.detail-title { font-weight: 600; color: #2c5f8d; margin-bottom: 10px; font-size: 1.05rem; }
 .detail-section ul { list-style: none; padding-left: 0; }
-.detail-section li { padding-left: 25px; position: relative; margin-bottom: 8px; color: #5a3c4e; }
-.detail-section li::before { content: "→"; position: absolute; left: 0; color: #ff6b9d; font-weight: 600; }
-.detail-section p { color: #5a3c4e; margin-bottom: 8px; }
+.detail-section li { padding-left: 25px; position: relative; margin-bottom: 8px; color: #2c5f8d; }
+.detail-section li::before { content: "→"; position: absolute; left: 0; color: #4a90d9; font-weight: 600; }
+.detail-section p { color: #2c5f8d; margin-bottom: 8px; }
+.menu-pick { background: #e8f4fd; padding: 10px 15px; border-radius: 8px; margin: 8px 0; border: 1px solid #b3d9f2; }
+.menu-pick-name { font-weight: 600; color: #2c5f8d; }
+.menu-pick-note { font-size: 0.85rem; color: #5a8ab8; }
 .recommendations { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 40px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .recommendations.visible { opacity: 1; transform: translateY(0); }
-.rec-card { background: linear-gradient(135deg, #fff5f7, #ffeef8); padding: 25px; border-radius: 16px; border: 2px solid #ffe4f1; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.rec-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(219, 112, 147, 0.15); }
-.rec-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #c44569; margin-bottom: 20px; text-align: center; }
+.rec-card { background: linear-gradient(135deg, #e8f4fd, #f0f8ff); padding: 25px; border-radius: 16px; border: 2px solid #c4e1f5; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.rec-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(44, 95, 141, 0.12); }
+.rec-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #2c5f8d; margin-bottom: 20px; text-align: center; }
 .rec-item { margin-bottom: 18px; }
-.rec-number { display: inline-block; background: #ff6b9d; color: white; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 0.85rem; font-weight: 600; margin-right: 8px; }
-.rec-text { color: #5a3c4e; font-size: 0.95rem; line-height: 1.6; }
-.checklist { background: #fff; padding: 30px; border-radius: 16px; border: 2px solid #ffe4f1; box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08); }
-.checklist-item { padding: 12px 0; border-bottom: 1px solid #ffe4f1; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.3s ease; }
+.rec-number { display: inline-block; background: #4a90d9; color: white; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 0.85rem; font-weight: 600; margin-right: 8px; }
+.rec-text { color: #2c5f8d; font-size: 0.95rem; line-height: 1.6; }
+.quick-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+.quick-action-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: all 0.3s ease; border: 2px solid; }
+.reserve-btn { background: linear-gradient(135deg, #4a90d9, #2c5f8d); color: white; border-color: #4a90d9; }
+.reserve-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(74, 144, 217, 0.3); }
+.checklist { background: #fff; padding: 30px; border-radius: 16px; border: 2px solid #c4e1f5; box-shadow: 0 4px 15px rgba(44, 95, 141, 0.08); }
+.checklist-item { padding: 12px 0; border-bottom: 1px solid #c4e1f5; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.3s ease; }
 .checklist-item:last-child { border-bottom: none; }
-.checklist-item:hover { background: #fff5f7; padding-left: 10px; }
-.checklist-checkbox { width: 24px; height: 24px; border: 2px solid #c44569; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s ease; }
-.checklist-item.checked .checklist-checkbox { background: #c44569; color: white; }
-.checklist-text { color: #5a3c4e; flex: 1; }
+.checklist-item:hover { background: #e8f4fd; padding-left: 10px; }
+.checklist-checkbox { width: 24px; height: 24px; border: 2px solid #4a90d9; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s ease; }
+.checklist-item.checked .checklist-checkbox { background: #4a90d9; color: white; }
+.checklist-text { color: #2c5f8d; flex: 1; }
 .checklist-item.checked .checklist-text { text-decoration: line-through; opacity: 0.6; }
 .share-section { margin: 40px 0; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .share-section.visible { opacity: 1; transform: translateY(0); }
-.share-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #c44569; margin-bottom: 15px; }
+.share-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #2c5f8d; margin-bottom: 15px; }
 .share-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
 .share-btn { padding: 12px 24px; border-radius: 25px; border: none; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
-.share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
-.share-copy { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; }
+.share-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(44, 95, 141, 0.2); }
+.share-copy { background: linear-gradient(135deg, #4a90d9, #2c5f8d); color: white; }
 .tooltip { position: relative; display: inline-block; }
-.tooltip-text { visibility: hidden; width: 180px; background-color: #4a2c3e; color: #fff; text-align: center; border-radius: 8px; padding: 8px 10px; position: fixed; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; font-size: 0.8rem; line-height: 1.3; pointer-events: none; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+.tooltip-text { visibility: hidden; width: 180px; background-color: #2c5f8d; color: #fff; text-align: center; border-radius: 8px; padding: 8px 10px; position: fixed; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; font-size: 0.8rem; line-height: 1.3; pointer-events: none; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
 .tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
-.love-note-trigger { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #ff6b9d, #c44569); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3); z-index: 100; transition: all 0.3s ease; animation: pulse 2s ease-in-out infinite; }
+.love-note-trigger { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #4a90d9, #2c5f8d); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(44, 95, 141, 0.3); z-index: 100; transition: all 0.3s ease; animation: pulse 2s ease-in-out infinite; }
 .love-note-trigger:hover { transform: scale(1.1); }
 .love-note-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
 .love-note-modal.active { display: flex; }
 .love-note-content { background: white; padding: 40px; border-radius: 20px; max-width: 500px; text-align: center; position: relative; animation: slideIn 0.3s ease; }
 @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.love-note-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #c44569; }
-.love-note-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #c44569; margin: 20px 0; font-style: italic; }
-.budget { background: linear-gradient(135deg, #c44569, #ff6b9d); color: white; padding: 35px; border-radius: 20px; margin-top: 50px; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.love-note-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #2c5f8d; }
+.love-note-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #2c5f8d; margin: 20px 0; font-style: italic; }
+.budget { background: linear-gradient(135deg, #2c5f8d, #4a90d9); color: white; padding: 35px; border-radius: 20px; margin-top: 50px; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .budget.visible { opacity: 1; transform: translateY(0); }
 .budget-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; }
 .budget-items { display: flex; justify-content: space-around; margin: 25px 0; flex-wrap: wrap; }
@@ -143,44 +212,47 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
 .backup strong { color: #d4a017; }
 .btns { margin: 15px 0; display: flex; gap: 8px; flex-wrap: wrap; }
 .btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
-.dir-btn { background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; }
-.dir-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3); }
-.ph-btn { background: #4a2c3e; color: white; }
-.ph-btn:hover { background: #5a3c4e; }
-.menu-btn { background: #fff5f7; color: #c44569; border: 2px solid #c44569; }
-.menu-btn:hover { background: #ffeef8; }
-.parking-link { display: inline-block; background: #fff5f7; color: #c44569; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; border: 2px solid #c44569; margin: 5px 0; transition: all 0.3s ease; }
-.parking-link:hover { background: #ffeef8; transform: translateY(-2px); }
-@media (max-width: 768px) { .recommendations { grid-template-columns: 1fr; } .meta { flex-direction: column; gap: 15px; } .budget-items { flex-direction: column; gap: 15px; } h1 { font-size: 2rem; } .countdown-timer { gap: 15px; } .countdown-value { font-size: 1.5rem; } .love-note-trigger { bottom: 20px; right: 20px; width: 50px; height: 50px; } }
+.dir-btn { background: linear-gradient(135deg, #4a90d9, #2c5f8d); color: white; }
+.dir-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(74, 144, 217, 0.3); }
+.apple-btn { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; }
+.apple-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26, 26, 46, 0.3); }
+.ph-btn { background: #2c5f8d; color: white; }
+.ph-btn:hover { background: #3a7ab0; }
+.menu-btn { background: #e8f4fd; color: #2c5f8d; border: 2px solid #4a90d9; }
+.menu-btn:hover { background: #d4ecfc; }
+.traffic-alert { background: linear-gradient(135deg, #ffebee, #ffcdd2); border: 2px solid #ef5350; border-radius: 12px; padding: 15px 20px; margin: 20px 0; display: flex; align-items: center; gap: 12px; }
+.traffic-alert-icon { font-size: 1.5rem; }
+.traffic-alert-text { flex: 1; color: #c62828; font-size: 0.9rem; }
+@media (max-width: 768px) { .recommendations { grid-template-columns: 1fr; } .meta { flex-direction: column; gap: 15px; } .budget-items { flex-direction: column; gap: 15px; } h1 { font-size: 2rem; } .countdown-timer { gap: 15px; } .countdown-value { font-size: 1.5rem; } .love-note-trigger { bottom: 20px; right: 20px; width: 50px; height: 50px; } .calendar-section { flex-direction: column; text-align: center; } .outfit-grid, .bring-grid, .conversation-cards, .personalized-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <div class="parallax-bg"><div class="parallax-layer layer-1" id="layer1"></div><div class="parallax-layer layer-2" id="layer2"></div><div class="parallax-layer layer-3" id="layer3"></div></div>
-<div class="loading-screen" id="loadingScreen"><div class="loading-heart">💕</div></div>
+<div class="loading-screen" id="loadingScreen"><div class="loading-wave">🌊</div></div>
 <div id="particles"></div>
-<div class="love-note-trigger" id="loveNoteTrigger"><span style="font-size: 2rem;">💝</span></div>
+<div class="love-note-trigger" id="loveNoteTrigger"><span style="font-size: 2rem;">🐚</span></div>
 <div class="love-note-modal" id="loveNoteModal">
   <div class="love-note-content">
     <button class="love-note-close" id="loveNoteClose">✕</button>
-    <h2 style="font-family: 'Playfair Display', serif; color: #c44569; margin-bottom: 15px;">💕 A Note for You</h2>
-    <p class="love-note-text">"May your coastal adventure be filled with ocean breezes, delicious flavors, and moments that make your heart smile."</p>
-    <p style="color: #5a3c4e; font-style: italic; margin-top: 20px;">— Made with love by DateFlo ✨</p>
+    <h2 style="font-family: 'Playfair Display', serif; color: #2c5f8d; margin-bottom: 15px;">🌊 A Coastal Note</h2>
+    <p class="love-note-text">"May your La Jolla adventure be filled with ocean breezes, sweet moments, and memories that last like the tides."</p>
+    <p style="color: #5a8ab8; font-style: italic; margin-top: 20px;">— Made with love by DateFlo ✨</p>
   </div>
 </div>
 <div class="container">
   <div class="header">
-    <div class="logo">💕 DateFlo</div>
-    <h1>Kavindi's Coastal Date</h1>
-    <p class="subtitle">Ocean Views, Flavorful Bites & Sweet Moments ✨</p>
+    <div class="logo">🌊 DateFlo</div>
+    <h1>Kavindi's La Jolla Coastal Date</h1>
+    <p class="subtitle">Sea Caves, Sushi & Sweet Coastal Strolls 🐚</p>
   </div>
   <div class="content">
     <div class="meta">
       <div class="meta-item"><div class="meta-label">Date</div><div class="meta-value">Monday, March 30, 2026</div></div>
       <div class="meta-item"><div class="meta-label">Time</div><div class="meta-value">2:00 PM - 6:00 PM</div></div>
-      <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">4-5 hours</div></div>
+      <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">~4-5 hours</div></div>
     </div>
     <div class="countdown" id="countdown">
-      <h3 class="countdown-title">⏰ Countdown to Your Date</h3>
+      <h3 class="countdown-title">⏰ Countdown to Your Coastal Date</h3>
       <div class="countdown-timer">
         <div class="countdown-item"><span class="countdown-value" id="days">00</span><span class="countdown-label">Days</span></div>
         <div class="countdown-item"><span class="countdown-value" id="hours">00</span><span class="countdown-label">Hours</span></div>
@@ -188,11 +260,155 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
         <div class="countdown-item"><span class="countdown-value" id="seconds">00</span><span class="countdown-label">Seconds</span></div>
       </div>
     </div>
-    <div class="summary" id="summary">
-      <h2 class="summary-title">The Evening</h2>
-      <p id="typewriterText"></p>
-      <p style="margin-top: 12px; font-style: italic; opacity: 0.8;">Pickup in Mira Mesa, then one drive to La Jolla Cove. Everything is walkable after that.</p>
+    
+    <!-- Progress Tracker -->
+    <div class="progress-tracker">
+      <div class="progress-title">📍 Your Date Progress</div>
+      <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-stops">
+        <span class="progress-stop" data-stop="1" onclick="markStopComplete(1)">🌊 Sea Cave</span>
+        <span class="progress-stop" data-stop="2" onclick="markStopComplete(2)">🍣 Sushi</span>
+        <span class="progress-stop" data-stop="3" onclick="markStopComplete(3)">🍨 Gelato</span>
+      </div>
     </div>
+    
+    <!-- Google Calendar Section -->
+    <div class="calendar-section" id="calendarSection">
+      <div class="calendar-info">
+        <span class="calendar-icon">📅</span>
+        <div class="calendar-text">
+          <h4>Add to Google Calendar</h4>
+          <p>Never miss your date – save it to your calendar!</p>
+        </div>
+      </div>
+      <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Kavindi%27s%20La%20Jolla%20Coastal%20Date&dates=20260330T140000/20260330T190000&details=🌊%20COASTAL%20ADVENTURE%20DATE%0A%0A📍%20STOP%201%3A%20Sea%20Cave%20Adventure%20(2%3A30%20PM)%0AThe%20Cave%20Store%20-%20Sunny%20Jim%27s%20Sea%20Cave%0A1325%20Coast%20Blvd%2C%20La%20Jolla%2C%20CA%2092037%0A(858)%20459-0746%0A%0A📍%20STOP%202%3A%20Dinner%20(4%3A30%20PM)%0ASushi%20Nekosan%0A1119%20Wall%20Street%2C%20La%20Jolla%2C%20CA%2092037%0A(858)%20999-0999%0A%0A📍%20STOP%203%3A%20Dessert%20(5%3A30%20PM)%0ABobboi%20Natural%20Gelato%0A8008%20Girard%20Ave%2C%20La%20Jolla%2C%20CA%2092037%0A(858)%20255-8693%0A%0A🅿️%20PARKING%3A%20ACE%20Lot%200545%0ABudget%3A%20%24100-%24190%20total%0A%0A⚠️%20Note%3A%20Padres%20home%20game%20at%206%3A40%20PM%20-%20expect%20traffic%0A%0A💕%20Made%20with%20love%20by%20DateFlo&location=La%20Jolla%20Cove%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+        <i data-lucide="calendar-plus"></i>
+        Add to Calendar
+      </a>
+    </div>
+    
+    <!-- Parking Section -->
+    <div class="parking-section" id="parkingSection">
+      <h3 class="parking-title">🅿️ Parking Options</h3>
+      <div class="parking-options">
+        <div class="parking-option">
+          <div class="parking-option-label">⭐ Primary: ACE Lot 0545</div>
+          <div class="parking-option-desc"><a href="https://space.aceparking.com/site/reserve/4c56ff4ce4aaf9573aa5dff913df997a" target="_blank">Reserve parking spot</a> – Closest to all venues (~$15-25)</div>
+        </div>
+        <div class="parking-option">
+          <div class="parking-option-label">🚗 Backup: Street Parking</div>
+          <div class="parking-option-desc">Ivanhoe Ave, Silverado St, Cave St – <a href="https://www.google.com/maps/search/?api=1&query=Ivanhoe%20Ave%20La%20Jolla%20CA%2092037" target="_blank">View on map</a></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Outfit Suggestions -->
+    <div class="outfit-section" id="outfitSection">
+      <h3 class="outfit-title">👗 What to Wear</h3>
+      <div class="outfit-grid">
+        <div class="outfit-card">
+          <div class="outfit-icon">🧥</div>
+          <div class="outfit-label">Light Layers</div>
+          <div class="outfit-desc">Coastal breeze can get chilly</div>
+        </div>
+        <div class="outfit-card">
+          <div class="outfit-icon">👟</div>
+          <div class="outfit-label">Comfy Shoes</div>
+          <div class="outfit-desc">145 stairs if you do the cave!</div>
+        </div>
+        <div class="outfit-card">
+          <div class="outfit-icon">🕶️</div>
+          <div class="outfit-label">Sunglasses</div>
+          <div class="outfit-desc">Ocean glare + photos</div>
+        </div>
+        <div class="outfit-card">
+          <div class="outfit-icon">📸</div>
+          <div class="outfit-label">Photo Ready</div>
+          <div class="outfit-desc">Stunning coastal views!</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- What to Bring -->
+    <div class="what-to-bring" id="bringSection">
+      <h3 class="bring-title">🎒 What to Bring</h3>
+      <div class="bring-grid">
+        <div class="bring-item"><span class="bring-item-icon">💳</span><span class="bring-item-text">Card/Cash (~$150)</span></div>
+        <div class="bring-item"><span class="bring-item-icon">📱</span><span class="bring-item-text">Phone for photos</span></div>
+        <div class="bring-item"><span class="bring-item-icon">🧴</span><span class="bring-item-text">Sunscreen</span></div>
+        <div class="bring-item"><span class="bring-item-icon">🧣</span><span class="bring-item-text">Light scarf/jacket</span></div>
+        <div class="bring-item"><span class="bring-item-icon">💧</span><span class="bring-item-text">Water bottle</span></div>
+        <div class="bring-item"><span class="bring-item-icon">💕</span><span class="bring-item-text">Your best self!</span></div>
+      </div>
+    </div>
+    
+    <!-- Personalized Recommendations -->
+    <div class="personalized-section" id="personalizedSection">
+      <h3 class="personalized-title">💕 Personalized For You Two</h3>
+      <div class="personalized-grid">
+        <div class="person-card">
+          <div class="person-name">👩 Kavindi</div>
+          <div class="person-pref"><strong>Preferences:</strong> No avocado, no bland food</div>
+          <div class="person-pref"><strong>At Sushi Nekosan:</strong> Chicken Karage + Grilled Pork Belly</div>
+          <div class="person-pref"><strong>Seafood pick:</strong> Tuna nigiri (clean, not fishy)</div>
+          <div class="person-pref"><strong>Gelato pairing:</strong> Pistacchio + Salted Caramel</div>
+        </div>
+        <div class="person-card">
+          <div class="person-name">👨 Partner</div>
+          <div class="person-pref"><strong>Preferences:</strong> Calm vibe, avoids "overly fishy"</div>
+          <div class="person-pref"><strong>At Sushi Nekosan:</strong> Fresh Water Eel + Veggie Gyoza</div>
+          <div class="person-pref"><strong>Backup option:</strong> Chicken & Potatoes Curry at Cherrywine</div>
+          <div class="person-pref"><strong>Gelato pairing:</strong> Dark Chocolate + Strawberry Sorbet</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Conversation Starters -->
+    <div class="conversation-section" id="convoSection">
+      <h3 class="conversation-title">💬 Conversation Starters</h3>
+      <div class="conversation-cards">
+        <div class="convo-card">
+          <div class="convo-category">🌊 At the Cove</div>
+          <div class="convo-question">"If you could live by any ocean in the world, where would it be?"</div>
+        </div>
+        <div class="convo-card">
+          <div class="convo-category">🐚 Sea Cave</div>
+          <div class="convo-question">"What's the most adventurous thing you've ever done?"</div>
+        </div>
+        <div class="convo-card">
+          <div class="convo-category">🍣 Over Dinner</div>
+          <div class="convo-question">"What's a food you could eat forever and never get tired of?"</div>
+        </div>
+        <div class="convo-card">
+          <div class="convo-category">🍨 Sweet Moments</div>
+          <div class="convo-question">"What's been your favorite part of today?"</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="summary" id="summary">
+      <h2 class="summary-title">The Coastal Adventure</h2>
+      <p id="typewriterText"></p>
+      <p style="margin-top: 12px; font-style: italic; opacity: 0.8;">Pick up in Mira Mesa at 2:00 PM, drive to La Jolla Cove, park once, everything is walkable.</p>
+    </div>
+    
+    <!-- Weather Alert -->
+    <div class="weather-alert">
+      <div class="weather-alert-icon">🌤️</div>
+      <div class="weather-alert-text">
+        <strong>Weather Check Reminder</strong>
+        <p>Check the forecast 48 hours before – coastal bluffs can get chilly fast! Hello Kavindi! 👋 You should receive a notification a couple days in advance.</p>
+      </div>
+    </div>
+    
+    <!-- Traffic Alert -->
+    <div class="traffic-alert">
+      <div class="traffic-alert-icon">⚠️</div>
+      <div class="traffic-alert-text">
+        <strong>Traffic Alert:</strong> Padres home game at 6:40 PM – expect traffic on downtown routes when heading home!
+      </div>
+    </div>
+    
     <div class="collapsible-section" id="weatherSection">
       <div class="collapsible-header" onclick="toggleCollapsible('weatherSection')">
         <div class="collapsible-title"><span>🌤️</span><span>Weather Forecast - March 30, 2026</span></div>
@@ -206,90 +422,128 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
               <div class="weather-date-badge">2:00 PM - 6:00 PM</div>
             </div>
             <div class="weather-widget-content">
-              <div class="weather-icon">🌤️</div>
+              <div class="weather-icon">⛅</div>
               <div class="weather-info">
                 <div class="weather-temp">68°F → 62°F</div>
-                <div class="weather-desc">Partly cloudy, pleasant afternoon</div>
+                <div class="weather-desc">Partly cloudy, coastal breeze</div>
               </div>
             </div>
             <div class="weather-details">
               <div class="weather-detail-item"><span>🌡️</span><span>Afternoon: 68°F</span></div>
-              <div class="weather-detail-item"><span>🌅</span><span>Evening: 62°F</span></div>
-              <div class="weather-detail-item"><span>💨</span><span>Coastal breeze</span></div>
+              <div class="weather-detail-item"><span>🌙</span><span>Evening: 62°F</span></div>
+              <div class="weather-detail-item"><span>🌊</span><span>Light ocean breeze</span></div>
             </div>
-            <div class="weather-note"><span>💡</span><span>Bring a light jacket for the evening coastal breeze!</span></div>
+            <div class="weather-note"><span>💡</span><span>Bring a light jacket for the coastal walk – it gets breezy near the water!</span></div>
           </div>
         </div>
       </div>
     </div>
-    <div style="background: #e8f4fd; border: 2px solid #c4e1f5; border-radius: 16px; padding: 20px; margin: 30px 0; color: #2c5f8d;">
-      <strong>🚗 Parking Reservation:</strong> Reserve your spot at ACE Lot 0545 near La Jolla Cove<br>
-      <div class="tooltip">
-        <a href="https://space.aceparking.com/site/reserve/4c56ff4ce4aaf9573aa5dff913df997a" target="_blank" class="parking-link">Reserve Parking Here →</a>
-        <span class="tooltip-text">Reserve your parking spot in advance to save time!</span>
-      </div>
-    </div>
+
     <div class="recommendations" id="recommendations">
       <div class="rec-card">
-        <h3 class="rec-title">For Kavindi 💙</h3>
-        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">At Sushi Nekosan: Chicken Karage + Grilled Pork Belly as your "flavor anchor."</span></div>
-        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Your seafood comfort lane: Tuna nigiri (clean, not fishy).</span></div>
-        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Bobboi pairing: Pistacchio + Salted Caramel (rich, bold).</span></div>
+        <h3 class="rec-title">For the Sea Cave 🌊</h3>
+        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">Tours run until 4:30 PM – arrive by 3:00 PM for relaxed timing.</span></div>
+        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">145 stairs each way – only do it if you both want the adventure!</span></div>
+        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Pick a scenic bench spot for a "rate the view" moment.</span></div>
       </div>
       <div class="rec-card">
-        <h3 class="rec-title">For Partner 💕</h3>
-        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">At Sushi Nekosan: Fresh Water Eel nigiri (mellow) + Veggie Gyoza.</span></div>
-        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Cherrywine backup: Chicken and Potatoes Curry (comforting).</span></div>
-        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Bobboi pairing: Dark Chocolate Sorbet + Strawberry Sorbet.</span></div>
+        <h3 class="rec-title">Pro Tips 💡</h3>
+        <div class="rec-item"><span class="rec-number">1</span><span class="rec-text">Park once – everything in La Jolla village is walkable.</span></div>
+        <div class="rec-item"><span class="rec-number">2</span><span class="rec-text">Dinner earlier than peak = calmer, more intimate vibe.</span></div>
+        <div class="rec-item"><span class="rec-number">3</span><span class="rec-text">Take gelato toward the water for a slow end-of-date walk.</span></div>
       </div>
     </div>
-    <h2 class="section-title">✨ The Date Plan</h2>
+    
+    <h2 class="section-title">🌊 The Date Plan</h2>
+
     <div class="stop" data-number="1" id="stop1">
-      <h3 class="stop-title">Coastal Start + Sea Cave Adventure</h3>
+      <h3 class="stop-title">Sea Cave Adventure at The Cave Store</h3>
       <div class="stop-content">
-        <div class="stop-location">📍 The Cave Store - Sunny Jim's Sea Cave</div>
-        <div class="stop-phone">☎️ (858) 459-0746</div>
+        <div class="stop-location">📍 The Cave Store (Sunny Jim's Sea Cave)</div>
+        <div class="stop-phone">☎️ 1325 Coast Blvd, La Jolla, CA 92037</div>
         <div class="btns">
-          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=The%20Cave%20Store%201325%20Coast%20Blvd%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
-          <div class="tooltip"><a href="tel:+18584590746" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call The Cave Store</span></div>
-          <div class="tooltip"><a href="https://www.cavestore.com/" target="_blank" class="btn menu-btn"><i data-lucide="globe"></i></a><span class="tooltip-text">Visit official website</span></div>
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=The%20Cave%20Store%201325%20Coast%20Blvd%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Google Maps</span></div>
+          <div class="tooltip"><a href="https://maps.apple.com/?address=1325%20Coast%20Blvd,La%20Jolla,CA%2092037" target="_blank" class="btn apple-btn"><i data-lucide="navigation"></i></a><span class="tooltip-text">Apple Maps</span></div>
+          <div class="tooltip"><a href="tel:+18584590746" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">(858) 459-0746</span></div>
+          <div class="tooltip"><a href="https://www.cavestore.com/" target="_blank" class="btn menu-btn"><i data-lucide="globe"></i></a><span class="tooltip-text">Visit website</span></div>
         </div>
-        <div class="vibe">Coastal, sweet, low-pressure. Start with a slow walk along the bluff by La Jolla Cove and Scripps Park.</div>
-        <div class="detail-section"><div class="detail-title">What you do:</div><p>Start with a slow walk along the bluff by La Jolla Cove and Scripps Park, then decide if you want the Sea Cave "micro-adventure." The cave tour is self-guided and short, but it includes 145 stairs each way.</p></div>
-        <div class="detail-section"><div class="detail-title">🚗 Parking:</div><ul><li><strong>Primary:</strong> ACE Lot 0545 (paid lot near the Cove) - <a href="https://space.aceparking.com/site/reserve/4c56ff4ce4aaf9573aa5dff913df997a" target="_blank" style="color: #c44569;">Reserve here</a></li><li><strong>Backup:</strong> Neighborhood streets (Ivanhoe, Silverado, Cave St)</li></ul></div>
-        <div class="backup"><strong>🌤️ Backup Activity:</strong> Ellen Browning Scripps Park - keeps the same "ocean-view quality time" feeling with zero stair commitment.</div>
+        <div class="quick-actions">
+          <a href="https://www.cavestore.com/" target="_blank" class="quick-action-btn reserve-btn"><i data-lucide="ticket"></i> Check Cave Hours</a>
+        </div>
+        <div class="vibe">Coastal, sweet, low-pressure – start with a slow walk along the bluff by La Jolla Cove and Scripps Park, then decide if you want the Sea Cave "micro-adventure."</div>
+        <div class="detail-section">
+          <div class="detail-title">🌊 What you do:</div>
+          <ul>
+            <li>Start with a <strong>slow walk along the bluff</strong> by La Jolla Cove</li>
+            <li>Decide together if you want the Sea Cave tour (self-guided, ~30 min)</li>
+            <li>Tours run until <strong>4:30 PM</strong></li>
+            <li><strong>145 stairs each way</strong> – only if you both want it!</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">📸 Sweet moment idea:</div>
+          <p>Pick one scenic bench spot and do a "rate the view" moment – quiet, simple, quality-time coded.</p>
+        </div>
+        <div class="backup"><strong>🌿 Backup Activity:</strong> <strong>Ellen Browning Scripps Park</strong> – La Jolla Cove green lawn + views. Same ocean-view quality time with zero stair commitment. <a href="https://www.sandiego.gov/park-and-recreation/parks/regional/shoreline/ebscripps" target="_blank" style="color: #d4a017">View park info</a></div>
       </div>
     </div>
+
     <div class="stop" data-number="2" id="stop2">
-      <h3 class="stop-title">Dinner at Sushi Nekosan</h3>
+      <h3 class="stop-title">Flavorful Dinner at Sushi Nekosan</h3>
       <div class="stop-content">
-        <div class="stop-location">📍 1119 Wall Street, La Jolla, CA 92037</div>
-        <div class="stop-phone">☎️ (858) 999-099</div>
+        <div class="stop-location">📍 Sushi Nekosan</div>
+        <div class="stop-phone">☎️ 1119 Wall Street, La Jolla, CA 92037</div>
         <div class="btns">
-          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Sushi%20Nekosan%201119%20Wall%20Street%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
-          <div class="tooltip"><a href="tel:+18589990990" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call Sushi Nekosan</span></div>
-          <div class="tooltip"><a href="https://sushinekosan.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View full menu online</span></div>
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Sushi%20Nekosan%201119%20Wall%20Street%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Google Maps</span></div>
+          <div class="tooltip"><a href="https://maps.apple.com/?address=1119%20Wall%20Street,La%20Jolla,CA%2092037" target="_blank" class="btn apple-btn"><i data-lucide="navigation"></i></a><span class="tooltip-text">Apple Maps</span></div>
+          <div class="tooltip"><a href="tel:+18589990999" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">(858) 999-0999</span></div>
+          <div class="tooltip"><a href="https://sushinekosan.com/" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View menu</span></div>
         </div>
-        <div class="vibe">Cozy, intimate, "we picked a good one." Go earlier than peak dinner so it feels calm.</div>
-        <div class="detail-section"><div class="detail-title">Menu picks:</div><ul><li><strong>Beef Gyoza or Veggie Gyoza</strong> - perfect starter</li><li><strong>Chicken Karage</strong> - Kavindi's flavor anchor</li><li><strong>Grilled Pork Belly</strong> - rich and satisfying</li><li><strong>Tuna, Salmon, Fresh Water Eel nigiri</strong> - mild, not "fishy"</li></ul></div>
-        <div class="backup"><strong>🍜 Backup Dinner:</strong> <strong>Cherrywine Modern Asian Cuisine</strong> - Same neighborhood. <a href="tel:+18582467755" style="color: #d4a017">(858) 246-7755</a></div>
+        <div class="vibe">Cozy, intimate, "we picked a good one" – go earlier than peak dinner so it feels calm.</div>
+        <div class="detail-section">
+          <div class="detail-title">🍽️ Menu picks that match your preferences:</div>
+          <div class="menu-pick"><span class="menu-pick-name">Beef Gyoza or Veggie Gyoza</span> – <span class="menu-pick-note">shareable starter</span></div>
+          <div class="menu-pick"><span class="menu-pick-name">Chicken Karage</span> – <span class="menu-pick-note">Kavindi's flavor anchor!</span></div>
+          <div class="menu-pick"><span class="menu-pick-name">Grilled Pork Belly</span> – <span class="menu-pick-note">bold flavors, not bland</span></div>
+          <div class="menu-pick"><span class="menu-pick-name">Tuna + Salmon + Fresh Water Eel nigiri</span> – <span class="menu-pick-note">mild, not "fishy"</span></div>
+          <div class="menu-pick"><span class="menu-pick-name">Crispy Rice Roll</span> – <span class="menu-pick-note">good texture, not bland</span></div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">⏰ Hours:</div>
+          <p>Open Mon 11:30 AM – 9:30 PM</p>
+        </div>
+        <div class="backup"><strong>🍜 Backup Dinner:</strong> <strong>Cherrywine Modern Asian Cuisine</strong> – 8008 Girard Ave. Bold flavors, noodle-forward options. Try Burmese street noodles, Chicken & Potatoes Curry, Tea Leaves Salad. <a href="tel:+18582467755" style="color: #d4a017">(858) 246-7755</a></div>
       </div>
     </div>
+
     <div class="stop" data-number="3" id="stop3">
       <h3 class="stop-title">Sweet Finish at Bobboi Natural Gelato</h3>
       <div class="stop-content">
-        <div class="stop-location">📍 8008 Girard Ave, La Jolla, CA 92037</div>
-        <div class="stop-phone">☎️ (858) 255-8693</div>
+        <div class="stop-location">📍 Bobboi Natural Gelato (La Jolla)</div>
+        <div class="stop-phone">☎️ 8008 Girard Ave, La Jolla, CA 92037</div>
         <div class="btns">
-          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Bobboi%20Natural%20Gelato%208008%20Girard%20Ave%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Get directions via Google Maps</span></div>
-          <div class="tooltip"><a href="tel:+18582558693" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">Call Bobboi Gelato</span></div>
-          <div class="tooltip"><a href="https://www.bobboi.com/la-jolla" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View flavors online</span></div>
+          <div class="tooltip"><a href="https://www.google.com/maps/search/?api=1&query=Bobboi%20Natural%20Gelato%208008%20Girard%20Ave%20La%20Jolla%20CA%2092037" target="_blank" class="btn dir-btn"><i data-lucide="map"></i></a><span class="tooltip-text">Google Maps</span></div>
+          <div class="tooltip"><a href="https://maps.apple.com/?address=8008%20Girard%20Ave,La%20Jolla,CA%2092037" target="_blank" class="btn apple-btn"><i data-lucide="navigation"></i></a><span class="tooltip-text">Apple Maps</span></div>
+          <div class="tooltip"><a href="tel:+18582558693" class="btn ph-btn"><i data-lucide="phone"></i></a><span class="tooltip-text">(858) 255-8693</span></div>
+          <div class="tooltip"><a href="https://bobboi.com/pages/la-jolla" target="_blank" class="btn menu-btn"><i data-lucide="utensils"></i></a><span class="tooltip-text">View flavors</span></div>
         </div>
-        <div class="vibe">Cute, easy, "let's linger." Split a couple scoops and take it back toward the water for a slow, end-of-date walk.</div>
-        <div class="detail-section"><div class="detail-title">Menu-friendly flavors:</div><ul><li><strong>Pistacchio</strong> - Kavindi's pick (rich, bold)</li><li><strong>Salted Caramel</strong> - Kavindi's pick (not subtle)</li><li><strong>Dark Chocolate Sorbet</strong> - Partner's pick</li><li><strong>Strawberry Sorbet</strong> - Partner's pick (bright)</li></ul></div>
-        <div class="backup"><strong>🍰 Backup Dessert:</strong> <strong>Parfait Paris</strong> - Still walkable on Girard Ave. <a href="tel:+18589643714" style="color: #d4a017">(858) 964-3714</a></div>
+        <div class="vibe">Cute, easy, "let's linger" – split a couple scoops and take it back toward the water for a slow, end-of-date walk.</div>
+        <div class="detail-section">
+          <div class="detail-title">🍨 Flavor ideas:</div>
+          <div class="menu-pick"><span class="menu-pick-name">Pistacchio</span> – <span class="menu-pick-note">Kavindi's pick – rich, bold</span></div>
+          <div class="menu-pick"><span class="menu-pick-name">Salted Caramel</span> – <span class="menu-pick-note">Kavindi's pairing</span></div>
+          <div class="menu-pick"><span class="menu-pick-name">Dark Chocolate Sorbet</span> – <span class="menu-pick-note">Partner's pick – bold, simple</span></div>
+          <div class="menu-pick"><span class="menu-pick-name">Strawberry Sorbet</span> – <span class="menu-pick-note">Partner's pairing – bright</span></div>
+          <div class="menu-pick"><span class="menu-pick-name">Hazelnut</span> – <span class="menu-pick-note">another great option</span></div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">🅿️ Parking:</div>
+          <p>Same as dinner – ACE lot + nearby streets</p>
+        </div>
+        <div class="backup"><strong>🧁 Backup Dessert:</strong> <strong>Parfait Paris</strong> – 7874 Girard Ave. Still walkable, still sweet, open until 7 PM Mon-Thu. <a href="tel:+18589643714" style="color: #d4a017">(858) 964-3714</a></div>
       </div>
     </div>
+
     <div class="collapsible-section" id="checklistSection">
       <div class="collapsible-header" onclick="toggleCollapsible('checklistSection')">
         <div class="collapsible-title"><span>✅</span><span>Date Checklist</span></div>
@@ -299,31 +553,35 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; 
         <div class="collapsible-inner">
           <div class="checklist">
             <div class="checklist-item" onclick="toggleCheck(this)" data-item="0"><div class="checklist-checkbox"></div><span class="checklist-text">Reserve parking at ACE Lot 0545</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="1"><div class="checklist-checkbox"></div><span class="checklist-text">Bring a light jacket for evening breeze</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="2"><div class="checklist-checkbox"></div><span class="checklist-text">Start with coastal bluff walk</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="3"><div class="checklist-checkbox"></div><span class="checklist-text">Sea Cave tour (if you both want it)</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="4"><div class="checklist-checkbox"></div><span class="checklist-text">Dinner at Sushi Nekosan</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="5"><div class="checklist-checkbox"></div><span class="checklist-text">Gelato at Bobboi</span></div>
-            <div class="checklist-item" onclick="toggleCheck(this)" data-item="6"><div class="checklist-checkbox"></div><span class="checklist-text">End-of-date sunset walk by the water</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="1"><div class="checklist-checkbox"></div><span class="checklist-text">Bring light jacket/scarf for coastal breeze</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="2"><div class="checklist-checkbox"></div><span class="checklist-text">Wear comfy shoes (145 stairs for cave)</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="3"><div class="checklist-checkbox"></div><span class="checklist-text">Check weather 48 hours before</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="4"><div class="checklist-checkbox"></div><span class="checklist-text">Sea Cave adventure + bluff walk</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="5"><div class="checklist-checkbox"></div><span class="checklist-text">Dinner at Sushi Nekosan</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="6"><div class="checklist-checkbox"></div><span class="checklist-text">Gelato at Bobboi</span></div>
+            <div class="checklist-item" onclick="toggleCheck(this)" data-item="7"><div class="checklist-checkbox"></div><span class="checklist-text">Leave before 6:40 PM (Padres game traffic)</span></div>
           </div>
         </div>
       </div>
     </div>
+    
     <div class="share-section" id="share">
-      <h3 class="share-title">💕 Share This Date Plan</h3>
+      <h3 class="share-title">🌊 Share This Date Plan</h3>
       <div class="share-buttons">
         <button class="share-btn share-copy" onclick="copyLink()"><i data-lucide="copy"></i>Copy Link</button>
       </div>
     </div>
+    
     <div class="budget" id="budget">
       <h3 class="budget-title">💰 Estimated Budget for Two</h3>
       <div class="budget-items">
-        <div class="budget-item"><div class="budget-label">Sea Cave</div><div class="budget-value">$20</div></div>
-        <div class="budget-item"><div class="budget-label">Dinner</div><div class="budget-value">$60-$80</div></div>
-        <div class="budget-item"><div class="budget-label">Gelato</div><div class="budget-value">$12-$18</div></div>
-        <div class="budget-item"><div class="budget-label">Parking</div><div class="budget-value">$10-$15</div></div>
+        <div class="budget-item"><div class="budget-label">Sea Cave (optional)</div><div class="budget-value">$15-$35</div></div>
+        <div class="budget-item"><div class="budget-label">Dinner</div><div class="budget-value">$70-$110</div></div>
+        <div class="budget-item"><div class="budget-label">Dessert</div><div class="budget-value">$12-$25</div></div>
+        <div class="budget-item"><div class="budget-label">Parking</div><div class="budget-value">$15-$25</div></div>
       </div>
-      <div class="budget-total">Total: $100-$135</div>
+      <div class="budget-total">Total: $100-$190</div>
+      <p style="font-size: 0.85rem; margin-top: 15px; opacity: 0.9;">💡 Skip the Sea Cave to stay in $100-$150 range</p>
     </div>
   </div>
 </div>
@@ -363,7 +621,7 @@ document.addEventListener('mousemove', function(e) {
 function createCursorSparkle(x, y) {
   const sparkle = document.createElement('div');
   sparkle.className = 'cursor-sparkle';
-  sparkle.textContent = ['✨', '💕', '💫', '💖'][Math.floor(Math.random() * 4)];
+  sparkle.textContent = ['🌊', '🐚', '✨', '💫'][Math.floor(Math.random() * 4)];
   sparkle.style.left = x + 'px';
   sparkle.style.top = y + 'px';
   sparkle.style.position = 'fixed';
@@ -378,7 +636,7 @@ window.addEventListener('load', function() {
 });
 function createParticles() {
   const particlesContainer = document.getElementById('particles');
-  const emojis = ['💕', '✨', '💖', '💫', '🌸'];
+  const emojis = ['🌊', '🐚', '✨', '💫', '🦋'];
   for (let i = 0; i < 20; i++) {
     const particle = document.createElement('div');
     particle.className = 'particle';
@@ -391,7 +649,7 @@ function createParticles() {
   }
 }
 createParticles();
-const typewriterText = "A coastal afternoon that blends ocean views, a touch of adventure, flavorful bites, and a sweet finish.";
+const typewriterText = "Ocean views and a calm coastal stroll, a little \"this feels special\" micro-adventure, then flavorful Asian dinner and a sweet finish under the California sun.";
 let charIndex = 0;
 function typeWriter() {
   if (charIndex < typewriterText.length) {
@@ -418,7 +676,7 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 function handleScroll() {
-  const elements = [document.getElementById('summary'), document.getElementById('recommendations'), document.getElementById('stop1'), document.getElementById('stop2'), document.getElementById('stop3'), document.getElementById('weatherSection'), document.getElementById('checklistSection'), document.getElementById('share'), document.getElementById('budget')];
+  const elements = [document.getElementById('summary'), document.getElementById('calendarSection'), document.getElementById('parkingSection'), document.getElementById('outfitSection'), document.getElementById('bringSection'), document.getElementById('personalizedSection'), document.getElementById('convoSection'), document.getElementById('recommendations'), document.getElementById('stop1'), document.getElementById('stop2'), document.getElementById('stop3'), document.getElementById('weatherSection'), document.getElementById('checklistSection'), document.getElementById('share'), document.getElementById('budget')];
   elements.forEach(element => {
     if (element) {
       const rect = element.getBoundingClientRect();
@@ -471,6 +729,30 @@ function loadChecklistState() {
   });
 }
 loadChecklistState();
+function markStopComplete(stopNum) {
+  const stops = document.querySelectorAll('.progress-stop');
+  stops.forEach((stop, index) => {
+    if (index < stopNum) {
+      stop.classList.add('completed');
+      stop.classList.remove('active');
+    } else if (index === stopNum - 1) {
+      stop.classList.add('active');
+      stop.classList.remove('completed');
+    } else {
+      stop.classList.remove('completed', 'active');
+    }
+  });
+  const progressPercent = ((stopNum - 1) / 3) * 100;
+  document.getElementById('progressBar').style.width = progressPercent + '%';
+  localStorage.setItem('dateProgress', stopNum);
+}
+function loadProgress() {
+  const savedProgress = localStorage.getItem('dateProgress');
+  if (savedProgress) {
+    markStopComplete(parseInt(savedProgress));
+  }
+}
+loadProgress();
 document.getElementById('loveNoteTrigger').addEventListener('click', function() {
   document.getElementById('loveNoteModal').classList.add('active');
 });
@@ -482,7 +764,7 @@ document.getElementById('loveNoteModal').addEventListener('click', function(e) {
 });
 function copyLink() {
   navigator.clipboard.writeText(window.location.href).then(function() {
-    alert('Link copied to clipboard! 💕');
+    alert('Link copied to clipboard! 🌊');
   });
 }
 </script>
