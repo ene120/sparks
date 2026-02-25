@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DateFlo Infographic Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ===== HEADER SECTION ===== */
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, #ff6b9d, #c44569, #ff6b9d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #a0a0a0;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ===== METHOD SECTION ===== */
+    .method-section {
+      margin-bottom: 60px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 30px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .method-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff6b9d, #c44569, #ff6b9d);
+    }
+
+    .method-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .method-badge {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .method-subtitle {
+      color: #888;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+    }
+
+    /* ===== METHOD 1: SVG INFOGRAPHIC ===== */
+    .svg-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .svg-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .svg-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: #ff6b9d;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    /* SVG Timeline */
+    .svg-timeline {
+      width: 100%;
+      height: 400px;
+    }
+
+    /* SVG Pie Chart */
+    .svg-pie-container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .svg-pie-chart {
+      width: 200px;
+      height: 200px;
+    }
+
+    .pie-legend {
+      flex: 1;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+    }
+
+    /* SVG Map/Journey */
+    .svg-journey {
+      width: 100%;
+      height: 300px;
+    }
+
+    /* ===== METHOD 2: CSS INFOGRAPHIC ===== */
+    .css-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    /* CSS Progress Cards */
+    .css-progress-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .css-progress-card h4 {
+      font-family: 'Playfair Display', serif;
+      color: #ff6b9d;
+      margin-bottom: 20px;
+    }
+
+    .progress-item {
+      margin-bottom: 20px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 10px;
+      position: relative;
+      animation: progressPulse 2s ease-in-out infinite;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes progressPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+
+    .fill-romance { background: linear-gradient(90deg, #ff6b9d, #c44569); }
+    .fill-adventure { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+    .fill-food { background: linear-gradient(90deg, #f093fb, #f5576c); }
+    .fill-budget { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+    .fill-time { background: linear-gradient(90deg, #43e97b, #38f9d7); }
+
+    /* CSS Stop Cards */
+    .css-stop-card {
+      background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(196,69,105,0.1));
+      border-radius: 20px;
+      padding: 25px;
+      border-left: 4px solid #ff6b9d;
+      position: relative;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .css-stop-card:hover {
+      transform: translateX(10px);
+      box-shadow: 0 10px 40px rgba(255,107,157,0.2);
+    }
+
+    .stop-number {
+      position: absolute;
+      top: -10px;
+      left: -20px;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .stop-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .stop-time {
+      color: #ff6b9d;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .stop-details {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    /* CSS Budget Circle */
+    .budget-circle-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .budget-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ff6b9d 0deg 90deg,
+        #4facfe 90deg 180deg,
+        #43e97b 180deg 270deg,
+        #f093fb 270deg 360deg
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: rotateSlow 20s linear infinite;
+    }
+
+    @keyframes rotateSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .budget-circle-inner {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #1a1a2e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: rotateSlow 20s linear infinite reverse;
+    }
+
+    .budget-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .budget-label {
+      font-size: 0.75rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ===== METHOD 3: CANVAS INFOGRAPHIC ===== */
+    .canvas-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+    }
+
+    .canvas-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .canvas-card h4 {
+      font-family: 'Playfair Display', serif;
+      color: #ff6b9d;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    canvas {
+      width: 100%;
+      border-radius: 15px;
+      background: rgba(0,0,0,0.2);
+    }
+
+    /* ===== COMBINED INFOGRAPHIC ===== */
+    .combined-section {
+      margin-top: 80px;
+      text-align: center;
+      padding: 60px 40px;
+      background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(196,69,105,0.05));
+      border-radius: 30px;
+      border: 1px solid rgba(255,107,157,0.3);
+      position: relative;
+    }
+
+    .combined-section::before {
+      content: '💕';
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3rem;
+      background: #1a1a2e;
+      padding: 0 20px;
+    }
+
+    .combined-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .combined-subtitle {
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .combined-infographic {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { 
+        box-shadow: 0 0 20px rgba(255,107,157,0.3);
+      }
+      50% { 
+        box-shadow: 0 0 40px rgba(255,107,157,0.6);
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2.5rem; }
+      .method-section { padding: 25px; }
+      .svg-container, .css-container, .canvas-container {
+        grid-template-columns: 1fr;
+      }
+      .svg-pie-container { flex-direction: column; }
+      .budget-circle-container { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>DateFlo Infographic</h1>
+      <p>Three Methods • One Beautiful Experience</p>
+    </header>
+
+    <!-- Method 1: SVG -->
+    <section class="method-section">
+      <h2 class="method-title">
+        <span class="method-badge">Method 1</span>
+        SVG Infographics
+      </h2>
+      <p class="method-subtitle">Scalable vector graphics with animations and interactivity</p>
+      
+      <div class="svg-container">
+        <!-- SVG Timeline -->
+        <div class="svg-card">
+          <h3>🌊 Date Timeline</h3>
+          <svg class="svg-timeline" viewBox="0 0 400 400">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#ff6b9d;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#c44569;stop-opacity:1" />
+              </linearGradient>
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+              </linearGradient>
+              <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#43e97b;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#38f9d7;stop-opacity:1" />
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            
+            <!-- Timeline Line -->
+            <line x1="200" y1="50" x2="200" y2="350" stroke="rgba(255,255,255,0.2)" stroke-width="4" stroke-dasharray="10,5"/>
+            
+            <!-- Stop 1 -->
+            <g class="float" style="animation-delay: 0s;">
+              <circle cx="200" cy="80" r="25" fill="url(#grad1)" filter="url(#glow)">
+                <animate attributeName="r" values="25;28;25" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <text x="200" y="85" text-anchor="middle" fill="white" font-size="20">🌊</text>
+              <text x="240" y="75" fill="white" font-family="Playfair Display" font-size="14" font-weight="600">Sea Cave Tour</text>
+              <text x="240" y="95" fill="#ff6b9d" font-family="Montserrat" font-size="11">2:00 PM - 3:30 PM</text>
+            </g>
+            
+            <!-- Stop 2 -->
+            <g style="animation: float 3s ease-in-out infinite; animation-delay: 0.5s;">
+              <circle cx="200" cy="180" r="25" fill="url(#grad2)" filter="url(#glow)">
+                <animate attributeName="r" values="25;28;25" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+              </circle>
+              <text x="200" y="185" text-anchor="middle" fill="white" font-size="20">🍣</text>
+              <text x="240" y="175" fill="white" font-family="Playfair Display" font-size="14" font-weight="600">Sushi Nekosan</text>
+              <text x="240" y="195" fill="#4facfe" font-family="Montserrat" font-size="11">4:30 PM - 5:30 PM</text>
+            </g>
+            
+            <!-- Stop 3 -->
+            <g style="animation: float 3s ease-in-out infinite; animation-delay: 1s;">
+              <circle cx="200" cy="280" r="25" fill="url(#grad3)" filter="url(#glow)">
+                <animate attributeName="r" values="25;28;25" dur="2s" repeatCount="indefinite" begin="1s"/>
+              </circle>
+              <text x="200" y="285" text-anchor="middle" fill="white" font-size="20">🍨</text>
+              <text x="240" y="275" fill="white" font-family="Playfair Display" font-size="14" font-weight="600">Bobboi Gelato</text>
+              <text x="240" y="295" fill="#43e97b" font-family="Montserrat" font-size="11">5:30 PM - 6:30 PM</text>
+            </g>
+            
+            <!-- Total Time Badge -->
+            <g>
+              <rect x="150" y="340" width="100" height="40" rx="20" fill="rgba(255,107,157,0.2)" stroke="#ff6b9d" stroke-width="1"/>
+              <text x="200" y="365" text-anchor="middle" fill="white" font-family="Montserrat" font-size="12" font-weight="600">4-5 Hours</text>
+            </g>
+            
+            <!-- Decorative hearts -->
+            <text x="50" y="100" fill="rgba(255,107,157,0.3)" font-size="30">💕</text>
+            <text x="350" y="250" fill="rgba(255,107,157,0.3)" font-size="30">✨</text>
+            <text x="70" y="300" fill="rgba(255,107,157,0.3)" font-size="25">💗</text>
+          </svg>
+        </div>
+
+        <!-- SVG Pie Chart -->
+        <div class="svg-card">
+          <h3>💰 Budget Breakdown</h3>
+          <div class="svg-pie-container">
+            <svg class="svg-pie-chart" viewBox="0 0 200 200">
+              <defs>
+                <filter id="shadow">
+                  <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.3"/>
+                </filter>
+              </defs>
+              
+              <!-- Pie slices -->
+              <circle cx="100" cy="100" r="80" fill="transparent" stroke="#ff6b9d" stroke-width="40" stroke-dasharray="125.6 377" stroke-dashoffset="0" filter="url(#shadow)">
+                <animate attributeName="stroke-dasharray" from="0 502.4" to="125.6 377" dur="1s" fill="freeze"/>
+              </circle>
+              <circle cx="100" cy="100" r="80" fill="transparent" stroke="#4facfe" stroke-width="40" stroke-dasharray="100.5 402" stroke-dashoffset="-125.6" filter="url(#shadow)">
+                <animate attributeName="stroke-dasharray" from="0 502.4" to="100.5 402" dur="1s" fill="freeze" begin="0.2s"/>
+              </circle>
+              <circle cx="100" cy="100" r="80" fill="transparent" stroke="#43e97b" stroke-width="40" stroke-dasharray="75.4 427" stroke-dashoffset="-226.1" filter="url(#shadow)">
+                <animate attributeName="stroke-dasharray" from="0 502.4" to="75.4 427" dur="1s" fill="freeze" begin="0.4s"/>
+              </circle>
+              <circle cx="100" cy="100" r="80" fill="transparent" stroke="#f093fb" stroke-width="40" stroke-dasharray="50.2 452" stroke-dashoffset="-301.5" filter="url(#shadow)">
+                <animate attributeName="stroke-dasharray" from="0 502.4" to="50.2 452" dur="1s" fill="freeze" begin="0.6s"/>
+              </circle>
+              
+              <!-- Center circle -->
+              <circle cx="100" cy="100" r="50" fill="#1a1a2e"/>
+              <text x="100" y="95" text-anchor="middle" fill="white" font-family="Playfair Display" font-size="22" font-weight="600">$145</text>
+              <text x="100" y="115" text-anchor="middle" fill="#888" font-family="Montserrat" font-size="10">TOTAL</text>
+            </svg>
+            
+            <div class="pie-legend">
+              <div class="legend-item">
+                <div class="legend-color" style="background: #ff6b9d;"></div>
+                <span>Tour & Activities ($45)</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: #4facfe;"></div>
+                <span>Dinner ($60)</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: #43e97b;"></div>
+                <span>Dessert ($20)</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: #f093fb;"></div>
+                <span>Parking & Tips ($20)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SVG Journey Map -->
+        <div class="svg-card">
+          <h3>🗺️ Location Journey</h3>
+          <svg class="svg-journey" viewBox="0 0 500 300">
+            <defs>
+              <linearGradient id="roadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#ff6b9d"/>
+                <stop offset="50%" style="stop-color:#4facfe"/>
+                <stop offset="100%" style="stop-color:#43e97b"/>
+              </linearGradient>
+            </defs>
+            
+            <!-- Background map suggestion -->
+            <rect x="0" y="0" width="500" height="300" fill="rgba(0,0,0,0.2)" rx="15"/>
+            
+            <!-- Curved path -->
+            <path d="M 80 220 Q 150 180 200 150 Q 280 100 350 130 Q 420 160 450 100" 
+                  fill="none" stroke="url(#roadGrad)" stroke-width="6" stroke-linecap="round" stroke-dasharray="1" opacity="0.8">
+              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="3s" fill="freeze"/>
+            </path>
+            
+            <!-- Location markers -->
+            <g>
+              <!-- Start -->
+              <circle cx="80" cy="220" r="20" fill="#ff6b9d" class="pulse-glow"/>
+              <text x="80" y="225" text-anchor="middle" fill="white" font-size="16">🚗</text>
+              <text x="80" y="260" text-anchor="middle" fill="white" font-size="11" font-family="Montserrat">Parking</text>
+              
+              <!-- Stop 1 -->
+              <circle cx="200" cy="150" r="22" fill="#ff6b9d" class="pulse-glow"/>
+              <text x="200" y="155" text-anchor="middle" fill="white" font-size="18">🌊</text>
+              <text x="200" y="120" text-anchor="middle" fill="white" font-size="11" font-family="Montserrat">Sea Cave</text>
+              
+              <!-- Stop 2 -->
+              <circle cx="350" cy="130" r="22" fill="#4facfe" class="pulse-glow"/>
+              <text x="350" y="135" text-anchor="middle" fill="white" font-size="18">🍣</text>
+              <text x="350" y="100" text-anchor="middle" fill="white" font-size="11" font-family="Montserrat">Sushi</text>
+              
+              <!-- Stop 3 -->
+              <circle cx="450" cy="100" r="22" fill="#43e97b" class="pulse-glow"/>
+              <text x="450" y="105" text-anchor="middle" fill="white" font-size="18">🍨</text>
+              <text x="450" y="70" text-anchor="middle" fill="white" font-size="11" font-family="Montserrat">Gelato</text>
+            </g>
+            
+            <!-- Distance indicators -->
+            <text x="140" y="200" fill="#888" font-size="10" font-family="Montserrat">0.3 mi</text>
+            <text x="275" y="120" fill="#888" font-size="10" font-family="Montserrat">0.2 mi</text>
+            <text x="400" y="135" fill="#888" font-size="10" font-family="Montserrat">0.2 mi</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Method 2: CSS -->
+    <section class="method-section">
+      <h2 class="method-title">
+        <span class="method-badge">Method 2</span>
+        CSS Infographics
+      </h2>
+      <p class="method-subtitle">Pure CSS shapes, animations, and visual effects</p>
+      
+      <div class="css-container">
+        <!-- Progress Bars -->
+        <div class="css-progress-card">
+          <h4>📊 Date Vibe Scores</h4>
+          
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>💕 Romance Level</span>
+              <span>95%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-romance" style="width: 95%;"></div>
+            </div>
+          </div>
+          
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>🌊 Adventure Factor</span>
+              <span>80%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-adventure" style="width: 80%;"></div>
+            </div>
+          </div>
+          
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>🍽️ Food Quality</span>
+              <span>92%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-food" style="width: 92%;"></div>
+            </div>
+          </div>
+          
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>💰 Budget Friendly</span>
+              <span>75%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-budget" style="width: 75%;"></div>
+            </div>
+          </div>
+          
+          <div class="progress-item">
+            <div class="progress-label">
+              <span>⏰ Time Efficiency</span>
+              <span>88%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill fill-time" style="width: 88%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop Cards -->
+        <div class="css-progress-card">
+          <h4>🎯 Date Stops</h4>
+          
+          <div class="css-stop-card">
+            <div class="stop-number">1</div>
+            <div class="stop-title">🌊 Sea Cave Adventure</div>
+            <div class="stop-time">2:00 PM - 3:30 PM</div>
+            <div class="stop-details">Self-guided tour through Sunny Jim Cave, 145 stairs each way</div>
+          </div>
+          
+          <div class="css-stop-card">
+            <div class="stop-number">2</div>
+            <div class="stop-title">🍣 Sushi Nekosan</div>
+            <div class="stop-time">4:30 PM - 5:30 PM</div>
+            <div class="stop-details">Izakaya-style dining with yakitori and fresh sushi</div>
+          </div>
+          
+          <div class="css-stop-card">
+            <div class="stop-number">3</div>
+            <div class="stop-title">🍨 Bobboi Natural Gelato</div>
+            <div class="stop-time">5:30 PM - 6:30 PM</div>
+            <div class="stop-details">Italian-style gelato with seasonal flavors</div>
+          </div>
+        </div>
+
+        <!-- Budget Circles -->
+        <div class="css-progress-card">
+          <h4>💵 Budget Overview</h4>
+          <div class="budget-circle-container">
+            <div class="budget-circle">
+              <div class="budget-circle-inner">
+                <div class="budget-amount">$145</div>
+                <div class="budget-label">Total</div>
+              </div>
+            </div>
+            <div class="budget-circle" style="background: conic-gradient(#ff6b9d 0deg 216deg, rgba(255,255,255,0.1) 216deg 360deg);">
+              <div class="budget-circle-inner">
+                <div class="budget-amount">$90</div>
+                <div class="budget-label">Per Person</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Method 3: Canvas -->
+    <section class="method-section">
+      <h2 class="method-title">
+        <span class="method-badge">Method 3</span>
+        Canvas Infographics
+      </h2>
+      <p class="method-subtitle">JavaScript-powered dynamic charts and animations</p>
+      
+      <div class="canvas-container">
+        <!-- Animated Bar Chart -->
+        <div class="canvas-card">
+          <h4>📈 Activity Duration Chart</h4>
+          <canvas id="barChart" width="450" height="300"></canvas>
+        </div>
+
+        <!-- Animated Particles -->
+        <div class="canvas-card">
+          <h4>✨ Romantic Particles</h4>
+          <canvas id="particleCanvas" width="450" height="300"></canvas>
+        </div>
+
+        <!-- Radar Chart -->
+        <div class="canvas-card">
+          <h4>🎯 Date Profile Radar</h4>
+          <canvas id="radarChart" width="450" height="350"></canvas>
+        </div>
+
+        <!-- Animated Clock/Timeline -->
+        <div class="canvas-card">
+          <h4>⏰ Time Flow Animation</h4>
+          <canvas id="clockCanvas" width="450" height="300"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Combined Infographic -->
+    <section class="combined-section">
+      <h2 class="combined-title">Complete Date Overview</h2>
+      <p class="combined-subtitle">All three methods working together for maximum impact</p>
+      
+      <div class="combined-infographic">
+        <!-- Combined visualization will be created with JS -->
+        <canvas id="combinedCanvas" width="800" height="400"></canvas>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ===== CANVAS 1: BAR CHART =====
+    const barCanvas = document.getElementById('barChart');
+    const barCtx = barCanvas.getContext('2d');
+    
+    const barData = [
+      { label: 'Sea Cave', value: 90, color: '#ff6b9d' },
+      { label: 'Walk', value: 30, color: '#4facfe' },
+      { label: 'Sushi', value: 60, color: '#43e97b' },
+      { label: 'Gelato', value: 40, color: '#f093fb' }
+    ];
+    
+    let barAnimProgress = 0;
+    
+    function drawBarChart() {
+      barCtx.clearRect(0, 0, barCanvas.width, barCanvas.height);
+      
+      const padding = 60;
+      const barWidth = 60;
+      const spacing = 30;
+      const chartHeight = barCanvas.height - padding * 2;
+      const maxValue = 100;
+      
+      // Draw axes
+      barCtx.strokeStyle = 'rgba(255,255,255,0.2)';
+      barCtx.lineWidth = 1;
+      barCtx.beginPath();
+      barCtx.moveTo(padding, padding);
+      barCtx.lineTo(padding, barCanvas.height - padding);
+      barCtx.lineTo(barCanvas.width - padding, barCanvas.height - padding);
+      barCtx.stroke();
+      
+      // Draw grid lines
+      for (let i = 0; i <= 4; i++) {
+        const y = padding + (chartHeight / 4) * i;
+        barCtx.strokeStyle = 'rgba(255,255,255,0.1)';
+        barCtx.beginPath();
+        barCtx.moveTo(padding, y);
+        barCtx.lineTo(barCanvas.width - padding, y);
+        barCtx.stroke();
+        
+        // Labels
+        barCtx.fillStyle = '#888';
+        barCtx.font = '11px Montserrat';
+        barCtx.fillText((100 - i * 25) + ' min', 10, y + 4);
+      }
+      
+      // Draw bars with animation
+      barData.forEach((bar, i) => {
+        const x = padding + spacing + i * (barWidth + spacing);
+        const height = (bar.value / maxValue) * chartHeight * Math.min(barAnimProgress, 1);
+        const y = barCanvas.height - padding - height;
+        
+        // Gradient fill
+        const gradient = barCtx.createLinearGradient(x, y, x, barCanvas.height - padding);
+        gradient.addColorStop(0, bar.color);
+        gradient.addColorStop(1, bar.color + '40');
+        
+        // Bar shadow
+        barCtx.fillStyle = 'rgba(0,0,0,0.3)';
+        barCtx.fillRect(x + 3, y + 3, barWidth, height);
+        
+        // Bar
+        barCtx.fillStyle = gradient;
+        barCtx.fillRect(x, y, barWidth, height);
+        
+        // Glow effect
+        barCtx.shadowColor = bar.color;
+        barCtx.shadowBlur = 15;
+        barCtx.fillRect(x, y, barWidth, height);
+        barCtx.shadowBlur = 0;
+        
+        // Label
+        barCtx.fillStyle = '#fff';
+        barCtx.font = '12px Montserrat';
+        barCtx.textAlign = 'center';
+        barCtx.fillText(bar.label, x + barWidth/2, barCanvas.height - padding + 20);
+        
+        // Value
+        if (barAnimProgress >= 1) {
+          barCtx.fillStyle = bar.color;
+          barCtx.font = 'bold 14px Montserrat';
+          barCtx.fillText(bar.value + ' min', x + barWidth/2, y - 10);
+        }
+      });
+      
+      if (barAnimProgress < 1) {
+        barAnimProgress += 0.02;
+        requestAnimationFrame(drawBarChart);
+      }
+    }
+    
+    // ===== CANVAS 2: PARTICLES =====
+    const particleCanvas = document.getElementById('particleCanvas');
+    const particleCtx = particleCanvas.getContext('2d');
+    
+    const particles = [];
+    const particleCount = 50;
+    
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      
+      reset() {
+        this.x = Math.random() * particleCanvas.width;
+        this.y = particleCanvas.height + 10;
+        this.size = Math.random() * 15 + 8;
+        this.speedY = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 1;
+        this.opacity = Math.random() * 0.7 + 0.3;
+        this.emoji = ['💕', '💗', '✨', '💖', '🩷'][Math.floor(Math.random() * 5)];
+      }
+      
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        this.opacity -= 0.003;
+        
+        if (this.y < -20 || this.opacity <= 0) {
+          this.reset();
+        }
+      }
+      
+      draw() {
+        particleCtx.font = this.size + 'px Arial';
+        particleCtx.globalAlpha = this.opacity;
+        particleCtx.fillText(this.emoji, this.x, this.y);
+        particleCtx.globalAlpha = 1;
+      }
+    }
+    
+    for (let i = 0; i < particleCount; i++) {
+      const p = new Particle();
+      p.y = Math.random() * particleCanvas.height;
+      particles.push(p);
+    }
+    
+    function animateParticles() {
+      particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+      
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      
+      requestAnimationFrame(animateParticles);
+    }
+    
+    // ===== CANVAS 3: RADAR CHART =====
+    const radarCanvas = document.getElementById('radarChart');
+    const radarCtx = radarCanvas.getContext('2d');
+    
+    const radarData = {
+      labels: ['Romance', 'Adventure', 'Food', 'Budget', 'Uniqueness', 'Memorability'],
+      values: [95, 80, 92, 75, 88, 96]
+    };
+    
+    let radarAnimProgress = 0;
+    
+    function drawRadarChart() {
+      radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
+      
+      const centerX = radarCanvas.width / 2;
+      const centerY = radarCanvas.height / 2;
+      const radius = 120;
+      const levels = 5;
+      const sides = radarData.labels.length;
+      const angle = (Math.PI * 2) / sides;
+      
+      // Draw grid
+      for (let i = 1; i <= levels; i++) {
+        radarCtx.beginPath();
+        for (let j = 0; j <= sides; j++) {
+          const r = (radius / levels) * i;
+          const x = centerX + r * Math.cos(angle * j - Math.PI/2);
+          const y = centerY + r * Math.sin(angle * j - Math.PI/2);
+          if (j === 0) radarCtx.moveTo(x, y);
+          else radarCtx.lineTo(x, y);
+        }
+        radarCtx.strokeStyle = 'rgba(255,255,255,0.1)';
+        radarCtx.stroke();
+      }
+      
+      // Draw axes
+      for (let i = 0; i < sides; i++) {
+        const x = centerX + radius * Math.cos(angle * i - Math.PI/2);
+        const y = centerY + radius * Math.sin(angle * i - Math.PI/2);
+        radarCtx.beginPath();
+        radarCtx.moveTo(centerX, centerY);
+        radarCtx.lineTo(x, y);
+        radarCtx.strokeStyle = 'rgba(255,255,255,0.2)';
+        radarCtx.stroke();
+      }
+      
+      // Draw data polygon
+      radarCtx.beginPath();
+      for (let i = 0; i <= sides; i++) {
+        const idx = i % sides;
+        const r = (radarData.values[idx] / 100) * radius * Math.min(radarAnimProgress, 1);
+        const x = centerX + r * Math.cos(angle * idx - Math.PI/2);
+        const y = centerY + r * Math.sin(angle * idx - Math.PI/2);
+        if (i === 0) radarCtx.moveTo(x, y);
+        else radarCtx.lineTo(x, y);
+      }
+      radarCtx.closePath();
+      
+      // Fill with gradient
+      const gradient = radarCtx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+      gradient.addColorStop(0, 'rgba(255,107,157,0.4)');
+      gradient.addColorStop(1, 'rgba(196,69,105,0.1)');
+      radarCtx.fillStyle = gradient;
+      radarCtx.fill();
+      radarCtx.strokeStyle = '#ff6b9d';
+      radarCtx.lineWidth = 2;
+      radarCtx.stroke();
+      
+      // Draw points
+      if (radarAnimProgress >= 1) {
+        for (let i = 0; i < sides; i++) {
+          const r = (radarData.values[i] / 100) * radius;
+          const x = centerX + r * Math.cos(angle * i - Math.PI/2);
+          const y = centerY + r * Math.sin(angle * i - Math.PI/2);
+          
+          radarCtx.beginPath();
+          radarCtx.arc(x, y, 5, 0, Math.PI * 2);
+          radarCtx.fillStyle = '#ff6b9d';
+          radarCtx.fill();
+        }
+      }
+      
+      // Draw labels
+      radarCtx.fillStyle = '#fff';
+      radarCtx.font = '11px Montserrat';
+      radarCtx.textAlign = 'center';
+      for (let i = 0; i < sides; i++) {
+        const x = centerX + (radius + 25) * Math.cos(angle * i - Math.PI/2);
+        const y = centerY + (radius + 25) * Math.sin(angle * i - Math.PI/2);
+        radarCtx.fillText(radarData.labels[i], x, y);
+      }
+      
+      if (radarAnimProgress < 1) {
+        radarAnimProgress += 0.02;
+        requestAnimationFrame(drawRadarChart);
+      }
+    }
+    
+    // ===== CANVAS 4: CLOCK/TIMELINE =====
+    const clockCanvas = document.getElementById('clockCanvas');
+    const clockCtx = clockCanvas.getContext('2d');
+    
+    const timeline = [
+      { time: '2:00 PM', label: 'Sea Cave', color: '#ff6b9d' },
+      { time: '3:30 PM', label: 'Walk', color: '#4facfe' },
+      { time: '4:30 PM', label: 'Sushi', color: '#43e97b' },
+      { time: '5:30 PM', label: 'Gelato', color: '#f093fb' },
+      { time: '6:30 PM', label: 'End', color: '#888' }
+    ];
+    
+    let clockAngle = 0;
+    
+    function drawClock() {
+      clockCtx.clearRect(0, 0, clockCanvas.width, clockCanvas.height);
+      
+      const centerX = 225;
+      const centerY = 150;
+      const radius = 100;
+      
+      // Clock face
+      clockCtx.beginPath();
+      clockCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      clockCtx.strokeStyle = 'rgba(255,255,255,0.2)';
+      clockCtx.lineWidth = 4;
+      clockCtx.stroke();
+      
+      // Hour markers
+      for (let i = 0; i < 12; i++) {
+        const angle = (i * Math.PI / 6) - Math.PI / 2;
+        const x1 = centerX + (radius - 15) * Math.cos(angle);
+        const y1 = centerY + (radius - 15) * Math.sin(angle);
+        const x2 = centerX + (radius - 5) * Math.cos(angle);
+        const y2 = centerY + (radius - 5) * Math.sin(angle);
+        
+        clockCtx.beginPath();
+        clockCtx.moveTo(x1, y1);
+        clockCtx.lineTo(x2, y2);
+        clockCtx.strokeStyle = 'rgba(255,255,255,0.3)';
+        clockCtx.lineWidth = 2;
+        clockCtx.stroke();
+      }
+      
+      // Animated sweep
+      const gradient = clockCtx.createConicGradient(clockAngle, centerX, centerY);
+      gradient.addColorStop(0, 'rgba(255,107,157,0.3)');
+      gradient.addColorStop(0.5, 'rgba(255,107,157,0.1)');
+      gradient.addColorStop(1, 'rgba(255,107,157,0)');
+      
+      clockCtx.beginPath();
+      clockCtx.moveTo(centerX, centerY);
+      clockCtx.arc(centerX, centerY, radius - 10, 0, clockAngle);
+      clockCtx.closePath();
+      clockCtx.fillStyle = gradient;
+      clockCtx.fill();
+      
+      // Hand
+      clockCtx.beginPath();
+      clockCtx.moveTo(centerX, centerY);
+      const handX = centerX + 70 * Math.cos(clockAngle - Math.PI/2);
+      const handY = centerY + 70 * Math.sin(clockAngle - Math.PI/2);
+      clockCtx.lineTo(handX, handY);
+      clockCtx.strokeStyle = '#ff6b9d';
+      clockCtx.lineWidth = 3;
+      clockCtx.lineCap = 'round';
+      clockCtx.stroke();
+      
+      // Center dot
+      clockCtx.beginPath();
+      clockCtx.arc(centerX, centerY, 6, 0, Math.PI * 2);
+      clockCtx.fillStyle = '#ff6b9d';
+      clockCtx.fill();
+      
+      // Timeline markers
+      const startX = 380;
+      const startY = 50;
+      const spacing = 50;
+      
+      timeline.forEach((item, i) => {
+        const y = startY + i * spacing;
+        
+        // Line to clock
+        if (i > 0) {
+          clockCtx.beginPath();
+          clockCtx.moveTo(startX - 20, y - spacing);
+          clockCtx.lineTo(startX - 20, y);
+          clockCtx.strokeStyle = 'rgba(255,255,255,0.2)';
+          clockCtx.stroke();
+        }
+        
+        // Marker
+        clockCtx.beginPath();
+        clockCtx.arc(startX - 20, y, 8, 0, Math.PI * 2);
+        clockCtx.fillStyle = item.color;
+        clockCtx.fill();
+        
+        // Text
+        clockCtx.fillStyle = '#fff';
+        clockCtx.font = 'bold 12px Montserrat';
+        clockCtx.textAlign = 'left';
+        clockCtx.fillText(item.time, startX, y + 4);
+        
+        clockCtx.fillStyle = '#888';
+        clockCtx.font = '11px Montserrat';
+        clockCtx.fillText(item.label, startX + 70, y + 4);
+      });
+      
+      // Animate
+      clockAngle += 0.01;
+      if (clockAngle > Math.PI * 2) clockAngle = 0;
+      
+      requestAnimationFrame(drawClock);
+    }
+    
+    // ===== COMBINED CANVAS =====
+    const combinedCanvas = document.getElementById('combinedCanvas');
+    const combinedCtx = combinedCanvas.getContext('2d');
+    
+    let combinedTime = 0;
+    
+    function drawCombined() {
+      combinedCtx.clearRect(0, 0, combinedCanvas.width, combinedCanvas.height);
+      
+      // Background gradient
+      const bgGrad = combinedCtx.createLinearGradient(0, 0, combinedCanvas.width, 0);
+      bgGrad.addColorStop(0, 'rgba(255,107,157,0.1)');
+      bgGrad.addColorStop(0.5, 'rgba(79,172,254,0.1)');
+      bgGrad.addColorStop(1, 'rgba(67,233,123,0.1)');
+      combinedCtx.fillStyle = bgGrad;
+      combinedCtx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
+      
+      // Title
+      combinedCtx.fillStyle = '#fff';
+      combinedCtx.font = 'bold 24px Playfair Display';
+      combinedCtx.textAlign = 'center';
+      combinedCtx.fillText("💕 Kavindi's Coastal Date 💕", combinedCanvas.width/2, 40);
+      
+      // Animated wave background
+      combinedCtx.beginPath();
+      combinedCtx.moveTo(0, 300);
+      for (let x = 0; x <= combinedCanvas.width; x += 10) {
+        const y = 300 + Math.sin((x + combinedTime * 2) * 0.02) * 20 + Math.sin((x + combinedTime) * 0.01) * 10;
+        combinedCtx.lineTo(x, y);
+      }
+      combinedCtx.lineTo(combinedCanvas.width, combinedCanvas.height);
+      combinedCtx.lineTo(0, combinedCanvas.height);
+      combinedCtx.closePath();
+      combinedCtx.fillStyle = 'rgba(79,172,254,0.1)';
+      combinedCtx.fill();
+      
+      // Floating icons
+      const icons = ['🌊', '🍣', '🍨', '💕', '✨', '🩷'];
+      icons.forEach((icon, i) => {
+        const x = 100 + i * 110;
+        const y = 100 + Math.sin(combinedTime * 0.05 + i) * 15;
+        combinedCtx.font = '30px Arial';
+        combinedCtx.fillText(icon, x, y);
+      });
+      
+      // Stats bar
+      const stats = [
+        { label: 'Duration', value: '4-5 hrs', color: '#ff6b9d' },
+        { label: 'Budget', value: '$145', color: '#4facfe' },
+        { label: 'Stops', value: '3', color: '#43e97b' },
+        { label: 'Vibe', value: '💕💕💕💕💕', color: '#f093fb' }
+      ];
+      
+      const statWidth = 180;
+      const statStartX = 40;
+      
+      stats.forEach((stat, i) => {
+        const x = statStartX + i * (statWidth + 10);
+        const y = 180;
+        
+        // Card background
+        combinedCtx.fillStyle = 'rgba(255,255,255,0.05)';
+        combinedCtx.beginPath();
+        combinedCtx.roundRect(x, y, statWidth, 80, 15);
+        combinedCtx.fill();
+        
+        // Accent line
+        combinedCtx.fillStyle = stat.color;
+        combinedCtx.fillRect(x, y, 4, 80);
+        
+        // Text
+        combinedCtx.fillStyle = '#888';
+        combinedCtx.font = '11px Montserrat';
+        combinedCtx.textAlign = 'left';
+        combinedCtx.fillText(stat.label, x + 15, y + 30);
+        
+        combinedCtx.fillStyle = '#fff';
+        combinedCtx.font = 'bold 18px Montserrat';
+        combinedCtx.fillText(stat.value, x + 15, y + 58);
+      });
+      
+      // Progress indicator
+      const progressWidth = combinedCanvas.width - 80;
+      const progressX = 40;
+      const progressY = 320;
+      
+      combinedCtx.fillStyle = 'rgba(255,255,255,0.1)';
+      combinedCtx.beginPath();
+      combinedCtx.roundRect(progressX, progressY, progressWidth, 30, 15);
+      combinedCtx.fill();
+      
+      // Animated progress fill
+      const fillWidth = ((Math.sin(combinedTime * 0.03) + 1) / 2) * progressWidth * 0.8 + progressWidth * 0.1;
+      const progressGrad = combinedCtx.createLinearGradient(progressX, 0, progressX + fillWidth, 0);
+      progressGrad.addColorStop(0, '#ff6b9d');
+      progressGrad.addColorStop(1, '#c44569');
+      combinedCtx.fillStyle = progressGrad;
+      combinedCtx.beginPath();
+      combinedCtx.roundRect(progressX, progressY, fillWidth, 30, 15);
+      combinedCtx.fill();
+      
+      combinedCtx.fillStyle = '#fff';
+      combinedCtx.font = 'bold 12px Montserrat';
+      combinedCtx.textAlign = 'center';
+      combinedCtx.fillText('Excitement Level: MAXIMUM 💗', combinedCanvas.width/2, progressY + 20);
+      
+      combinedTime++;
+      requestAnimationFrame(drawCombined);
+    }
+    
+    // Initialize all canvases
+    setTimeout(() => {
+      drawBarChart();
+      animateParticles();
+      drawRadarChart();
+      drawClock();
+      drawCombined();
+    }, 500);
+  </script>
+</body>
+</html>
