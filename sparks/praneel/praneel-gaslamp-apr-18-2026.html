@@ -550,6 +550,127 @@
     .time-note strong {
       color: #1a4a6e;
     }
+
+    /* Expandable Sections */
+    .expandable-section {
+      margin: 15px 0;
+    }
+    .expandable-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #ffe4f1;
+    }
+    .expandable-header:hover {
+      background: linear-gradient(135deg, #ffeef8, #ffe4f1);
+    }
+    .expandable-title {
+      font-weight: 500;
+      color: #c44569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .expandable-arrow {
+      transition: transform 0.3s ease;
+      color: #ff6b9d;
+    }
+    .expandable-arrow.expanded {
+      transform: rotate(180deg);
+    }
+    .expandable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .expandable-content.expanded {
+      max-height: 2000px;
+    }
+    .expandable-inner {
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 8px;
+      border: 1px solid #ffe4f1;
+    }
+
+    /* Photo Gallery */
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .photo-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .photo-item:hover {
+      transform: scale(1.03);
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Notes Section */
+    .notes-section {
+      margin-top: 15px;
+    }
+    .notes-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px 15px;
+      border: 2px solid #ffe4f1;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: #4a2c3e;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    .notes-textarea:focus {
+      outline: none;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+    .notes-textarea::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+    .notes-saved {
+      font-size: 0.75rem;
+      color: #4285f4;
+      margin-top: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .notes-saved.show {
+      opacity: 1;
+    }
+
     .btns {
       margin: 15px 0;
       display: flex;
@@ -776,6 +897,9 @@
       .infographic-banner {
         padding: 20px 15px;
       }
+      .photo-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
@@ -947,35 +1071,85 @@
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Matcha%20at%20Asa%20Bakery&dates=20260418T110000/20260418T114500&details=Matcha%20and%20Japanese%20pastries%20at%20Asa%20Bakery%20%26%20Cafe&location=634%2014th%20St%20%23110%2C%20San%20Diego%2C%20CA%2092101&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
           <div class="rideshare-btns">
             <a href="https://m.uber.com/?action=setPickup&destination=634%2014th%20St%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
-              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579ZM134.488 142.637C130.488 144.637 125.822 145.637 120.489 145.637C115.155 145.637 110.489 144.637 106.489 142.637C102.489 140.637 99.3552 137.803 97.0884 134.137C94.8216 130.47 93.6882 126.304 93.6882 121.637V83.9756H104.755V120.637C104.755 124.637 106.022 127.97 108.555 130.637C111.089 133.304 114.489 134.637 118.755 134.637C123.022 134.637 126.422 133.304 128.955 130.637C131.489 127.97 132.755 124.637 132.755 120.637V83.9756H143.822V121.637C143.822 126.304 142.689 130.47 140.422 134.137C138.155 137.803 135.022 140.637 131.022 142.637H134.488ZM181.821 134.637C185.821 134.637 189.154 133.304 191.821 130.637C194.487 127.97 195.821 124.637 195.821 120.637C195.821 116.637 194.487 113.304 191.821 110.637C189.154 107.97 185.821 106.637 181.821 106.637H169.821V134.637H181.821ZM181.821 95.9756C188.487 95.9756 194.154 98.1756 198.821 102.576C203.487 106.976 205.821 112.637 205.821 119.559C205.821 126.481 203.487 132.141 198.821 136.541C194.154 140.941 188.487 143.141 181.821 143.141H158.821V83.9756H181.821V95.9756ZM224.153 144.337H213.086V83.9756H224.153V144.337ZM258.152 106.637C253.886 106.637 250.352 108.037 247.552 110.837C244.752 113.637 243.352 117.304 243.352 121.837C243.352 126.37 244.752 130.07 247.552 132.937C250.352 135.804 253.886 137.237 258.152 137.237C261.886 137.237 265.086 136.07 267.752 133.737L275.152 140.937C270.619 145.07 264.952 147.137 258.152 147.137C250.552 147.137 244.186 144.604 239.052 139.537C233.919 134.47 231.352 128.037 231.352 120.237C231.352 112.437 233.919 106.004 239.052 100.937C244.186 95.8706 250.552 93.3373 258.152 93.3373C264.952 93.3373 270.619 95.404 275.152 99.5373L267.752 106.737C265.086 104.404 261.886 103.237 258.152 103.237C253.886 103.237 250.352 104.67 247.552 107.537C244.752 110.404 243.352 114.137 243.352 118.837C243.352 123.537 244.752 127.237 247.552 129.937C250.352 132.637 253.886 133.987 258.152 133.987C261.886 133.987 265.086 132.837 267.752 130.537L275.152 137.737C270.619 141.871 264.952 143.937 258.152 143.937C250.552 143.937 244.186 141.404 239.052 136.337C233.919 131.271 231.352 124.837 231.352 117.037C231.352 109.237 233.919 102.804 239.052 97.7373C244.186 92.6706 250.552 90.1373 258.152 90.1373C264.952 90.1373 270.619 92.204 275.152 96.3373L267.752 103.537C265.086 101.204 261.886 100.037 258.152 100.037V106.637Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
               UBER
             </a>
             <a href="https://lyft.com/ride?id=lyft&destination[address]=634%2014th%20St%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
-              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537ZM165.139 52.0537H140.703V82.9499C140.703 91.7499 136.439 96.1499 129.187 96.1499C122.486 96.1499 117.671 92.2999 117.671 83.4999V52.0537H93.2344V87.5499C93.2344 107.35 105.738 119.95 123.036 119.95C131.389 119.95 138.091 117.2 142.905 111.7V118.3H165.139V52.0537ZM213.059 50.4037C200.005 50.4037 189.153 55.3537 182.452 64.1537L197.895 76.7537C202.16 71.2537 207.209 68.5037 213.059 68.5037C222.512 68.5037 228.363 74.5537 228.363 85.5037V118.3H252.799V82.9537C252.799 61.5037 237.354 50.4037 213.059 50.4037ZM303.127 50.4037C276.491 50.4037 258.643 68.5037 258.643 93.0037C258.643 117.504 276.491 135.604 303.127 135.604C329.763 135.604 347.611 117.504 347.611 93.0037C347.611 68.5037 329.763 50.4037 303.127 50.4037ZM303.127 116.404C290.074 116.404 281.169 106.554 281.169 93.0037C281.169 79.4537 290.074 69.6037 303.127 69.6037C316.181 69.6037 325.085 79.4537 325.085 93.0037C325.085 106.554 316.181 116.404 303.127 116.404ZM397.57 52.0537L380.272 89.7537L362.974 52.0537H336.471L368.434 118.3H392.11L424.073 52.0537H397.57Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
               Lyft
             </a>
           </div>
         </div>
-        <div class="vibe">Cozy, quiet-hype, bakery glow. A kissaten-style cafe where the pastry case does most of the talking and the matcha feels like a little ritual.</div>
-        <div class="detail-section">
-          <div class="detail-title">What you do:</div>
-          <p>Split one savory item and one pastry, then do matcha for Lauren and something citrusy or light for Praneel (they partner with Shizuoka organic matcha).</p>
+        
+        <!-- Expandable Description -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Cozy, quiet-hype, bakery glow. A kissaten-style cafe where the pastry case does most of the talking and the matcha feels like a little ritual.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Split one savory item and one pastry, then do matcha for Lauren and something citrusy or light for Praneel (they partner with Shizuoka organic matcha).</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>Grab something you can nibble while walking (keeps the "we forgot to eat" problem from showing up later)</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Hours:</strong> Open daily 9am-9pm, closed Tuesdays. Lunch menu starts at 11am.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> Parfait Paris (Gaslamp) for a pastry + coffee start that still feels like "we dressed up for something."
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="detail-section">
-          <div class="detail-title">You might like:</div>
-          <ul>
-            <li>Grab something you can nibble while walking (keeps the "we forgot to eat" problem from showing up later)</li>
-          </ul>
+
+        <!-- Expandable Photos -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400" alt="Interior">
+                  <div class="photo-label">Interior</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400" alt="Coffee">
+                  <div class="photo-label">Matcha & Coffee</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400" alt="Ambiance">
+                  <div class="photo-label">Ambiance</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="time-note">
-          <strong>⏰ Hours:</strong> Open daily 9am-9pm, closed Tuesdays. Lunch menu starts at 11am.
-        </div>
-        <div class="backup">
-          <strong>Backup:</strong> Parfait Paris (Gaslamp) for a pastry + coffee start that still feels like "we dressed up for something."
+
+        <!-- Notes Section -->
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-asa" placeholder="What did you love? Any dishes to remember for next time? (e.g., 'The matcha latte was perfect, skip the savory pastry')" oninput="saveNotes('asa')"></textarea>
+                <div class="notes-saved" id="saved-asa">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -990,35 +1164,85 @@
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Gaslamp%20Artisan%20Market&dates=20260418T120000/20260418T140000&details=Browse%20local%20art%2C%20jewelry%2C%20and%20handmade%20goods%20on%205th%20Ave&location=400%205th%20Ave%2C%20San%20Diego%2C%20CA%2092101&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
           <div class="rideshare-btns">
             <a href="https://m.uber.com/?action=setPickup&destination=400%205th%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
-              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579ZM134.488 142.637C130.488 144.637 125.822 145.637 120.489 145.637C115.155 145.637 110.489 144.637 106.489 142.637C102.489 140.637 99.3552 137.803 97.0884 134.137C94.8216 130.47 93.6882 126.304 93.6882 121.637V83.9756H104.755V120.637C104.755 124.637 106.022 127.97 108.555 130.637C111.089 133.304 114.489 134.637 118.755 134.637C123.022 134.637 126.422 133.304 128.955 130.637C131.489 127.97 132.755 124.637 132.755 120.637V83.9756H143.822V121.637C143.822 126.304 142.689 130.47 140.422 134.137C138.155 137.803 135.022 140.637 131.022 142.637H134.488ZM181.821 134.637C185.821 134.637 189.154 133.304 191.821 130.637C194.487 127.97 195.821 124.637 195.821 120.637C195.821 116.637 194.487 113.304 191.821 110.637C189.154 107.97 185.821 106.637 181.821 106.637H169.821V134.637H181.821ZM181.821 95.9756C188.487 95.9756 194.154 98.1756 198.821 102.576C203.487 106.976 205.821 112.637 205.821 119.559C205.821 126.481 203.487 132.141 198.821 136.541C194.154 140.941 188.487 143.141 181.821 143.141H158.821V83.9756H181.821V95.9756ZM224.153 144.337H213.086V83.9756H224.153V144.337ZM258.152 106.637C253.886 106.637 250.352 108.037 247.552 110.837C244.752 113.637 243.352 117.304 243.352 121.837C243.352 126.37 244.752 130.07 247.552 132.937C250.352 135.804 253.886 137.237 258.152 137.237C261.886 137.237 265.086 136.07 267.752 133.737L275.152 140.937C270.619 145.07 264.952 147.137 258.152 147.137C250.552 147.137 244.186 144.604 239.052 139.537C233.919 134.47 231.352 128.037 231.352 120.237C231.352 112.437 233.919 106.004 239.052 100.937C244.186 95.8706 250.552 93.3373 258.152 93.3373C264.952 93.3373 270.619 95.404 275.152 99.5373L267.752 106.737C265.086 104.404 261.886 103.237 258.152 103.237C253.886 103.237 250.352 104.67 247.552 107.537C244.752 110.404 243.352 114.137 243.352 118.837C243.352 123.537 244.752 127.237 247.552 129.937C250.352 132.637 253.886 133.987 258.152 133.987C261.886 133.987 265.086 132.837 267.752 130.537L275.152 137.737C270.619 141.871 264.952 143.937 258.152 143.937C250.552 143.937 244.186 141.404 239.052 136.337C233.919 131.271 231.352 124.837 231.352 117.037C231.352 109.237 233.919 102.804 239.052 97.7373C244.186 92.6706 250.552 90.1373 258.152 90.1373C264.952 90.1373 270.619 92.204 275.152 96.3373L267.752 103.537C265.086 101.204 261.886 100.037 258.152 100.037V106.637Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
               UBER
             </a>
             <a href="https://lyft.com/ride?id=lyft&destination[address]=400%205th%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
-              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537ZM165.139 52.0537H140.703V82.9499C140.703 91.7499 136.439 96.1499 129.187 96.1499C122.486 96.1499 117.671 92.2999 117.671 83.4999V52.0537H93.2344V87.5499C93.2344 107.35 105.738 119.95 123.036 119.95C131.389 119.95 138.091 117.2 142.905 111.7V118.3H165.139V52.0537ZM213.059 50.4037C200.005 50.4037 189.153 55.3537 182.452 64.1537L197.895 76.7537C202.16 71.2537 207.209 68.5037 213.059 68.5037C222.512 68.5037 228.363 74.5537 228.363 85.5037V118.3H252.799V82.9537C252.799 61.5037 237.354 50.4037 213.059 50.4037ZM303.127 50.4037C276.491 50.4037 258.643 68.5037 258.643 93.0037C258.643 117.504 276.491 135.604 303.127 135.604C329.763 135.604 347.611 117.504 347.611 93.0037C347.611 68.5037 329.763 50.4037 303.127 50.4037ZM303.127 116.404C290.074 116.404 281.169 106.554 281.169 93.0037C281.169 79.4537 290.074 69.6037 303.127 69.6037C316.181 69.6037 325.085 79.4537 325.085 93.0037C325.085 106.554 316.181 116.404 303.127 116.404ZM397.57 52.0537L380.272 89.7537L362.974 52.0537H336.471L368.434 118.3H392.11L424.073 52.0537H397.57Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
               Lyft
             </a>
           </div>
         </div>
-        <div class="vibe">Sunny stroll, playful browsing, local finds. Drift down Fifth Ave with little stalls of art, jewelry, and handmade stuff – feels like you discovered something tourists miss.</div>
-        <div class="detail-section">
-          <div class="detail-title">What you do:</div>
-          <p>Each of you picks one "small interesting thing" you'd actually put in your space (or gift later), then grab a quick drink and keep walking.</p>
+        
+        <!-- Expandable Description -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Sunny stroll, playful browsing, local finds. Drift down Fifth Ave with little stalls of art, jewelry, and handmade stuff – feels like you discovered something tourists miss.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Each of you picks one "small interesting thing" you'd actually put in your space (or gift later), then grab a quick drink and keep walking.</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>Use this as your "new experience" anchor for the day without committing to a big formal activity</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Event Hours:</strong> 10am-4pm on April 18, 2026. Nearby streets barricaded for the market.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> Museum of Illusions (Gaslamp) for a fun, structured indoor activity that still feels light.
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="detail-section">
-          <div class="detail-title">You might like:</div>
-          <ul>
-            <li>Use this as your "new experience" anchor for the day without committing to a big formal activity</li>
-          </ul>
+
+        <!-- Expandable Photos -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=400" alt="Market Stalls">
+                  <div class="photo-label">Market Stalls</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400" alt="Local Art">
+                  <div class="photo-label">Local Art</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=400" alt="Street Scene">
+                  <div class="photo-label">Street Scene</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="time-note">
-          <strong>⏰ Event Hours:</strong> 10am-4pm on April 18, 2026. Nearby streets barricaded for the market.
-        </div>
-        <div class="backup">
-          <strong>Backup:</strong> Museum of Illusions (Gaslamp) for a fun, structured indoor activity that still feels light.
+
+        <!-- Notes Section -->
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-market" placeholder="Did you find any unique vendors? Any items to revisit? (e.g., 'Loved the jewelry booth, got matching bracelets')" oninput="saveNotes('market')"></textarea>
+                <div class="notes-saved" id="saved-market">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1036,35 +1260,85 @@
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Sunset%20Drinks%20at%20The%20Nolen&dates=20260418T143000/20260418T160000&details=Rooftop%20sunset%20drinks%20with%20skyline%20views&location=453%206th%20Ave%2C%20San%20Diego%2C%20CA%2092101&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
           <div class="rideshare-btns">
             <a href="https://m.uber.com/?action=setPickup&destination=453%206th%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
-              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579ZM134.488 142.637C130.488 144.637 125.822 145.637 120.489 145.637C115.155 145.637 110.489 144.637 106.489 142.637C102.489 140.637 99.3552 137.803 97.0884 134.137C94.8216 130.47 93.6882 126.304 93.6882 121.637V83.9756H104.755V120.637C104.755 124.637 106.022 127.97 108.555 130.637C111.089 133.304 114.489 134.637 118.755 134.637C123.022 134.637 126.422 133.304 128.955 130.637C131.489 127.97 132.755 124.637 132.755 120.637V83.9756H143.822V121.637C143.822 126.304 142.689 130.47 140.422 134.137C138.155 137.803 135.022 140.637 131.022 142.637H134.488ZM181.821 134.637C185.821 134.637 189.154 133.304 191.821 130.637C194.487 127.97 195.821 124.637 195.821 120.637C195.821 116.637 194.487 113.304 191.821 110.637C189.154 107.97 185.821 106.637 181.821 106.637H169.821V134.637H181.821ZM181.821 95.9756C188.487 95.9756 194.154 98.1756 198.821 102.576C203.487 106.976 205.821 112.637 205.821 119.559C205.821 126.481 203.487 132.141 198.821 136.541C194.154 140.941 188.487 143.141 181.821 143.141H158.821V83.9756H181.821V95.9756ZM224.153 144.337H213.086V83.9756H224.153V144.337ZM258.152 106.637C253.886 106.637 250.352 108.037 247.552 110.837C244.752 113.637 243.352 117.304 243.352 121.837C243.352 126.37 244.752 130.07 247.552 132.937C250.352 135.804 253.886 137.237 258.152 137.237C261.886 137.237 265.086 136.07 267.752 133.737L275.152 140.937C270.619 145.07 264.952 147.137 258.152 147.137C250.552 147.137 244.186 144.604 239.052 139.537C233.919 134.47 231.352 128.037 231.352 120.237C231.352 112.437 233.919 106.004 239.052 100.937C244.186 95.8706 250.552 93.3373 258.152 93.3373C264.952 93.3373 270.619 95.404 275.152 99.5373L267.752 106.737C265.086 104.404 261.886 103.237 258.152 103.237C253.886 103.237 250.352 104.67 247.552 107.537C244.752 110.404 243.352 114.137 243.352 118.837C243.352 123.537 244.752 127.237 247.552 129.937C250.352 132.637 253.886 133.987 258.152 133.987C261.886 133.987 265.086 132.837 267.752 130.537L275.152 137.737C270.619 141.871 264.952 143.937 258.152 143.937C250.552 143.937 244.186 141.404 239.052 136.337C233.919 131.271 231.352 124.837 231.352 117.037C231.352 109.237 233.919 102.804 239.052 97.7373C244.186 92.6706 250.552 90.1373 258.152 90.1373C264.952 90.1373 270.619 92.204 275.152 96.3373L267.752 103.537C265.086 101.204 261.886 100.037 258.152 100.037V106.637Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
               UBER
             </a>
             <a href="https://lyft.com/ride?id=lyft&destination[address]=453%206th%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
-              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537ZM165.139 52.0537H140.703V82.9499C140.703 91.7499 136.439 96.1499 129.187 96.1499C122.486 96.1499 117.671 92.2999 117.671 83.4999V52.0537H93.2344V87.5499C93.2344 107.35 105.738 119.95 123.036 119.95C131.389 119.95 138.091 117.2 142.905 111.7V118.3H165.139V52.0537ZM213.059 50.4037C200.005 50.4037 189.153 55.3537 182.452 64.1537L197.895 76.7537C202.16 71.2537 207.209 68.5037 213.059 68.5037C222.512 68.5037 228.363 74.5537 228.363 85.5037V118.3H252.799V82.9537C252.799 61.5037 237.354 50.4037 213.059 50.4037ZM303.127 50.4037C276.491 50.4037 258.643 68.5037 258.643 93.0037C258.643 117.504 276.491 135.604 303.127 135.604C329.763 135.604 347.611 117.504 347.611 93.0037C347.611 68.5037 329.763 50.4037 303.127 50.4037ZM303.127 116.404C290.074 116.404 281.169 106.554 281.169 93.0037C281.169 79.4537 290.074 69.6037 303.127 69.6037C316.181 69.6037 325.085 79.4537 325.085 93.0037C325.085 106.554 316.181 116.404 303.127 116.404ZM397.57 52.0537L380.272 89.7537L362.974 52.0537H336.471L368.434 118.3H392.11L424.073 52.0537H397.57Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
               Lyft
             </a>
           </div>
         </div>
-        <div class="vibe">Rooftop glow, city views, date-night energy. That "San Diego at golden hour" feeling with skyline views and a drink that tastes like it was designed for sunset.</div>
-        <div class="detail-section">
-          <div class="detail-title">What you do:</div>
-          <p>Aim for a spot that faces the skyline, order one cocktail each (or a mocktail), and split one light bite so you're not starving before dinner.</p>
+        
+        <!-- Expandable Description -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Rooftop glow, city views, date-night energy. That "San Diego at golden hour" feeling with skyline views and a drink that tastes like it was designed for sunset.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Aim for a spot that faces the skyline, order one cocktail each (or a mocktail), and split one light bite so you're not starving before dinner.</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>Happy hour window (weekends 3pm-6pm) if you want to keep the day budget-friendly</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Note:</strong> Must be 21+ after 8pm. Sunset hours are often the busiest – reservations recommended.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> Fifth & Rose (Pendry) for a polished indoor cocktail moment that's less weather-dependent.
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="detail-section">
-          <div class="detail-title">You might like:</div>
-          <ul>
-            <li>Happy hour window (weekends 3pm-6pm) if you want to keep the day budget-friendly</li>
-          </ul>
+
+        <!-- Expandable Photos -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400" alt="Rooftop View">
+                  <div class="photo-label">Rooftop Views</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400" alt="Sunset">
+                  <div class="photo-label">Sunset</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400" alt="Cocktails">
+                  <div class="photo-label">Cocktails</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="time-note">
-          <strong>⏰ Note:</strong> Must be 21+ after 8pm. Sunset hours are often the busiest – reservations recommended.
-        </div>
-        <div class="backup">
-          <strong>Backup:</strong> Fifth & Rose (Pendry) for a polished indoor cocktail moment that's less weather-dependent.
+
+        <!-- Notes Section -->
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-nolen" placeholder="Favorite drink? How was the vibe? (e.g., 'The sunset view was incredible, order the signature cocktail')" oninput="saveNotes('nolen')"></textarea>
+                <div class="notes-saved" id="saved-nolen">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1082,36 +1356,86 @@
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Dinner%20at%20Callie&dates=20260418T170000/20260418T190000&details=Chef-driven%20Mediterranean%20dinner%20-%20kanpachi%2C%20market%20fish%2C%20Aleppo%20chicken&location=1195%20Island%20Ave%2C%20San%20Diego%2C%20CA%2092101&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
           <div class="rideshare-btns">
             <a href="https://m.uber.com/?action=setPickup&destination=1195%20Island%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
-              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579ZM134.488 142.637C130.488 144.637 125.822 145.637 120.489 145.637C115.155 145.637 110.489 144.637 106.489 142.637C102.489 140.637 99.3552 137.803 97.0884 134.137C94.8216 130.47 93.6882 126.304 93.6882 121.637V83.9756H104.755V120.637C104.755 124.637 106.022 127.97 108.555 130.637C111.089 133.304 114.489 134.637 118.755 134.637C123.022 134.637 126.422 133.304 128.955 130.637C131.489 127.97 132.755 124.637 132.755 120.637V83.9756H143.822V121.637C143.822 126.304 142.689 130.47 140.422 134.137C138.155 137.803 135.022 140.637 131.022 142.637H134.488ZM181.821 134.637C185.821 134.637 189.154 133.304 191.821 130.637C194.487 127.97 195.821 124.637 195.821 120.637C195.821 116.637 194.487 113.304 191.821 110.637C189.154 107.97 185.821 106.637 181.821 106.637H169.821V134.637H181.821ZM181.821 95.9756C188.487 95.9756 194.154 98.1756 198.821 102.576C203.487 106.976 205.821 112.637 205.821 119.559C205.821 126.481 203.487 132.141 198.821 136.541C194.154 140.941 188.487 143.141 181.821 143.141H158.821V83.9756H181.821V95.9756ZM224.153 144.337H213.086V83.9756H224.153V144.337ZM258.152 106.637C253.886 106.637 250.352 108.037 247.552 110.837C244.752 113.637 243.352 117.304 243.352 121.837C243.352 126.37 244.752 130.07 247.552 132.937C250.352 135.804 253.886 137.237 258.152 137.237C261.886 137.237 265.086 136.07 267.752 133.737L275.152 140.937C270.619 145.07 264.952 147.137 258.152 147.137C250.552 147.137 244.186 144.604 239.052 139.537C233.919 134.47 231.352 128.037 231.352 120.237C231.352 112.437 233.919 106.004 239.052 100.937C244.186 95.8706 250.552 93.3373 258.152 93.3373C264.952 93.3373 270.619 95.404 275.152 99.5373L267.752 106.737C265.086 104.404 261.886 103.237 258.152 103.237C253.886 103.237 250.352 104.67 247.552 107.537C244.752 110.404 243.352 114.137 243.352 118.837C243.352 123.537 244.752 127.237 247.552 129.937C250.352 132.637 253.886 133.987 258.152 133.987C261.886 133.987 265.086 132.837 267.752 130.537L275.152 137.737C270.619 141.871 264.952 143.937 258.152 143.937C250.552 143.937 244.186 141.404 239.052 136.337C233.919 131.271 231.352 124.837 231.352 117.037C231.352 109.237 233.919 102.804 239.052 97.7373C244.186 92.6706 250.552 90.1373 258.152 90.1373C264.952 90.1373 270.619 92.204 275.152 96.3373L267.752 103.537C265.086 101.204 261.886 100.037 258.152 100.037V106.637Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
               UBER
             </a>
             <a href="https://lyft.com/ride?id=lyft&destination[address]=1195%20Island%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
-              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537ZM165.139 52.0537H140.703V82.9499C140.703 91.7499 136.439 96.1499 129.187 96.1499C122.486 96.1499 117.671 92.2999 117.671 83.4999V52.0537H93.2344V87.5499C93.2344 107.35 105.738 119.95 123.036 119.95C131.389 119.95 138.091 117.2 142.905 111.7V118.3H165.139V52.0537ZM213.059 50.4037C200.005 50.4037 189.153 55.3537 182.452 64.1537L197.895 76.7537C202.16 71.2537 207.209 68.5037 213.059 68.5037C222.512 68.5037 228.363 74.5537 228.363 85.5037V118.3H252.799V82.9537C252.799 61.5037 237.354 50.4037 213.059 50.4037ZM303.127 50.4037C276.491 50.4037 258.643 68.5037 258.643 93.0037C258.643 117.504 276.491 135.604 303.127 135.604C329.763 135.604 347.611 117.504 347.611 93.0037C347.611 68.5037 329.763 50.4037 303.127 50.4037ZM303.127 116.404C290.074 116.404 281.169 106.554 281.169 93.0037C281.169 79.4537 290.074 69.6037 303.127 69.6037C316.181 69.6037 325.085 79.4537 325.085 93.0037C325.085 106.554 316.181 116.404 303.127 116.404ZM397.57 52.0537L380.272 89.7537L362.974 52.0537H336.471L368.434 118.3H392.11L424.073 52.0537H397.57Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
               Lyft
             </a>
           </div>
         </div>
-        <div class="vibe">Elevated, warm-lit, special-occasion. The "we planned this" centerpiece: shareable Mediterranean plates with a bright, coastal flavor profile.</div>
-        <div class="detail-section">
-          <div class="detail-title">What you do:</div>
-          <p>Build the table around fish and chicken – Japanese kanpachi, line-caught market fish, and Aleppo chicken, plus great vegetables. Stay in the glow and share one dessert there.</p>
+        
+        <!-- Expandable Description -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Elevated, warm-lit, special-occasion. The "we planned this" centerpiece: shareable Mediterranean plates with a bright, coastal flavor profile.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Build the table around fish and chicken – Japanese kanpachi, line-caught market fish, and Aleppo chicken, plus great vegetables. Stay in the glow and share one dessert there.</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>The kanpachi course reads very "fresh-citrusy" – easy win for a yellowtail-lover vibe without being sushi</li>
+                  <li>Multiple "Something Sweet" options and gelato/sorbet for dessert</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Hours:</strong> Tue-Sun 5pm-10pm. Reservations available on OpenTable.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> If Callie is fully booked at your ideal slot, keep the same flow by doing dinner at a comparable Gaslamp spot and save Callie for the next "anchor date."
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="detail-section">
-          <div class="detail-title">You might like:</div>
-          <ul>
-            <li>The kanpachi course reads very "fresh-citrusy" – easy win for a yellowtail-lover vibe without being sushi</li>
-            <li>Multiple "Something Sweet" options and gelato/sorbet for dessert</li>
-          </ul>
+
+        <!-- Expandable Photos -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400" alt="Interior">
+                  <div class="photo-label">Interior</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400" alt="Dishes">
+                  <div class="photo-label">Signature Dishes</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400" alt="Ambiance">
+                  <div class="photo-label">Ambiance</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="time-note">
-          <strong>⏰ Hours:</strong> Tue-Sun 5pm-10pm. Reservations available on OpenTable.
-        </div>
-        <div class="backup">
-          <strong>Backup:</strong> If Callie is fully booked at your ideal slot, keep the same flow by doing dinner at a comparable Gaslamp spot and save Callie for the next "anchor date."
+
+        <!-- Notes Section -->
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-callie" placeholder="Must-order dishes? How was the service? (e.g., 'The kanpachi was amazing, Aleppo chicken was a bit spicy but delicious')" oninput="saveNotes('callie')"></textarea>
+                <div class="notes-saved" id="saved-callie">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1129,29 +1453,79 @@
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Nightcap%20at%20Bar%20Kamon&dates=20260418T193000/20260418T203000&details=Speakeasy%20craft%20cocktails%20-%20hidden%20behind%20Asa%20Bakery&location=634%2014th%20St%2C%20San%20Diego%2C%20CA%2092101&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
           <div class="rideshare-btns">
             <a href="https://m.uber.com/?action=setPickup&destination=634%2014th%20St%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
-              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579ZM134.488 142.637C130.488 144.637 125.822 145.637 120.489 145.637C115.155 145.637 110.489 144.637 106.489 142.637C102.489 140.637 99.3552 137.803 97.0884 134.137C94.8216 130.47 93.6882 126.304 93.6882 121.637V83.9756H104.755V120.637C104.755 124.637 106.022 127.97 108.555 130.637C111.089 133.304 114.489 134.637 118.755 134.637C123.022 134.637 126.422 133.304 128.955 130.637C131.489 127.97 132.755 124.637 132.755 120.637V83.9756H143.822V121.637C143.822 126.304 142.689 130.47 140.422 134.137C138.155 137.803 135.022 140.637 131.022 142.637H134.488ZM181.821 134.637C185.821 134.637 189.154 133.304 191.821 130.637C194.487 127.97 195.821 124.637 195.821 120.637C195.821 116.637 194.487 113.304 191.821 110.637C189.154 107.97 185.821 106.637 181.821 106.637H169.821V134.637H181.821ZM181.821 95.9756C188.487 95.9756 194.154 98.1756 198.821 102.576C203.487 106.976 205.821 112.637 205.821 119.559C205.821 126.481 203.487 132.141 198.821 136.541C194.154 140.941 188.487 143.141 181.821 143.141H158.821V83.9756H181.821V95.9756ZM224.153 144.337H213.086V83.9756H224.153V144.337ZM258.152 106.637C253.886 106.637 250.352 108.037 247.552 110.837C244.752 113.637 243.352 117.304 243.352 121.837C243.352 126.37 244.752 130.07 247.552 132.937C250.352 135.804 253.886 137.237 258.152 137.237C261.886 137.237 265.086 136.07 267.752 133.737L275.152 140.937C270.619 145.07 264.952 147.137 258.152 147.137C250.552 147.137 244.186 144.604 239.052 139.537C233.919 134.47 231.352 128.037 231.352 120.237C231.352 112.437 233.919 106.004 239.052 100.937C244.186 95.8706 250.552 93.3373 258.152 93.3373C264.952 93.3373 270.619 95.404 275.152 99.5373L267.752 106.737C265.086 104.404 261.886 103.237 258.152 103.237C253.886 103.237 250.352 104.67 247.552 107.537C244.752 110.404 243.352 114.137 243.352 118.837C243.352 123.537 244.752 127.237 247.552 129.937C250.352 132.637 253.886 133.987 258.152 133.987C261.886 133.987 265.086 132.837 267.752 130.537L275.152 137.737C270.619 141.871 264.952 143.937 258.152 143.937C250.552 143.937 244.186 141.404 239.052 136.337C233.919 131.271 231.352 124.837 231.352 117.037C231.352 109.237 233.919 102.804 239.052 97.7373C244.186 92.6706 250.552 90.1373 258.152 90.1373C264.952 90.1373 270.619 92.204 275.152 96.3373L267.752 103.537C265.086 101.204 261.886 100.037 258.152 100.037V106.637Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
               UBER
             </a>
             <a href="https://lyft.com/ride?id=lyft&destination[address]=634%2014th%20St%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
-              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537ZM165.139 52.0537H140.703V82.9499C140.703 91.7499 136.439 96.1499 129.187 96.1499C122.486 96.1499 117.671 92.2999 117.671 83.4999V52.0537H93.2344V87.5499C93.2344 107.35 105.738 119.95 123.036 119.95C131.389 119.95 138.091 117.2 142.905 111.7V118.3H165.139V52.0537ZM213.059 50.4037C200.005 50.4037 189.153 55.3537 182.452 64.1537L197.895 76.7537C202.16 71.2537 207.209 68.5037 213.059 68.5037C222.512 68.5037 228.363 74.5537 228.363 85.5037V118.3H252.799V82.9537C252.799 61.5037 237.354 50.4037 213.059 50.4037ZM303.127 50.4037C276.491 50.4037 258.643 68.5037 258.643 93.0037C258.643 117.504 276.491 135.604 303.127 135.604C329.763 135.604 347.611 117.504 347.611 93.0037C347.611 68.5037 329.763 50.4037 303.127 50.4037ZM303.127 116.404C290.074 116.404 281.169 106.554 281.169 93.0037C281.169 79.4537 290.074 69.6037 303.127 69.6037C316.181 69.6037 325.085 79.4537 325.085 93.0037C325.085 106.554 316.181 116.404 303.127 116.404ZM397.57 52.0537L380.272 89.7537L362.974 52.0537H336.471L368.434 118.3H392.11L424.073 52.0537H397.57Z" fill="white"/>
-              </svg>
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
               Lyft
             </a>
           </div>
         </div>
-        <div class="vibe">Hidden door, intimate, craft-cocktail. A "secret spot" discovery: 1920s-inspired Japanese craft cocktails tucked behind Asa Bakery.</div>
-        <div class="detail-section">
-          <div class="detail-title">What you do:</div>
-          <p>One round, slow pace, split something small if you want. Their menu includes a yellowtail (hamachi) dish that matches Praneel's lane nicely.</p>
+        
+        <!-- Expandable Description -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Hidden door, intimate, craft-cocktail. A "secret spot" discovery: 1920s-inspired Japanese craft cocktails tucked behind Asa Bakery.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>One round, slow pace, split something small if you want. Their menu includes a yellowtail (hamachi) dish that matches Praneel's lane nicely.</p>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Hours:</strong> Opens 5:30pm, closed Tuesdays. Later hours on Fri & Sat. Reservations via OpenTable.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> Wrap at Callie's bar instead since it's already part of the evening – no extra stop needed if you're ready to call it.
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="time-note">
-          <strong>⏰ Hours:</strong> Opens 5:30pm, closed Tuesdays. Later hours on Fri & Sat. Reservations via OpenTable.
+
+        <!-- Expandable Photos -->
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400" alt="Cocktails">
+                  <div class="photo-label">Craft Cocktails</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400" alt="Interior">
+                  <div class="photo-label">Speakeasy Vibe</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=400" alt="Ambiance">
+                  <div class="photo-label">Ambiance</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="backup">
-          <strong>Backup:</strong> Wrap at Callie's bar instead since it's already part of the evening – no extra stop needed if you're ready to call it.
+
+        <!-- Notes Section -->
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-kamon" placeholder="Favorite cocktail? Was it worth the stop? (e.g., 'The whisky cocktail was perfect, cozy vibe to end the night')" oninput="saveNotes('kamon')"></textarea>
+                <div class="notes-saved" id="saved-kamon">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1219,6 +1593,37 @@
     
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // Expandable Sections
+    function toggleExpand(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.expandable-arrow');
+      
+      content.classList.toggle('expanded');
+      arrow.classList.toggle('expanded');
+    }
+
+    // Notes Persistence
+    function saveNotes(stopId) {
+      const textarea = document.getElementById('notes-' + stopId);
+      const savedMsg = document.getElementById('saved-' + stopId);
+      
+      localStorage.setItem('praneel-lauren-notes-' + stopId, textarea.value);
+      
+      savedMsg.classList.add('show');
+      setTimeout(() => savedMsg.classList.remove('show'), 2000);
+    }
+
+    // Load saved notes on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const stopIds = ['asa', 'market', 'nolen', 'callie', 'kamon'];
+      stopIds.forEach(stopId => {
+        const saved = localStorage.getItem('praneel-lauren-notes-' + stopId);
+        if (saved) {
+          document.getElementById('notes-' + stopId).value = saved;
+        }
+      });
+    });
 
     // Checklist persistence
     document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(function(checkbox) {
