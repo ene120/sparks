@@ -157,6 +157,66 @@
       font-weight: 500;
     }
 
+    /* Calendar Section */
+    .calendar-section {
+      background: white;
+      border: 2px solid #ffe4f1;
+      border-radius: 16px;
+      padding: 20px 25px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+
+    .calendar-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .calendar-icon {
+      font-size: 2rem;
+    }
+
+    .calendar-text h4 {
+      font-family: 'Playfair Display', serif;
+      color: #c44569;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+
+    .calendar-text p {
+      color: #5a3c4e;
+      font-size: 0.85rem;
+    }
+
+    .calendar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+
+    .calendar-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+    }
+
     .meta {
       display: flex;
       gap: 30px;
@@ -516,6 +576,13 @@
       .countdown-number {
         font-size: 1.8rem;
       }
+      .calendar-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .calendar-info {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -558,6 +625,21 @@
     </div>
 
     <div class="content">
+      <!-- Calendar Section -->
+      <div class="calendar-section" id="calendarSection">
+        <div class="calendar-info">
+          <span class="calendar-icon">📅</span>
+          <div class="calendar-text">
+            <h4>Add to Google Calendar</h4>
+            <p>Never miss your date – save it to your calendar!</p>
+          </div>
+        </div>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Craig's%20Birthday%20Date%20-%20Golden%20Hour%2C%20Sushi%20%26%20Celebrations&dates=20260221T170000/20260221T223000&details=A%20golden-hour%20park%20stroll%20at%20Balboa%20Park%2C%20cozy%20sushi%20dinner%20at%20Hane%20Sushi%2C%20and%20a%20sweet%20birthday%20finale%20at%20Extraordinary%20Desserts.%20Includes%20a%20subtle%20Grateful%20Dead%20touch!&location=Balboa%20Park%20%26%20Bankers%20Hill%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+          <i data-lucide="calendar-plus"></i>
+          Add to Calendar
+        </a>
+      </div>
+
       <div class="meta">
         <div class="meta-item">
           <div class="meta-label">Date</div>
