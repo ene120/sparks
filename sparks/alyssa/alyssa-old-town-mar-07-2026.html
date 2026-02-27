@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alyssa's Old Town Date</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ffeef8 0%, #e8f4fd 50%, #fff5f7 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loading-heart {
+      font-size: 4rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .loading-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #4a2c3e;
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.8;
+      margin-top: 30px;
+      padding: 0 20px;
+    }
+    .loading-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 107, 157, 0.2);
+      border-radius: 2px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    .loading-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #4285f4);
+      border-radius: 2px;
+      animation: loading 6s ease-out forwards;
+    }
+    @keyframes loading {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe4f1 100%);
+      color: #4a2c3e;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(219, 112, 147, 0.15);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+      padding: 60px 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .header::before {
+      content: "💕";
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+    .header::after {
+      content: "✨";
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+    .content {
+      padding: 50px 40px;
+    }
+
+    /* Countdown Timer */
+    .countdown-section {
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ffe4f1;
+    }
+    .countdown-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #c44569;
+      margin-bottom: 20px;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 25px;
+      min-width: 90px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.1);
+      border: 2px solid #ffe4f1;
+    }
+    .countdown-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ff6b9d;
+      line-height: 1;
+    }
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    /* Calendar Section */
+    .calendar-section {
+      background: white;
+      border: 2px solid #ffe4f1;
+      border-radius: 16px;
+      padding: 20px 25px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+    .calendar-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .calendar-icon {
+      font-size: 2rem;
+    }
+    .calendar-text h4 {
+      font-family: 'Playfair Display', serif;
+      color: #c44569;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+    .calendar-text p {
+      color: #5a3c4e;
+      font-size: 0.85rem;
+    }
+    .calendar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+    .calendar-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+    }
+
+    /* Date Plan Toggle */
+    .plan-toggle {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .plan-btn {
+      flex: 1;
+      min-width: 200px;
+      padding: 20px 25px;
+      border-radius: 16px;
+      border: 2px solid #ffe4f1;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+    .plan-btn:hover {
+      border-color: #ff6b9d;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.15);
+    }
+    .plan-btn.active {
+      border-color: #ff6b9d;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+    }
+    .plan-btn h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #c44569;
+      margin-bottom: 5px;
+    }
+    .plan-btn p {
+      font-size: 0.85rem;
+      color: #888;
+    }
+    .plan-btn .plan-date {
+      font-size: 0.75rem;
+      color: #ff6b9d;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .plan-content {
+      display: none;
+    }
+    .plan-content.active {
+      display: block;
+    }
+
+    /* Important Checklist */
+    .checklist-section {
+      background: linear-gradient(135deg, #e8f4fd 0%, #fff5f7 50%, #ffeef8 100%);
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+    }
+    .checklist-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #2c5f8d;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .checklist-title::before {
+      content: "📋";
+      font-size: 1.5rem;
+    }
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      padding: 15px 18px;
+      border-radius: 12px;
+      border-left: 4px solid #ff6b9d;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .checklist-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .checklist-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: #ff6b9d;
+      cursor: pointer;
+    }
+    .checklist-item label {
+      color: #4a2c3e;
+      font-size: 0.95rem;
+      cursor: pointer;
+      flex: 1;
+    }
+    .checklist-item label strong {
+      color: #2c5f8d;
+    }
+    .checklist-item.checked {
+      opacity: 0.6;
+      background: #f8f8f8;
+    }
+    .checklist-item.checked label {
+      text-decoration: line-through;
+    }
+
+    .meta {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 16px;
+      border-left: 4px solid #ff6b9d;
+    }
+    .meta-item {
+      flex: 1;
+    }
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c44569;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .meta-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4a2c3e;
+    }
+    .summary {
+      background: #fff;
+      padding: 35px;
+      border-radius: 16px;
+      border: 2px solid #ffe4f1;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #c44569;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .summary-title::before {
+      content: "🌹";
+      font-size: 1.5rem;
+    }
+    .summary p {
+      font-size: 1.05rem;
+      color: #5a3c4e;
+      line-height: 1.8;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #c44569;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stop {
+      background: linear-gradient(135deg, #fff 0%, #fffbfc 100%);
+      padding: 35px;
+      border-radius: 20px;
+      margin-bottom: 35px;
+      border: 2px solid #ffe4f1;
+      position: relative;
+      box-shadow: 0 8px 25px rgba(219, 112, 147, 0.1);
+    }
+    .stop::before {
+      content: attr(data-number);
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
+    }
+    .stop-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #4a2c3e;
+      margin-bottom: 8px;
+      margin-top: 10px;
+    }
+    .stop-location {
+      color: #c44569;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .stop-phone {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .vibe {
+      background: linear-gradient(135deg, #e8f4fd, #fff5f7);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border-left: 3px solid #4285f4;
+      font-style: italic;
+      color: #5a3c4e;
+    }
+    .detail-section {
+      margin: 20px 0;
+    }
+    .detail-title {
+      font-weight: 600;
+      color: #c44569;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .detail-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .detail-section li {
+      padding-left: 25px;
+      position: relative;
+      margin-bottom: 8px;
+      color: #5a3c4e;
+    }
+    .detail-section li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #ff6b9d;
+      font-weight: 600;
+    }
+    .detail-section p {
+      color: #5a3c4e;
+      margin-bottom: 8px;
+    }
+    .backup {
+      background: #fff9e6;
+      border: 2px solid #ffd966;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #8b6914;
+    }
+    .backup strong {
+      color: #d4a017;
+    }
+    .time-note {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #2c5f8d;
+    }
+    .time-note strong {
+      color: #1a4a6e;
+    }
+
+    /* Expandable Sections */
+    .expandable-section {
+      margin: 15px 0;
+    }
+    .expandable-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #ffe4f1;
+    }
+    .expandable-header:hover {
+      background: linear-gradient(135deg, #ffeef8, #ffe4f1);
+    }
+    .expandable-title {
+      font-weight: 500;
+      color: #c44569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .expandable-arrow {
+      transition: transform 0.3s ease;
+      color: #ff6b9d;
+    }
+    .expandable-arrow.expanded {
+      transform: rotate(180deg);
+    }
+    .expandable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .expandable-content.expanded {
+      max-height: 2000px;
+    }
+    .expandable-inner {
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 8px;
+      border: 1px solid #ffe4f1;
+    }
+
+    /* Photo Gallery */
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .photo-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .photo-item:hover {
+      transform: scale(1.03);
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Notes Section */
+    .notes-section {
+      margin-top: 15px;
+    }
+    .notes-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px 15px;
+      border: 2px solid #ffe4f1;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: #4a2c3e;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    .notes-textarea:focus {
+      outline: none;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+    .notes-textarea::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+    .notes-saved {
+      font-size: 0.75rem;
+      color: #4285f4;
+      margin-top: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .notes-saved.show {
+      opacity: 1;
+    }
+
+    .btns {
+      margin: 15px 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .dir-btn {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+    }
+    .dir-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
+    }
+    .ph-btn {
+      background: #4a2c3e;
+      color: #fff;
+    }
+    .ph-btn:hover {
+      background: #5a3c4e;
+    }
+    .menu-btn {
+      background: #fff5f7;
+      color: #c44569;
+      border: 2px solid #c44569;
+    }
+    .menu-btn:hover {
+      background: #ffeef8;
+    }
+    .cal-btn {
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: #fff;
+    }
+    .cal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+    }
+    .reserve-btn {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+    }
+    .reserve-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
+    }
+
+    /* Ride Share Buttons */
+    .rideshare-btns {
+      display: flex;
+      gap: 8px;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 1px solid #ffe4f1;
+    }
+    .uber-btn, .lyft-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .uber-btn {
+      background: #000000;
+      color: #ffffff;
+    }
+    .uber-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .uber-btn svg {
+      width: 40px;
+      height: 14px;
+    }
+    .lyft-btn {
+      background: #FF00BF;
+      color: #ffffff;
+    }
+    .lyft-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 0, 191, 0.4);
+    }
+    .lyft-btn svg {
+      width: 32px;
+      height: 14px;
+    }
+
+    .tooltip {
+      position: relative;
+    }
+    .tooltip-text {
+      visibility: hidden;
+      width: 120px;
+      background-color: #4a2c3e;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 8px;
+      position: fixed;
+      z-index: 99999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.75rem;
+      pointer-events: none;
+    }
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    .budget {
+      background: linear-gradient(135deg, #c44569, #ff6b9d);
+      color: #fff;
+      padding: 35px;
+      border-radius: 20px;
+      margin-top: 50px;
+      text-align: center;
+    }
+    .budget-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+    .budget-items {
+      display: flex;
+      justify-content: space-around;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+    .budget-item {
+      text-align: center;
+      margin: 10px;
+    }
+    .budget-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    .budget-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .budget-total {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .weather {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 30px 0;
+      color: #2c5f8d;
+    }
+    @media (max-width: 768px) {
+      .meta {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .budget-items {
+        flex-direction: column;
+        gap: 15px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .countdown {
+        gap: 10px;
+      }
+      .countdown-item {
+        min-width: 70px;
+        padding: 15px 18px;
+      }
+      .countdown-number {
+        font-size: 1.8rem;
+      }
+      .calendar-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .calendar-info {
+        flex-direction: column;
+      }
+      .btns {
+        gap: 6px;
+      }
+      .rideshare-btns {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .photo-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .plan-toggle {
+        flex-direction: column;
+      }
+      .plan-btn {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-heart">💕</div>
+    <p class="loading-text">Great dates take longer than a TikTok scroll… ❤️<br>we refuse to send you to a boring spot.</p>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo">💕 DateFlo</div>
+      <h1>Alyssa's Date Plans</h1>
+      <p class="subtitle">Two beautiful days to choose from 🌅</p>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown-section" id="countdownSection">
+      <h3 class="countdown-title">⏰ Countdown to Your Date</h3>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">0</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">0</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">0</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">0</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Date Plan Toggle -->
+      <div class="plan-toggle">
+        <button class="plan-btn active" onclick="switchPlan('saturday')">
+          <div class="plan-date">📅 Saturday, March 7</div>
+          <h3>🏯 Old Town + Harney Sushi</h3>
+          <p>Historic stroll, spooky museum, sunset park, sushi dinner</p>
+        </button>
+        <button class="plan-btn" onclick="switchPlan('sunday')">
+          <div class="plan-date">📅 Sunday, March 8</div>
+          <h3>🍵 Matcha + Ethiopian</h3>
+          <p>North Park matcha, artisan shopping, scenic bridge, bold dinner</p>
+        </button>
+      </div>
+
+      <!-- SATURDAY PLAN -->
+      <div class="plan-content active" id="plan-saturday">
+        <!-- Calendar Section -->
+        <div class="calendar-section">
+          <div class="calendar-info">
+            <span class="calendar-icon">📅</span>
+            <div class="calendar-text">
+              <h4>Add to Google Calendar</h4>
+              <p>Save your Old Town date!</p>
+            </div>
+          </div>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Alyssa's%20Old%20Town%20Date&dates=20260307T120000/20260307T200000&details=Old%20Town%20stroll%2C%20Whaley%20House%2C%20Presidio%20Park%2C%20Harney%20Sushi%20dinner&location=Old%20Town%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+            <i data-lucide="calendar-plus"></i>
+            Add to Calendar
+          </a>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist-section">
+          <h3 class="checklist-title">Important Checklist</h3>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="check-sat1">
+              <label for="check-sat1"><strong>Buy Whaley House tickets online</strong> – Skip the door line</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="check-sat2">
+              <label for="check-sat2"><strong>Reserve Harney Sushi</strong> – Request quieter table on OpenTable notes</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="check-sat3">
+              <label for="check-sat3"><strong>Bring a light layer</strong> – Evenings cool off in March</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-item">
+            <div class="meta-label">Date</div>
+            <div class="meta-value">Saturday, March 7, 2026</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Time</div>
+            <div class="meta-value">12:00 PM - 8:00 PM</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">~6-7 hours</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <h2 class="summary-title">The Day</h2>
+          <p>A sunny, un-rushed Old Town stroll with a fun history activity, a scenic overlook moment, then sushi for dinner with an easy sweet finish. This feels like a date, not errands – plenty of built-in breathing room.</p>
+        </div>
+
+        <div class="weather">
+          <strong>🌤️ Weather:</strong> Early March evenings can cool off fast. A light layer makes the scenic stop and post-dinner stroll way more comfortable.
+        </div>
+
+        <h2 class="section-title">✨ The Date Plan</h2>
+
+        <!-- Stop 1: Old Town -->
+        <div class="stop" data-number="1">
+          <h3 class="stop-title">🏛️ Old Town San Diego State Historic Park</h3>
+          <div class="stop-location">📍 San Diego Ave & Twiggs St, San Diego, CA 92110</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=Old+Town+San+Diego+State+Historic+Park" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Old%20Town%20San%20Diego%20State%20Historic%20Park" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="https://www.parks.ca.gov/?page_id=663" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Website</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=Old%20Town%20San%20Diego%20State%20Historic%20Park" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=Old%20Town%20San%20Diego%20State%20Historic%20Park" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Sunny stroll, low-pressure, explore-y. Old Town feels like a mini time-travel set where you can wander, browse, and snack at your own pace.</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Park once, then do a slow loop through the historic buildings and shops. If you like having something "structured" without being rigid, the free guided walking tours are a great anchor when they line up with your afternoon.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Pick one small "souvenir" each (tiny food item, postcard, or something silly) so it feels like you made a memory</li>
+                  </ul>
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Wander inside Heritage Park instead (Victorian houses and quieter paths).
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400" alt="Historic Buildings">
+                    <div class="photo-label">Historic Buildings</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Plaza">
+                    <div class="photo-label">Town Plaza</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" alt="Streets">
+                    <div class="photo-label">Historic Streets</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-oldtown" placeholder="What did you discover? Any favorite shops? (e.g., 'Loved the pottery shop, got matching mugs')" oninput="saveNotes('oldtown')"></textarea>
+                  <div class="notes-saved" id="saved-oldtown">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 2: Whaley House -->
+        <div class="stop" data-number="2">
+          <h3 class="stop-title">👻 Whaley House Museum</h3>
+          <div class="stop-location">📍 2476 San Diego Ave, San Diego, CA 92110</div>
+          <div class="stop-phone">☎️ (619) 786-1143</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=2476+San+Diego+Ave,+San+Diego,+CA+92110" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Whaley%20House%20Museum&address=2476%20San%20Diego%20Ave,%20San%20Diego,%20CA%2092110" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+16197861143" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://www.whaleyhousesandiego.com/tickets/" target="_blank" class="btn reserve-btn tooltip"><i data-lucide="ticket"></i><span class="tooltip-text">Buy Tickets</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=2476%20San%20Diego%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=2476%20San%20Diego%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Spooky-cute, memorable, indoors, story-time. This is the "we did something" moment that makes the day feel planned and different.</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Book the daytime self-guided option online so you can arrive whenever your earlier wandering naturally wraps.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Take your time reading the plaques instead of rushing room-to-room. It turns into a shared little discovery.</li>
+                  </ul>
+                </div>
+                <div class="time-note">
+                  <strong>🎫 Reservation note:</strong> Buy tickets ahead online so you are not stuck waiting at the door.
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Skip the indoor tour and do a longer Old Town loop plus a calm stop at Presidio Park viewpoints instead.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400" alt="Historic House">
+                    <div class="photo-label">Historic House</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1509248961895-b886fcc08c78?w=400" alt="Interior">
+                    <div class="photo-label">Victorian Interior</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Atmosphere">
+                    <div class="photo-label">Spooky Vibes</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-whaley" placeholder="Was it spooky? Any cool stories? (e.g., 'The courtroom was the creepiest part, loved the history')" oninput="saveNotes('whaley')"></textarea>
+                  <div class="notes-saved" id="saved-whaley">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 3: Presidio Park -->
+        <div class="stop" data-number="3">
+          <h3 class="stop-title">🌄 Presidio Park</h3>
+          <div class="stop-location">📍 Presidio Park, San Diego, CA 92103</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=Presidio+Park+San+Diego" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Presidio%20Park%20San%20Diego" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="https://www.sandiego.gov/park-and-recreation/parks/regional/presidio" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Info</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=Presidio%20Park%20San%20Diego" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=Presidio%20Park%20San%20Diego" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Scenic overlook, quiet, golden-hour-ish. A quick hilltop breather makes everything after feel more romantic and less "next stop."</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Walk to a viewpoint, sit for a few minutes, then wander back down at an easy pace.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Snap one photo together early here so you're not thinking about it all night.</li>
+                  </ul>
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Stay at the Old Town edge and do a slower, quieter loop through the park area instead.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Viewpoint">
+                    <div class="photo-label">Park Viewpoint</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" alt="Sunset">
+                    <div class="photo-label">Golden Hour</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400" alt="Nature">
+                    <div class="photo-label">Park Trails</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-presidio" placeholder="How was the view? Good photo spot? (e.g., 'Best sunset spot, got a great couple photo')" oninput="saveNotes('presidio')"></textarea>
+                  <div class="notes-saved" id="saved-presidio">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 4: Harney Sushi -->
+        <div class="stop" data-number="4">
+          <h3 class="stop-title">🍣 Harney Sushi</h3>
+          <div class="stop-location">📍 3964 Harney St, San Diego, CA 92110</div>
+          <div class="stop-phone">☎️ (619) 295-3272</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=3964+Harney+St,+San+Diego,+CA+92110" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Harney%20Sushi&address=3964%20Harney%20St,%20San%20Diego,%20CA%2092110" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+16192953272" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://misoharneysushi.com/food-menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <a href="https://www.opentable.com/r/harney-sushi-old-town" target="_blank" class="btn reserve-btn tooltip"><i data-lucide="bookmark"></i><span class="tooltip-text">Reserve</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=3964%20Harney%20St%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=3964%20Harney%20St%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Date-night, lively, sushi-forward, fun. Harney is known for a lively vibe and sometimes DJ energy – perfect for a dressed-up anchor.</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Reserve for closer to opening (4pm) so it's more conversation-friendly. Lean into citrusy/fresher picks – hamachi and ponzu-style dishes are usually a win for that "fresh, bright" preference.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Ask for a quieter table or patio in your OpenTable notes</li>
+                  </ul>
+                </div>
+                <div class="time-note">
+                  <strong>⏰ Hours:</strong> Saturday 4pm-10pm
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Tako (Old Town) – still sushi-forward and nearby. <a href="https://www.opentable.com/r/tako-san-diego" target="_blank">Reserve on OpenTable →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400" alt="Sushi">
+                    <div class="photo-label">Fresh Sushi</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=400" alt="Interior">
+                    <div class="photo-label">Restaurant</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=400" alt="Sashimi">
+                    <div class="photo-label">Sashimi</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-harney" placeholder="Must-order rolls? How was the vibe? (e.g., 'The hamachi ponzu was perfect, ask for quieter table next time')" oninput="saveNotes('harney')"></textarea>
+                  <div class="notes-saved" id="saved-harney">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 5: Dessert -->
+        <div class="stop" data-number="5">
+          <h3 class="stop-title">🍦 Sweet Finish</h3>
+          <div class="stop-location">📍 Old Town stroll or Stella Jean's Ice Cream (Point Loma)</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=4195+Voltaire+St,+San+Diego,+CA+92107" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Stella Jean's</span></a>
+            <a href="https://www.stellajeans.com/menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=4195%20Voltaire%20St%2C%20San%20Diego%2C%20CA%2092107" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=4195%20Voltaire%20St%2C%20San%20Diego%2C%20CA%2092107" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & Options</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Sweet treat, cozy, low-effort. End the night on a simple, happy note.</div>
+                <div class="detail-section">
+                  <div class="detail-title">Option 1 (Walkable):</div>
+                  <p>Take a slow post-dinner stroll back through Old Town's lit-up streets and end on a simple "dessert at home" plan.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">Option 2 (Short drive):</div>
+                  <p>Stella Jean's Ice Cream (Point Loma) for vegan-friendly flavors and a clean, quick dessert stop. Their menu labels vegan options!</p>
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Keep it simple and do a "one last scenic loop" at Presidio Park, then head home.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-dessert-sat" placeholder="Did you grab dessert? What did you try? (e.g., 'Stella Jean\'s vegan chocolate was amazing')" oninput="saveNotes('dessert-sat')"></textarea>
+                  <div class="notes-saved" id="saved-dessert-sat">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="budget">
+          <h3 class="budget-title">💰 Estimated Budget</h3>
+          <div class="budget-items">
+            <div class="budget-item">
+              <div class="budget-label">Old Town Wandering</div>
+              <div class="budget-value">Low</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Whaley House Tickets</div>
+              <div class="budget-value">$20-30</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Harney Sushi Dinner</div>
+              <div class="budget-value">$60-100</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Dessert (optional)</div>
+              <div class="budget-value">$10-20</div>
+            </div>
+          </div>
+          <div class="budget-total">Estimated Total: $95-165</div>
+        </div>
+      </div>
+
+      <!-- SUNDAY PLAN -->
+      <div class="plan-content" id="plan-sunday">
+        <!-- Calendar Section -->
+        <div class="calendar-section">
+          <div class="calendar-info">
+            <span class="calendar-icon">📅</span>
+            <div class="calendar-text">
+              <h4>Add to Google Calendar</h4>
+              <p>Save your North Park date!</p>
+            </div>
+          </div>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Alyssa's%20North%20Park%20Date&dates=20260308T120000/20260308T190000&details=Holy%20Matcha%2C%20Pigment%20shopping%2C%20Vermont%20Street%20Bridge%2C%20Muzita%20dinner%2C%20Stella%20Jean%27s&location=North%20Park%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+            <i data-lucide="calendar-plus"></i>
+            Add to Calendar
+          </a>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist-section">
+          <h3 class="checklist-title">Important Checklist</h3>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="check-sun1">
+              <label for="check-sun1"><strong>Reserve Muzita Abyssinian Bistro</strong> – Book on OpenTable</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="check-sun2">
+              <label for="check-sun2"><strong>Bring comfy shoes</strong> – Bridge stroll and neighborhood walking</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="check-sun3">
+              <label for="check-sun3"><strong>Light jacket</strong> – Evenings can feel breezy</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-item">
+            <div class="meta-label">Date</div>
+            <div class="meta-value">Sunday, March 8, 2026</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Time</div>
+            <div class="meta-value">12:00 PM - 7:00 PM</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">~6-7 hours</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <h2 class="summary-title">The Day</h2>
+          <p>Matcha start in North Park, a cute browsing-and-walking stretch with a pretty viewpoint moment, then a shareable Ethiopian dinner and a vegan-friendly ice cream finish. Paced like a chill "we planned this" day without feeling tight.</p>
+        </div>
+
+        <div class="weather">
+          <strong>🌤️ Weather:</strong> Even if the afternoon is warm, evenings can feel breezy. A light jacket and comfy shoes make the bridge stroll and post-dinner dessert walk way better.
+        </div>
+
+        <h2 class="section-title">✨ The Date Plan</h2>
+
+        <!-- Stop 1: Holy Matcha -->
+        <div class="stop" data-number="1">
+          <h3 class="stop-title">🍵 Holy Matcha</h3>
+          <div class="stop-location">📍 3118 University Ave, San Diego, CA 92104</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=3118+University+Ave,+San+Diego,+CA+92104" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Holy%20Matcha&address=3118%20University%20Ave,%20San%20Diego,%20CA%2092104" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="https://www.holymatchasd.com/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Website</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=3118%20University%20Ave%2C%20San%20Diego%2C%20CA%2092104" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=3118%20University%20Ave%2C%20San%20Diego%2C%20CA%2092104" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Matcha-core, bright, fun, easy start. Holy Matcha is built for lingering just enough to feel intentional.</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Share one "main" matcha drink vibe (hot or iced) and one small bite, then take a short walk before the next stop so it doesn't feel like a cafe hangout day.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Ask for a non-dairy milk option if you want to keep it lactose-friendly</li>
+                  </ul>
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Communal Coffee (North Park) for a matcha latte in the same neighborhood.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=400" alt="Matcha">
+                    <div class="photo-label">Matcha Drinks</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400" alt="Interior">
+                    <div class="photo-label">Cafe Interior</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400" alt="Ambiance">
+                    <div class="photo-label">Cozy Vibes</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-holymatcha" placeholder="Favorite matcha drink? What did you think? (e.g., 'The iced matcha latte with oat milk was perfect')" oninput="saveNotes('holymatcha')"></textarea>
+                  <div class="notes-saved" id="saved-holymatcha">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 2: Pigment -->
+        <div class="stop" data-number="2">
+          <h3 class="stop-title">🎨 Pigment</h3>
+          <div class="stop-location">📍 3801 30th St, San Diego, CA 92104</div>
+          <div class="stop-phone">☎️ (619) 501-6318</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=3801+30th+St,+San+Diego,+CA+92104" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Pigment&address=3801%2030th%20St,%20San%20Diego,%20CA%2092104" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+16195016318" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://www.shoppigment.com/pages/locations" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Website</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=3801%2030th%20St%2C%20San%20Diego%2C%20CA%2092104" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=3801%2030th%20St%2C%20San%20Diego%2C%20CA%2092104" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Cute shopping, playful, gift-y. This is perfect for that "we are out and about" feeling.</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Pick a tiny "treat for later" together (snack, candle, silly little kitchen thing).</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Make it a mini challenge: each of you finds one thing under-the-radar that the other would actually use</li>
+                  </ul>
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Swap for a short browse at Communal's shop vibe nearby.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=400" alt="Shop">
+                    <div class="photo-label">Curated Goods</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400" alt="Home Goods">
+                    <div class="photo-label">Home Decor</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=400" alt="Plants">
+                    <div class="photo-label">Plants & Gifts</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-pigment" placeholder="Did you find any treasures? What did you pick? (e.g., 'Got matching candles, loved the plant section')" oninput="saveNotes('pigment')"></textarea>
+                  <div class="notes-saved" id="saved-pigment">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 3: Vermont Street Bridge -->
+        <div class="stop" data-number="3">
+          <h3 class="stop-title">🌉 Vermont Street Bridge</h3>
+          <div class="stop-location">📍 Vermont St Bridge, San Diego, CA 92103</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=Vermont+Street+Bridge+San+Diego" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Vermont%20Street%20Bridge%20San%20Diego" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=Vermont%20Street%20Bridge%20San%20Diego" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=Vermont%20Street%20Bridge%20San%20Diego" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Scenic-ish, artsy, quick wow. This bridge is part of San Diego's "bridges" walking lore and is covered with quotes and public art details.</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Slow-walk the bridge, stop mid-way, and actually take in the canyon views.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Use this as the "phone down" moment before dinner so the rest of the night feels more intimate</li>
+                  </ul>
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Replace with a longer neighborhood walk along University Ave and side streets.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Bridge View">
+                    <div class="photo-label">Canyon Views</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" alt="Bridge">
+                    <div class="photo-label">The Bridge</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400" alt="Scenic">
+                    <div class="photo-label">Scenic Walk</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-bridge" placeholder="How was the view? Any cool art? (e.g., 'Loved the quotes on the bridge, great photo spot')" oninput="saveNotes('bridge')"></textarea>
+                  <div class="notes-saved" id="saved-bridge">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 4: Muzita -->
+        <div class="stop" data-number="4">
+          <h3 class="stop-title">🍽️ Muzita Abyssinian Bistro</h3>
+          <div class="stop-location">📍 4651 Park Blvd, San Diego, CA 92116</div>
+          <div class="stop-phone">☎️ (619) 546-7900</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=4651+Park+Blvd,+San+Diego,+CA+92116" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Muzita%20Abyssinian%20Bistro&address=4651%20Park%20Blvd,%20San%20Diego,%20CA%2092116" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+16195467900" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://muzita.net/menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <a href="https://www.opentable.com/r/muzita-abyssinian-bistro" target="_blank" class="btn reserve-btn tooltip"><i data-lucide="bookmark"></i><span class="tooltip-text">Reserve</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=4651%20Park%20Blvd%2C%20San%20Diego%2C%20CA%2092116" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=4651%20Park%20Blvd%2C%20San%20Diego%2C%20CA%2092116" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Flavorful, shareable, warm, date-night. This hits the "spicy and flavorful" craving and feels like a real date because it's interactive and shareable.</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Order one share platter (lean into vegetarian or fish-forward picks if you want to avoid hidden dairy). Ask for guidance on spicier options so you can match heat levels.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Ethiopian dining is meant to be shared – tear injera together and try different dishes</li>
+                  </ul>
+                </div>
+                <div class="time-note">
+                  <strong>🎫 Reservation note:</strong> Book on OpenTable so you're not waiting around hungry.
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Taste of Thai - Hillcrest for spicy noodles and curries. <a href="https://www.opentable.com/r/taste-of-thai-hillcrest-san-diego" target="_blank">Reserve →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400" alt="Ethiopian Food">
+                    <div class="photo-label">Share Platter</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400" alt="Interior">
+                    <div class="photo-label">Restaurant</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400" alt="Injera">
+                    <div class="photo-label">Injera Bread</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-muzita" placeholder="Favorite dishes? How was the spice level? (e.g., 'The veggie combo was amazing, ask for medium spice next time')" oninput="saveNotes('muzita')"></textarea>
+                  <div class="notes-saved" id="saved-muzita">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 5: Stella Jean's -->
+        <div class="stop" data-number="5">
+          <h3 class="stop-title">🍦 Stella Jean's Ice Cream</h3>
+          <div class="stop-location">📍 4404 Park Blvd, Ste B, San Diego, CA 92116</div>
+          <div class="stop-phone">☎️ (619) 501-8252</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=4404+Park+Blvd,+San+Diego,+CA+92116" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=Stella%20Jean%27s%20Ice%20Cream&address=4404%20Park%20Blvd,%20San%20Diego,%20CA%2092116" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+16195018252" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://www.stellajeans.com/menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=4404%20Park%20Blvd%2C%20San%20Diego%2C%20CA%2092116" target="_blank" class="uber-btn" title="Ride with Uber">
+                <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+                UBER
+              </a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=4404%20Park%20Blvd%2C%20San%20Diego%2C%20CA%2092116" target="_blank" class="lyft-btn" title="Ride with Lyft">
+                <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+                Lyft
+              </a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Sweet finish, cozy, low-key. Their official menu labels vegan flavors – an easy win for lactose-intolerant-friendly dessert!</div>
+                <div class="detail-section">
+                  <div class="detail-title">What you do:</div>
+                  <p>Split two flavors (one safe classic, one weird seasonal) and take a short walk after so you end on that relaxed, satisfied note.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <ul>
+                    <li>Pick at least one vegan flavor so nobody has to do the lactaid math</li>
+                  </ul>
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Keep dessert simple and grab something small at a nearby cafe, then do a longer evening walk.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400" alt="Ice Cream">
+                    <div class="photo-label">Artisan Scoops</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=400" alt="Vegan Options">
+                    <div class="photo-label">Vegan Options</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400" alt="Shop">
+                    <div class="photo-label">Ice Cream Shop</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="notes-stellajeans" placeholder="Favorite flavor? Was it vegan-friendly? (e.g., 'The vegan chocolate was incredible, seasonal strawberry was perfect too')" oninput="saveNotes('stellajeans')"></textarea>
+                  <div class="notes-saved" id="saved-stellajeans">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="budget">
+          <h3 class="budget-title">💰 Estimated Budget</h3>
+          <div class="budget-items">
+            <div class="budget-item">
+              <div class="budget-label">Matcha + Bite</div>
+              <div class="budget-value">$15-25</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Pigment Shopping</div>
+              <div class="budget-value">$10-40</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Muzita Dinner</div>
+              <div class="budget-value">$50-80</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Stella Jean's</div>
+              <div class="budget-value">$10-20</div>
+            </div>
+          </div>
+          <div class="budget-total">Estimated Total: $80-140</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Loading Screen
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loadingScreen').classList.add('hidden');
+      }, 6000);
+    });
+
+    lucide.createIcons();
+
+    // Countdown Timer - Using Saturday date
+    const targetDate = new Date('2026-03-07T12:00:00').getTime();
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      
+      if (distance < 0) {
+        document.getElementById('countdown').innerHTML = '<div style="background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; padding: 15px 30px; border-radius: 25px; font-weight: 500;">🎉 This date has passed! Hope it was magical! 💕</div>';
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Plan Toggle
+    function switchPlan(plan) {
+      // Update buttons
+      document.querySelectorAll('.plan-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.closest('.plan-btn').classList.add('active');
+      
+      // Update content
+      document.querySelectorAll('.plan-content').forEach(content => content.classList.remove('active'));
+      document.getElementById('plan-' + plan).classList.add('active');
+      
+      // Reinitialize icons
+      lucide.createIcons();
+    }
+
+    // Expandable Sections
+    function toggleExpand(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.expandable-arrow');
+      
+      content.classList.toggle('expanded');
+      arrow.classList.toggle('expanded');
+    }
+
+    // Notes Persistence
+    function saveNotes(stopId) {
+      const textarea = document.getElementById('notes-' + stopId);
+      const savedMsg = document.getElementById('saved-' + stopId);
+      
+      localStorage.setItem('alyssa-notes-' + stopId, textarea.value);
+      
+      savedMsg.classList.add('show');
+      setTimeout(() => savedMsg.classList.remove('show'), 2000);
+    }
+
+    // Load saved notes on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const stopIds = ['oldtown', 'whaley', 'presidio', 'harney', 'dessert-sat', 'holymatcha', 'pigment', 'bridge', 'muzita', 'stellajeans'];
+      stopIds.forEach(stopId => {
+        const saved = localStorage.getItem('alyssa-notes-' + stopId);
+        if (saved) {
+          const textarea = document.getElementById('notes-' + stopId);
+          if (textarea) textarea.value = saved;
+        }
+      });
+    });
+
+    // Checklist persistence
+    document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(function(checkbox) {
+      const key = 'alyssa-checklist-' + checkbox.id;
+      checkbox.checked = localStorage.getItem(key) === 'true';
+      
+      checkbox.addEventListener('change', function() {
+        localStorage.setItem(key, this.checked);
+        if (this.checked) {
+          this.parentElement.classList.add('checked');
+        } else {
+          this.parentElement.classList.remove('checked');
+        }
+      });
+      
+      if (checkbox.checked) {
+        checkbox.parentElement.classList.add('checked');
+      }
+    });
+
+    // Tooltip positioning
+    document.querySelectorAll('.tooltip').forEach(tooltip => {
+      tooltip.addEventListener('mouseenter', function(e) {
+        const tooltipText = this.querySelector('.tooltip-text');
+        if (tooltipText) {
+          const rect = this.getBoundingClientRect();
+          tooltipText.style.left = (rect.left + rect.width / 2 - 60) + 'px';
+          tooltipText.style.top = (rect.top - 45) + 'px';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
