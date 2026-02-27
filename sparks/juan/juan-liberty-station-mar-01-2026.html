@@ -568,6 +568,22 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
     }
+    .uber-btn {
+      background: #000000;
+      color: #fff;
+    }
+    .uber-btn:hover {
+      background: #333333;
+      transform: translateY(-2px);
+    }
+    .lyft-btn {
+      background: #FF00BF;
+      color: #fff;
+    }
+    .lyft-btn:hover {
+      background: #E600AD;
+      transform: translateY(-2px);
+    }
     .tooltip {
       position: relative;
     }
@@ -836,10 +852,12 @@
         <div class="stop-location">📍 2860 Sims Rd, San Diego, CA 92106</div>
         <div class="stop-phone">☎️ (619) 255-8772</div>
         <div class="btns">
-          <a href="https://www.google.com/maps/search/?api=1&query=Moniker%20General%202860%20Sims%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip" title="Google Maps"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Moniker%20General%202860%20Sims%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip" title="Google Maps"><i data-lucide="map"></i><span class="tooltip-text">Google Maps</span></a>
           <a href="https://maps.apple.com/?q=Moniker%20General%202860%20Sims%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip" title="Apple Maps"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
           <a href="tel:+16192558772" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
           <a href="https://www.monikercoffee.com/menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+          <a href="https://m.uber.com/ul/?action=setPickup&dropoff[formatted_address]=2860%20Sims%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn uber-btn tooltip"><span class="tooltip-text">Uber</span>🚗</a>
+          <a href="https://lyft.com/ride?id=lyft&destination[address]=2860%20Sims%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn lyft-btn tooltip"><span class="tooltip-text">Lyft</span>🚕</a>
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Coffee%20at%20Moniker%20General&dates=20260301T120000/20260301T124500&details=Coffee%20and%20browsing%20at%20Moniker%20General%20with%20Juan%20%26%20Alex&location=2860%20Sims%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
         </div>
         <div class="vibe">Bright-cozy, curated, slow start. Sunlight, big tables, and that "we actually left the house for this" energy.</div>
@@ -864,8 +882,10 @@
         <h3 class="stop-title">🌊 Liberty Station North Promenade + NTC Park</h3>
         <div class="stop-location">📍 Waterfront loop, Liberty Station</div>
         <div class="btns">
-          <a href="https://www.google.com/maps/search/?api=1&query=NTC%20Park%20Liberty%20Station%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=NTC%20Park%20Liberty%20Station%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Google Maps</span></a>
           <a href="https://maps.apple.com/?q=NTC%20Park%20Liberty%20Station%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="https://m.uber.com/ul/?action=setPickup&dropoff[formatted_address]=NTC%20Park%2C%20Liberty%20Station%2C%20San%20Diego%2C%20CA" target="_blank" class="btn uber-btn tooltip"><span class="tooltip-text">Uber</span>🚗</a>
+          <a href="https://lyft.com/ride?id=lyft&destination[address]=NTC%20Park%2C%20Liberty%20Station%2C%20San%20Diego%2C%20CA" target="_blank" class="btn lyft-btn tooltip"><span class="tooltip-text">Lyft</span>🚕</a>
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Waterfront%20Stroll%20at%20NTC%20Park&dates=20260301T124500/20260301T131500&details=Scenic%20waterfront%20walk%20through%20Liberty%20Station&location=NTC%20Park%2C%20Liberty%20Station%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
         </div>
         <div class="vibe">Breezy, scenic, reset. Bay air, wide paths, and an easy hand-hold stroll.</div>
@@ -891,10 +911,12 @@
         <div class="stop-location">📍 2960 Truxtun Rd, San Diego, CA 92106</div>
         <div class="stop-phone">☎️ (619) 222-4653</div>
         <div class="btns">
-          <a href="https://www.google.com/maps/search/?api=1&query=The%20Loma%20Club%202960%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=The%20Loma%20Club%202960%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Google Maps</span></a>
           <a href="https://maps.apple.com/?q=The%20Loma%20Club%202960%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
           <a href="tel:+16192224653" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
           <a href="https://www.thelomaclub.com/mini-putt" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Info</span></a>
+          <a href="https://m.uber.com/ul/?action=setPickup&dropoff[formatted_address]=2960%20Truxtun%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn uber-btn tooltip"><span class="tooltip-text">Uber</span>🚗</a>
+          <a href="https://lyft.com/ride?id=lyft&destination[address]=2960%20Truxtun%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn lyft-btn tooltip"><span class="tooltip-text">Lyft</span>🚕</a>
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Mini%20Golf%20at%20The%20Loma%20Club&dates=20260301T131500/20260301T140000&details=9%20holes%20of%20mini%20golf%20-%20let%20the%20winner%20choose%20dessert%21&location=2960%20Truxtun%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
         </div>
         <div class="vibe">Playful, flirty-competitive, low stakes. A little friendly competition that turns into shared laughs fast.</div>
@@ -920,11 +942,13 @@
         <div class="stop-location">📍 2816 Historic Decatur Rd, San Diego, CA 92106</div>
         <div class="stop-phone">☎️ (619) 269-2100</div>
         <div class="btns">
-          <a href="https://www.google.com/maps/search/?api=1&query=Stone%20Brewing%20Liberty%20Station%202816%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Stone%20Brewing%20Liberty%20Station%202816%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Google Maps</span></a>
           <a href="https://maps.apple.com/?q=Stone%20Brewing%20Liberty%20Station%202816%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
           <a href="tel:+16192692100" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
           <a href="https://www.stonebrewing.com/visit/bistros/liberty-station/liberty-station-bistro-all-day-menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
           <a href="https://www.opentable.com/stone-brewing-world-bistro-and-gardens-liberty-station" target="_blank" class="btn cal-btn tooltip" style="background: linear-gradient(135deg, #ff6b9d, #c44569);"><i data-lucide="bookmark"></i><span class="tooltip-text">Reserve</span></a>
+          <a href="https://m.uber.com/ul/?action=setPickup&dropoff[formatted_address]=2816%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn uber-btn tooltip"><span class="tooltip-text">Uber</span>🚗</a>
+          <a href="https://lyft.com/ride?id=lyft&destination[address]=2816%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn lyft-btn tooltip"><span class="tooltip-text">Lyft</span>🚕</a>
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Dinner%20at%20Stone%20Brewing%20Gardens&dates=20260301T143000/20260301T163000&details=Garden%20dinner%20at%20Stone%20Brewing%20-%20string%20lights%20and%20celebratory%20vibe&location=2816%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
         </div>
         <div class="vibe">Garden-lit, lively, date-night. String lights and a big outdoor space that feels celebratory without being fussy.</div>
@@ -955,9 +979,11 @@
         <h3 class="stop-title">🍰 Liberty Public Market Dessert Grazing</h3>
         <div class="stop-location">📍 2820 Historic Decatur Rd, San Diego, CA 92106</div>
         <div class="btns">
-          <a href="https://www.google.com/maps/search/?api=1&query=Liberty%20Public%20Market%202820%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Liberty%20Public%20Market%202820%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Google Maps</span></a>
           <a href="https://maps.apple.com/?q=Liberty%20Public%20Market%202820%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
           <a href="https://libertypublicmarketsd.com/vendors/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="store"></i><span class="tooltip-text">Vendors</span></a>
+          <a href="https://m.uber.com/ul/?action=setPickup&dropoff[formatted_address]=2820%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn uber-btn tooltip"><span class="tooltip-text">Uber</span>🚗</a>
+          <a href="https://lyft.com/ride?id=lyft&destination[address]=2820%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn lyft-btn tooltip"><span class="tooltip-text">Lyft</span>🚕</a>
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Dessert%20at%20Liberty%20Public%20Market&dates=20260301T163000/20260301T171500&details=Dessert%20grazing%20-%20split%20one%20sweet%20and%20one%20savory%20snack&location=2820%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
         </div>
         <div class="vibe">Choose-your-own, cozy-buzzy, snacky. A casual, fun finish where you can wander, point at things, and share bites.</div>
@@ -983,10 +1009,12 @@
         <div class="stop-location">📍 2620 Truxtun Rd, San Diego, CA 92106</div>
         <div class="stop-phone">☎️ (619) 566-0069</div>
         <div class="btns">
-          <a href="https://www.google.com/maps/search/?api=1&query=THE%20LOT%20Liberty%20Station%202620%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=THE%20LOT%20Liberty%20Station%202620%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Google Maps</span></a>
           <a href="https://maps.apple.com/?q=THE%20LOT%20Liberty%20Station%202620%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
           <a href="tel:+16195660069" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
           <a href="https://www.thelotent.com/movie-theater/libertystation" target="_blank" class="btn menu-btn tooltip"><i data-lucide="film"></i><span class="tooltip-text">Movies</span></a>
+          <a href="https://m.uber.com/ul/?action=setPickup&dropoff[formatted_address]=2620%20Truxtun%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn uber-btn tooltip"><span class="tooltip-text">Uber</span>🚗</a>
+          <a href="https://lyft.com/ride?id=lyft&destination[address]=2620%20Truxtun%20Rd%2C%20San%20Diego%2C%20CA%2092106" target="_blank" class="btn lyft-btn tooltip"><span class="tooltip-text">Lyft</span>🚕</a>
           <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Nightcap%20at%20THE%20LOT&dates=20260301T173000/20260301T180000&details=Nightcap%20at%20ZENTRL%20bar%20-%20polished%20finish%20to%20the%20day&location=2620%20Truxtun%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
         </div>
         <div class="vibe">Polished, intimate, grown-up. Dimmer lighting and that "we dressed up a little" finish, perfect for a slow wind-down.</div>
