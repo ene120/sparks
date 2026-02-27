@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juan & Alex's Liberty Station Date</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ffeef8 0%, #e8f4fd 50%, #fff5f7 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loading-heart {
+      font-size: 4rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .loading-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #4a2c3e;
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.8;
+      margin-top: 30px;
+      padding: 0 20px;
+    }
+    .loading-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 107, 157, 0.2);
+      border-radius: 2px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    .loading-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #4285f4);
+      border-radius: 2px;
+      animation: loading 6s ease-out forwards;
+    }
+    @keyframes loading {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe4f1 100%);
+      color: #4a2c3e;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(219, 112, 147, 0.15);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+      padding: 60px 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .header::before {
+      content: "💕";
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+    .header::after {
+      content: "✨";
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+    .content {
+      padding: 50px 40px;
+    }
+
+    /* Countdown Timer */
+    .countdown-section {
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ffe4f1;
+    }
+    .countdown-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #c44569;
+      margin-bottom: 20px;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 25px;
+      min-width: 90px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.1);
+      border: 2px solid #ffe4f1;
+    }
+    .countdown-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ff6b9d;
+      line-height: 1;
+    }
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    /* Calendar Section */
+    .calendar-section {
+      background: white;
+      border: 2px solid #ffe4f1;
+      border-radius: 16px;
+      padding: 20px 25px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+    .calendar-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .calendar-icon {
+      font-size: 2rem;
+    }
+    .calendar-text h4 {
+      font-family: 'Playfair Display', serif;
+      color: #c44569;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+    .calendar-text p {
+      color: #5a3c4e;
+      font-size: 0.85rem;
+    }
+    .calendar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+    .calendar-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+    }
+
+    /* Important Checklist */
+    .checklist-section {
+      background: linear-gradient(135deg, #e8f4fd 0%, #fff5f7 50%, #ffeef8 100%);
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+    }
+    .checklist-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #2c5f8d;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .checklist-title::before {
+      content: "📋";
+      font-size: 1.5rem;
+    }
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      padding: 15px 18px;
+      border-radius: 12px;
+      border-left: 4px solid #ff6b9d;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .checklist-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .checklist-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: #ff6b9d;
+      cursor: pointer;
+    }
+    .checklist-item label {
+      color: #4a2c3e;
+      font-size: 0.95rem;
+      cursor: pointer;
+      flex: 1;
+    }
+    .checklist-item label strong {
+      color: #2c5f8d;
+    }
+    .checklist-item.checked {
+      opacity: 0.6;
+      background: #f8f8f8;
+    }
+    .checklist-item.checked label {
+      text-decoration: line-through;
+    }
+
+    /* Timeline */
+    .timeline-section {
+      margin-bottom: 40px;
+    }
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #c44569;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .timeline-title::before {
+      content: "🕐";
+      font-size: 1.5rem;
+    }
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #ff6b9d, #4285f4, #ff6b9d);
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      padding-left: 25px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 5px;
+      width: 14px;
+      height: 14px;
+      background: linear-gradient(135deg, #ff6b9d, #4285f4);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
+    }
+    .timeline-time {
+      font-weight: 600;
+      color: #ff6b9d;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    .timeline-content {
+      background: linear-gradient(135deg, #fff 0%, #fffbfc 100%);
+      padding: 15px 20px;
+      border-radius: 12px;
+      border: 2px solid #ffe4f1;
+    }
+    .timeline-stop-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #4a2c3e;
+      margin-bottom: 5px;
+    }
+    .timeline-duration {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .meta {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 16px;
+      border-left: 4px solid #ff6b9d;
+    }
+    .meta-item {
+      flex: 1;
+    }
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c44569;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .meta-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4a2c3e;
+    }
+    .summary {
+      background: #fff;
+      padding: 35px;
+      border-radius: 16px;
+      border: 2px solid #ffe4f1;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #c44569;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .summary-title::before {
+      content: "🌹";
+      font-size: 1.5rem;
+    }
+    .summary p {
+      font-size: 1.05rem;
+      color: #5a3c4e;
+      line-height: 1.8;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #c44569;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stop {
+      background: linear-gradient(135deg, #fff 0%, #fffbfc 100%);
+      padding: 35px;
+      border-radius: 20px;
+      margin-bottom: 35px;
+      border: 2px solid #ffe4f1;
+      position: relative;
+      box-shadow: 0 8px 25px rgba(219, 112, 147, 0.1);
+    }
+    .stop::before {
+      content: attr(data-number);
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
+    }
+    .stop-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #4a2c3e;
+      margin-bottom: 8px;
+      margin-top: 10px;
+    }
+    .stop-location {
+      color: #c44569;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .stop-phone {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .vibe {
+      background: linear-gradient(135deg, #e8f4fd, #fff5f7);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border-left: 3px solid #4285f4;
+      font-style: italic;
+      color: #5a3c4e;
+    }
+    .detail-section {
+      margin: 20px 0;
+    }
+    .detail-title {
+      font-weight: 600;
+      color: #c44569;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .detail-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .detail-section li {
+      padding-left: 25px;
+      position: relative;
+      margin-bottom: 8px;
+      color: #5a3c4e;
+    }
+    .detail-section li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #ff6b9d;
+      font-weight: 600;
+    }
+    .detail-section p {
+      color: #5a3c4e;
+      margin-bottom: 8px;
+    }
+    .backup {
+      background: #fff9e6;
+      border: 2px solid #ffd966;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #8b6914;
+    }
+    .backup strong {
+      color: #d4a017;
+    }
+    .btns {
+      margin: 15px 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .dir-btn {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+    }
+    .dir-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
+    }
+    .ph-btn {
+      background: #4a2c3e;
+      color: #fff;
+    }
+    .ph-btn:hover {
+      background: #5a3c4e;
+    }
+    .menu-btn {
+      background: #fff5f7;
+      color: #c44569;
+      border: 2px solid #c44569;
+    }
+    .menu-btn:hover {
+      background: #ffeef8;
+    }
+    .cal-btn {
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: #fff;
+    }
+    .cal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+    }
+    .tooltip {
+      position: relative;
+    }
+    .tooltip-text {
+      visibility: hidden;
+      width: 120px;
+      background-color: #4a2c3e;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 8px;
+      position: fixed;
+      z-index: 99999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.75rem;
+      pointer-events: none;
+    }
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    .budget {
+      background: linear-gradient(135deg, #c44569, #ff6b9d);
+      color: #fff;
+      padding: 35px;
+      border-radius: 20px;
+      margin-top: 50px;
+      text-align: center;
+    }
+    .budget-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+    .budget-items {
+      display: flex;
+      justify-content: space-around;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+    .budget-item {
+      text-align: center;
+      margin: 10px;
+    }
+    .budget-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    .budget-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .budget-total {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .weather {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 30px 0;
+      color: #2c5f8d;
+    }
+    @media (max-width: 768px) {
+      .meta {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .budget-items {
+        flex-direction: column;
+        gap: 15px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .countdown {
+        gap: 10px;
+      }
+      .countdown-item {
+        min-width: 70px;
+        padding: 15px 18px;
+      }
+      .countdown-number {
+        font-size: 1.8rem;
+      }
+      .calendar-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .calendar-info {
+        flex-direction: column;
+      }
+      .timeline {
+        padding-left: 20px;
+      }
+      .timeline-item {
+        padding-left: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-heart">💕</div>
+    <p class="loading-text">Great dates take longer than a TikTok scroll… ❤️<br>we refuse to send you to a boring spot.</p>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo">💕 DateFlo</div>
+      <h1>Juan & Alex's Date</h1>
+      <p class="subtitle">Coffee • Mini Golf • Garden Dinner • Nightcap 🌿</p>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown-section" id="countdownSection">
+      <h3 class="countdown-title">⏰ Countdown to Your Liberty Station Adventure</h3>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">0</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">0</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">0</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">0</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Calendar Section -->
+      <div class="calendar-section" id="calendarSection">
+        <div class="calendar-info">
+          <span class="calendar-icon">📅</span>
+          <div class="calendar-text">
+            <h4>Add to Google Calendar</h4>
+            <p>Never miss your date – save it to your calendar!</p>
+          </div>
+        </div>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Juan%20%26%20Alex's%20Liberty%20Station%20Date&dates=20260301T120000/20260301T180000&details=A%20Liberty%20Station%20day%20starting%20with%20coffee%20at%20Moniker%2C%20waterfront%20stroll%2C%20mini%20golf%20at%20The%20Loma%20Club%2C%20garden%20dinner%20at%20Stone%20Brewing%2C%20dessert%20at%20Liberty%20Public%20Market%2C%20and%20nightcap%20at%20THE%20LOT.&location=Liberty%20Station%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+          <i data-lucide="calendar-plus"></i>
+          Add to Calendar
+        </a>
+      </div>
+
+      <!-- Important Checklist -->
+      <div class="checklist-section">
+        <h3 class="checklist-title">Important Checklist</h3>
+        <div class="checklist-items">
+          <div class="checklist-item">
+            <input type="checkbox" id="check1">
+            <label for="check1"><strong>Reserve Stone Brewing</strong> – Book ~1 week ahead for Sunday patio seating</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check2">
+            <label for="check2"><strong>Bring a light layer</strong> – Liberty Station gets breezy near the water</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check3">
+            <label for="check3"><strong>Wear comfortable walking shoes</strong> – 5-6 hours of strolling</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check4">
+            <label for="check4"><strong>Bring water bottle</strong> – Stay hydrated during the waterfront walk</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="timeline-section">
+        <h3 class="timeline-title">Date Timeline</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-time">12:00 PM</div>
+            <div class="timeline-content">
+              <div class="timeline-stop-name">Moniker Coffee Co.</div>
+              <div class="timeline-duration">☕ Coffee + browsing • ~45 min</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">12:45 PM</div>
+            <div class="timeline-content">
+              <div class="timeline-stop-name">NTC Park Waterfront Loop</div>
+              <div class="timeline-duration">🌊 Scenic stroll • ~30 min</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">1:15 PM</div>
+            <div class="timeline-content">
+              <div class="timeline-stop-name">The Loma Club Mini Putt</div>
+              <div class="timeline-duration">⛳ 9 holes • ~45 min</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">2:30 PM</div>
+            <div class="timeline-content">
+              <div class="timeline-stop-name">Stone Brewing Gardens</div>
+              <div class="timeline-duration">🍺 Garden dinner • ~1.5 hrs</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">4:30 PM</div>
+            <div class="timeline-content">
+              <div class="timeline-stop-name">Liberty Public Market</div>
+              <div class="timeline-duration">🍰 Dessert grazing • ~45 min</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">5:30 PM</div>
+            <div class="timeline-content">
+              <div class="timeline-stop-name">THE LOT (ZENTRL Bar)</div>
+              <div class="timeline-duration">🥂 Nightcap • ~30 min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div class="meta-item">
+          <div class="meta-label">Date</div>
+          <div class="meta-value">Sunday, March 1, 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Time</div>
+          <div class="meta-value">12:00 PM - 6:00 PM</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value">~5-6 hours</div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <h2 class="summary-title">The Day</h2>
+        <p>A Liberty Station day that starts cozy and curated (coffee + browsing), turns playful (mini golf), then lands in a lively garden dinner, dessert grazing, and a polished nightcap at a lounge-y spot. It feels planned, not rushed, and everything stays in one walkable pocket.</p>
+        <p style="margin-top: 12px; font-style: italic; opacity: 0.8;">About 5 to 6 hours total, steady and unhurried with real "eat at normal times" pacing.</p>
+      </div>
+
+      <div class="weather">
+        <strong>🌤️ Weather Note:</strong> Liberty Station gets breezy near the water. A light layer and comfortable walking shoes keep the whole date feeling easy.
+      </div>
+
+      <h2 class="section-title">✨ The Date Plan</h2>
+
+      <!-- Stop 1: Moniker Coffee -->
+      <div class="stop" data-number="1">
+        <h3 class="stop-title">☕ Moniker Coffee Co. at Moniker General</h3>
+        <div class="stop-location">📍 2860 Sims Rd, San Diego, CA 92106</div>
+        <div class="stop-phone">☎️ (619) 255-8772</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=Moniker%20General%202860%20Sims%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip" title="Google Maps"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=Moniker%20General%202860%20Sims%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip" title="Apple Maps"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="tel:+16192558772" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+          <a href="https://www.monikercoffee.com/menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Coffee%20at%20Moniker%20General&dates=20260301T120000/20260301T124500&details=Coffee%20and%20browsing%20at%20Moniker%20General%20with%20Juan%20%26%20Alex&location=2860%20Sims%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
+        </div>
+        <div class="vibe">Bright-cozy, curated, slow start. Sunlight, big tables, and that "we actually left the house for this" energy.</div>
+        <div class="detail-section">
+          <div class="detail-title">What you do:</div>
+          <p>Grab coffees and something small to share, then wander the shop side for a fun "tiny gift" moment (a candle, card, or kitchen thing you both like).</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">You might like:</div>
+          <ul>
+            <li>Split a toast flight so you sample without getting too full before the activity</li>
+            <li>Pick out a small item together as a date souvenir</li>
+          </ul>
+        </div>
+        <div class="backup">
+          <strong>Backup:</strong> THE LOT Liberty Station (cafe seating inside ZENTRL) – Same polished vibe and easy to slide into.
+        </div>
+      </div>
+
+      <!-- Stop 2: Waterfront Walk -->
+      <div class="stop" data-number="2">
+        <h3 class="stop-title">🌊 Liberty Station North Promenade + NTC Park</h3>
+        <div class="stop-location">📍 Waterfront loop, Liberty Station</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=NTC%20Park%20Liberty%20Station%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=NTC%20Park%20Liberty%20Station%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Waterfront%20Stroll%20at%20NTC%20Park&dates=20260301T124500/20260301T131500&details=Scenic%20waterfront%20walk%20through%20Liberty%20Station&location=NTC%20Park%2C%20Liberty%20Station%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
+        </div>
+        <div class="vibe">Breezy, scenic, reset. Bay air, wide paths, and an easy hand-hold stroll.</div>
+        <div class="detail-section">
+          <div class="detail-title">What you do:</div>
+          <p>Pick a short loop: promenade first, then cut through the green space, then back toward the Arts District.</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">You might like:</div>
+          <ul>
+            <li>Bring a small bottle of water so no one gets quietly hangry before mini golf</li>
+            <li>Take photos by the water – great lighting!</li>
+          </ul>
+        </div>
+        <div class="backup">
+          <strong>Backup:</strong> Liberty Public Market for a quick indoor wander and a cold drink if it gets windy or drizzly.
+        </div>
+      </div>
+
+      <!-- Stop 3: Mini Golf -->
+      <div class="stop" data-number="3">
+        <h3 class="stop-title">⛳ The Loma Club Mini Putt</h3>
+        <div class="stop-location">📍 2960 Truxtun Rd, San Diego, CA 92106</div>
+        <div class="stop-phone">☎️ (619) 222-4653</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=The%20Loma%20Club%202960%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=The%20Loma%20Club%202960%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="tel:+16192224653" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+          <a href="https://www.thelomaclub.com/mini-putt" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Info</span></a>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Mini%20Golf%20at%20The%20Loma%20Club&dates=20260301T131500/20260301T140000&details=9%20holes%20of%20mini%20golf%20-%20let%20the%20winner%20choose%20dessert%21&location=2960%20Truxtun%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
+        </div>
+        <div class="vibe">Playful, flirty-competitive, low stakes. A little friendly competition that turns into shared laughs fast.</div>
+        <div class="detail-section">
+          <div class="detail-title">What you do:</div>
+          <p>Play 9 holes, keep it light, and let the "winner" choose dessert later.</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">You might like:</div>
+          <ul>
+            <li>On Sunday March 1, they list live music in the early afternoon – extra fun!</li>
+            <li>Make a friendly wager: loser buys the first round at dinner</li>
+          </ul>
+        </div>
+        <div class="backup">
+          <strong>Backup:</strong> Stone Brewing's garden games and bocce court nearby.
+        </div>
+      </div>
+
+      <!-- Stop 4: Stone Brewing -->
+      <div class="stop" data-number="4">
+        <h3 class="stop-title">🍺 Stone Brewing World Bistro & Gardens</h3>
+        <div class="stop-location">📍 2816 Historic Decatur Rd, San Diego, CA 92106</div>
+        <div class="stop-phone">☎️ (619) 269-2100</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=Stone%20Brewing%20Liberty%20Station%202816%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=Stone%20Brewing%20Liberty%20Station%202816%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="tel:+16192692100" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+          <a href="https://www.stonebrewing.com/visit/bistros/liberty-station/liberty-station-bistro-all-day-menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+          <a href="https://www.opentable.com/stone-brewing-world-bistro-and-gardens-liberty-station" target="_blank" class="btn cal-btn tooltip" style="background: linear-gradient(135deg, #ff6b9d, #c44569);"><i data-lucide="bookmark"></i><span class="tooltip-text">Reserve</span></a>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Dinner%20at%20Stone%20Brewing%20Gardens&dates=20260301T143000/20260301T163000&details=Garden%20dinner%20at%20Stone%20Brewing%20-%20string%20lights%20and%20celebratory%20vibe&location=2816%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
+        </div>
+        <div class="vibe">Garden-lit, lively, date-night. String lights and a big outdoor space that feels celebratory without being fussy.</div>
+        <div class="detail-section">
+          <div class="detail-title">What you do:</div>
+          <p>Make this the main meal. Share a couple of plates and keep it simple so you stay inside the budget.</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">Menu picks:</div>
+          <ul>
+            <li>Their menu is wide, so it's easy to keep flavors more savory</li>
+            <li>Great outdoor patio seating with string lights</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">⚠️ Reservation required:</div>
+          <p>They strongly recommend reservations – Sundays can fill up. Book about a week ahead if you want a specific patio window.</p>
+        </div>
+        <div class="backup">
+          <strong>Backup options:</strong><br>
+          • <strong>Tender Greens</strong> (Liberty Station) – faster, budget-friendly<br>
+          • <strong>Solare Ristorante</strong> – dressier Italian pivot (budget stretch)
+        </div>
+      </div>
+
+      <!-- Stop 5: Liberty Public Market -->
+      <div class="stop" data-number="5">
+        <h3 class="stop-title">🍰 Liberty Public Market Dessert Grazing</h3>
+        <div class="stop-location">📍 2820 Historic Decatur Rd, San Diego, CA 92106</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=Liberty%20Public%20Market%202820%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=Liberty%20Public%20Market%202820%20Historic%20Decatur%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="https://libertypublicmarketsd.com/vendors/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="store"></i><span class="tooltip-text">Vendors</span></a>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Dessert%20at%20Liberty%20Public%20Market&dates=20260301T163000/20260301T171500&details=Dessert%20grazing%20-%20split%20one%20sweet%20and%20one%20savory%20snack&location=2820%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
+        </div>
+        <div class="vibe">Choose-your-own, cozy-buzzy, snacky. A casual, fun finish where you can wander, point at things, and share bites.</div>
+        <div class="detail-section">
+          <div class="detail-title">What you do:</div>
+          <p>Split one sweet and one "not sweet" snack (like a pastry plus something salty) so it doesn't feel like a second dinner.</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">You might like:</div>
+          <ul>
+            <li>If you're here between 3-6 PM, they have a daily happy hour</li>
+            <li>Let the mini golf winner pick the dessert spot!</li>
+          </ul>
+        </div>
+        <div class="backup">
+          <strong>Backup:</strong> ZENTRL at THE LOT for a sit-down dessert and a more "night date" feel.
+        </div>
+      </div>
+
+      <!-- Stop 6: THE LOT -->
+      <div class="stop" data-number="6">
+        <h3 class="stop-title">🥂 Nightcap at THE LOT (ZENTRL Bar)</h3>
+        <div class="stop-location">📍 2620 Truxtun Rd, San Diego, CA 92106</div>
+        <div class="stop-phone">☎️ (619) 566-0069</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=THE%20LOT%20Liberty%20Station%202620%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=THE%20LOT%20Liberty%20Station%202620%20Truxtun%20Rd%20San%20Diego%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="tel:+16195660069" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+          <a href="https://www.thelotent.com/movie-theater/libertystation" target="_blank" class="btn menu-btn tooltip"><i data-lucide="film"></i><span class="tooltip-text">Movies</span></a>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Nightcap%20at%20THE%20LOT&dates=20260301T173000/20260301T180000&details=Nightcap%20at%20ZENTRL%20bar%20-%20polished%20finish%20to%20the%20day&location=2620%20Truxtun%20Rd%2C%20San%20Diego%2C%20CA%2092106&sf=true&output=xml" target="_blank" class="btn cal-btn tooltip"><i data-lucide="calendar-plus"></i><span class="tooltip-text">Add to Calendar</span></a>
+        </div>
+        <div class="vibe">Polished, intimate, grown-up. Dimmer lighting and that "we dressed up a little" finish, perfect for a slow wind-down.</div>
+        <div class="detail-section">
+          <div class="detail-title">What you do:</div>
+          <p>One round, keep it simple, then end on a high note while you still feel good.</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-title">You might like:</div>
+          <ul>
+            <li>If you want to extend the night, check showtimes and decide on a movie together in the moment</li>
+            <li>All in the same building – no extra walking!</li>
+          </ul>
+        </div>
+        <div class="backup">
+          <strong>Backup:</strong> Head back to Stone's bar for one last drink (they're open later than some spots).
+        </div>
+      </div>
+
+      <div class="budget">
+        <h3 class="budget-title">💰 Estimated Budget</h3>
+        <div class="budget-items">
+          <div class="budget-item">
+            <div class="budget-label">Coffee + Small Bite</div>
+            <div class="budget-value">$15-35</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-label">Mini Golf</div>
+            <div class="budget-value">$25-55</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-label">Dinner + Drinks</div>
+            <div class="budget-value">$60-120</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-label">Dessert</div>
+            <div class="budget-value">$15-35</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-label">Nightcap</div>
+            <div class="budget-value">$20-45</div>
+          </div>
+        </div>
+        <div class="budget-total">Total: $95-190 for two</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Loading Screen
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loadingScreen').classList.add('hidden');
+      }, 6000);
+    });
+
+    lucide.createIcons();
+
+    // Countdown Timer
+    const targetDate = new Date('2026-03-01T12:00:00').getTime();
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      
+      if (distance < 0) {
+        document.getElementById('countdown').innerHTML = '<div style="background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; padding: 15px 30px; border-radius: 25px; font-weight: 500;">🎉 This date has passed! Hope it was magical! 💕</div>';
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Checklist persistence
+    document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(function(checkbox) {
+      const key = 'juan-alex-checklist-' + checkbox.id;
+      checkbox.checked = localStorage.getItem(key) === 'true';
+      
+      checkbox.addEventListener('change', function() {
+        localStorage.setItem(key, this.checked);
+        if (this.checked) {
+          this.parentElement.classList.add('checked');
+        } else {
+          this.parentElement.classList.remove('checked');
+        }
+      });
+      
+      if (checkbox.checked) {
+        checkbox.parentElement.classList.add('checked');
+      }
+    });
+
+    // Tooltip positioning
+    document.querySelectorAll('.tooltip').forEach(tooltip => {
+      tooltip.addEventListener('mouseenter', function(e) {
+        const tooltipText = this.querySelector('.tooltip-text');
+        if (tooltipText) {
+          const rect = this.getBoundingClientRect();
+          tooltipText.style.left = (rect.left + rect.width / 2 - 60) + 'px';
+          tooltipText.style.top = (rect.top - 45) + 'px';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
