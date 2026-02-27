@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balboa Park Sunday Date</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ffeef8 0%, #e8f4fd 50%, #fff5f7 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loading-heart {
+      font-size: 4rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .loading-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #4a2c3e;
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.8;
+      margin-top: 30px;
+      padding: 0 20px;
+    }
+    .loading-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 107, 157, 0.2);
+      border-radius: 2px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    .loading-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #4285f4);
+      border-radius: 2px;
+      animation: loading 6s ease-out forwards;
+    }
+    @keyframes loading {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe4f1 100%);
+      color: #4a2c3e;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(219, 112, 147, 0.15);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+      padding: 60px 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .header::before {
+      content: "💕";
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+    .header::after {
+      content: "✨";
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+    .content {
+      padding: 50px 40px;
+    }
+
+    /* Countdown Timer */
+    .countdown-section {
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ffe4f1;
+    }
+    .countdown-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #c44569;
+      margin-bottom: 20px;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 25px;
+      min-width: 90px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.1);
+      border: 2px solid #ffe4f1;
+    }
+    .countdown-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ff6b9d;
+      line-height: 1;
+    }
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    /* Calendar Section */
+    .calendar-section {
+      background: white;
+      border: 2px solid #ffe4f1;
+      border-radius: 16px;
+      padding: 20px 25px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+    .calendar-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .calendar-icon {
+      font-size: 2rem;
+    }
+    .calendar-text h4 {
+      font-family: 'Playfair Display', serif;
+      color: #c44569;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+    .calendar-text p {
+      color: #5a3c4e;
+      font-size: 0.85rem;
+    }
+    .calendar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+    .calendar-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+    }
+
+    /* Important Checklist */
+    .checklist-section {
+      background: linear-gradient(135deg, #e8f4fd 0%, #fff5f7 50%, #ffeef8 100%);
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+    }
+    .checklist-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #2c5f8d;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .checklist-title::before {
+      content: "📋";
+      font-size: 1.5rem;
+    }
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      padding: 15px 18px;
+      border-radius: 12px;
+      border-left: 4px solid #ff6b9d;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .checklist-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .checklist-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: #ff6b9d;
+      cursor: pointer;
+    }
+    .checklist-item label {
+      color: #4a2c3e;
+      font-size: 0.95rem;
+      cursor: pointer;
+      flex: 1;
+    }
+    .checklist-item label strong {
+      color: #2c5f8d;
+    }
+    .checklist-item.checked {
+      opacity: 0.6;
+      background: #f8f8f8;
+    }
+    .checklist-item.checked label {
+      text-decoration: line-through;
+    }
+
+    .meta {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 16px;
+      border-left: 4px solid #ff6b9d;
+    }
+    .meta-item {
+      flex: 1;
+    }
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c44569;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .meta-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4a2c3e;
+    }
+    .summary {
+      background: #fff;
+      padding: 35px;
+      border-radius: 16px;
+      border: 2px solid #ffe4f1;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #c44569;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .summary-title::before {
+      content: "🌹";
+      font-size: 1.5rem;
+    }
+    .summary p {
+      font-size: 1.05rem;
+      color: #5a3c4e;
+      line-height: 1.8;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #c44569;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stop {
+      background: linear-gradient(135deg, #fff 0%, #fffbfc 100%);
+      padding: 35px;
+      border-radius: 20px;
+      margin-bottom: 35px;
+      border: 2px solid #ffe4f1;
+      position: relative;
+      box-shadow: 0 8px 25px rgba(219, 112, 147, 0.1);
+    }
+    .stop::before {
+      content: attr(data-number);
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
+    }
+    .stop-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #4a2c3e;
+      margin-bottom: 8px;
+      margin-top: 10px;
+    }
+    .stop-location {
+      color: #c44569;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .stop-phone {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .vibe {
+      background: linear-gradient(135deg, #e8f4fd, #fff5f7);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border-left: 3px solid #4285f4;
+      font-style: italic;
+      color: #5a3c4e;
+    }
+    .detail-section {
+      margin: 20px 0;
+    }
+    .detail-title {
+      font-weight: 600;
+      color: #c44569;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .detail-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .detail-section li {
+      padding-left: 25px;
+      position: relative;
+      margin-bottom: 8px;
+      color: #5a3c4e;
+    }
+    .detail-section li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #ff6b9d;
+      font-weight: 600;
+    }
+    .detail-section p {
+      color: #5a3c4e;
+      margin-bottom: 8px;
+    }
+    .backup {
+      background: #fff9e6;
+      border: 2px solid #ffd966;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #8b6914;
+    }
+    .backup strong {
+      color: #d4a017;
+    }
+    .time-note {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #2c5f8d;
+    }
+    .time-note strong {
+      color: #1a4a6e;
+    }
+
+    /* Expandable Sections */
+    .expandable-section {
+      margin: 15px 0;
+    }
+    .expandable-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #ffe4f1;
+    }
+    .expandable-header:hover {
+      background: linear-gradient(135deg, #ffeef8, #ffe4f1);
+    }
+    .expandable-title {
+      font-weight: 500;
+      color: #c44569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .expandable-arrow {
+      transition: transform 0.3s ease;
+      color: #ff6b9d;
+    }
+    .expandable-arrow.expanded {
+      transform: rotate(180deg);
+    }
+    .expandable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .expandable-content.expanded {
+      max-height: 2000px;
+    }
+    .expandable-inner {
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 8px;
+      border: 1px solid #ffe4f1;
+    }
+
+    /* Photo Gallery */
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .photo-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .photo-item:hover {
+      transform: scale(1.03);
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Notes Section */
+    .notes-section {
+      margin-top: 15px;
+    }
+    .notes-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px 15px;
+      border: 2px solid #ffe4f1;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: #4a2c3e;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    .notes-textarea:focus {
+      outline: none;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+    .notes-textarea::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+    .notes-saved {
+      font-size: 0.75rem;
+      color: #4285f4;
+      margin-top: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .notes-saved.show {
+      opacity: 1;
+    }
+
+    .btns {
+      margin: 15px 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .dir-btn {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+    }
+    .dir-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
+    }
+    .ph-btn {
+      background: #4a2c3e;
+      color: #fff;
+    }
+    .ph-btn:hover {
+      background: #5a3c4e;
+    }
+    .menu-btn {
+      background: #fff5f7;
+      color: #c44569;
+      border: 2px solid #c44569;
+    }
+    .menu-btn:hover {
+      background: #ffeef8;
+    }
+    .cal-btn {
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: #fff;
+    }
+    .cal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+    }
+    .reserve-btn {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+    }
+    .reserve-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
+    }
+
+    /* Ride Share Buttons */
+    .rideshare-btns {
+      display: flex;
+      gap: 8px;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 1px solid #ffe4f1;
+    }
+    .uber-btn, .lyft-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .uber-btn {
+      background: #000000;
+      color: #ffffff;
+    }
+    .uber-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .uber-btn svg {
+      width: 40px;
+      height: 14px;
+    }
+    .lyft-btn {
+      background: #FF00BF;
+      color: #ffffff;
+    }
+    .lyft-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 0, 191, 0.4);
+    }
+    .lyft-btn svg {
+      width: 32px;
+      height: 14px;
+    }
+
+    .tooltip {
+      position: relative;
+    }
+    .tooltip-text {
+      visibility: hidden;
+      width: 120px;
+      background-color: #4a2c3e;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 8px;
+      position: fixed;
+      z-index: 99999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.75rem;
+      pointer-events: none;
+    }
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    .budget {
+      background: linear-gradient(135deg, #c44569, #ff6b9d);
+      color: #fff;
+      padding: 35px;
+      border-radius: 20px;
+      margin-top: 50px;
+      text-align: center;
+    }
+    .budget-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+    .budget-items {
+      display: flex;
+      justify-content: space-around;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+    .budget-item {
+      text-align: center;
+      margin: 10px;
+    }
+    .budget-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    .budget-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .budget-total {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .weather {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 30px 0;
+      color: #2c5f8d;
+    }
+    @media (max-width: 768px) {
+      .meta {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .budget-items {
+        flex-direction: column;
+        gap: 15px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .countdown {
+        gap: 10px;
+      }
+      .countdown-item {
+        min-width: 70px;
+        padding: 15px 18px;
+      }
+      .countdown-number {
+        font-size: 1.8rem;
+      }
+      .calendar-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .calendar-info {
+        flex-direction: column;
+      }
+      .btns {
+        gap: 6px;
+      }
+      .rideshare-btns {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .photo-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-heart">💕</div>
+    <p class="loading-text">Great dates take longer than a TikTok scroll… ❤️<br>we refuse to send you to a boring spot.</p>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo">💕 DateFlo</div>
+      <h1>Balboa Park Sunday</h1>
+      <p class="subtitle">Gardens • Organ Concert • Burgers • Wine • Speakeasy 🌵</p>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown-section" id="countdownSection">
+      <h3 class="countdown-title">⏰ Countdown to Your Balboa Park Day</h3>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">0</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">0</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">0</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">0</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Calendar Section -->
+      <div class="calendar-section">
+        <div class="calendar-info">
+          <span class="calendar-icon">📅</span>
+          <div class="calendar-text">
+            <h4>Add to Google Calendar</h4>
+            <p>Save your Balboa Park date!</p>
+          </div>
+        </div>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Balboa%20Park%20Sunday%20Date&dates=20260301T130000/20260301T200000&details=Cactus%20Garden%2C%20Organ%20Concert%2C%20The%20Balboa%20Bar%20%26%20Grill%2C%20WetStone%20Wine%20Bar%2C%20Charade%20Speakeasy&location=Balboa%20Park%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+          <i data-lucide="calendar-plus"></i>
+          Add to Calendar
+        </a>
+      </div>
+
+      <!-- Checklist -->
+      <div class="checklist-section">
+        <h3 class="checklist-title">Important Checklist</h3>
+        <div class="checklist-items">
+          <div class="checklist-item">
+            <input type="checkbox" id="check1">
+            <label for="check1"><strong>Reserve Charade Speakeasy</strong> – Book on OpenTable (adults only)</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check2">
+            <label for="check2"><strong>Bring a light layer + small blanket</strong> – For the outdoor concert</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check3">
+            <label for="check3"><strong>Dress slightly sharper</strong> – Speakeasy vibe calls for it</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check4">
+            <label for="check4"><strong>Arrive at Organ Pavilion by 1:45pm</strong> – Concert starts at 2pm sharp</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div class="meta-item">
+          <div class="meta-label">Date</div>
+          <div class="meta-value">Sunday, March 1, 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Time</div>
+          <div class="meta-value">1:00 PM - 8:00 PM</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value">~5-6 hours</div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <h2 class="summary-title">The Day</h2>
+        <p>A low-stress, feel-good Sunday that starts with an easy scenic stroll through Balboa Park (with a Kate Sessions nod), turns into a free live music moment, and ends with burgers, dessert-wine coziness, and a hidden speakeasy nightcap. Paced around the 2pm organ concert so you never hit the "we forgot to eat" zone.</p>
+      </div>
+
+      <div class="weather">
+        <strong>🌤️ Weather:</strong> March evenings in the park can feel cooler than you expect once you're sitting still. A light jacket and a small blanket for the concert keeps everything comfy without breaking the dressed-up vibe.
+      </div>
+
+      <h2 class="section-title">✨ The Date Plan</h2>
+
+      <!-- Stop 1: Cactus Garden -->
+      <div class="stop" data-number="1">
+        <h3 class="stop-title">🌵 Kate O. Sessions Cactus Garden</h3>
+        <div class="stop-location">📍 Behind the Balboa Park Club, 2144 Pan American Road W, San Diego, CA 92101</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=Kate%20O.%20Sessions%20Cactus%20Garden%2C%202144%20Pan%20American%20Road%20W%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/place?auid=7522812122015455519&lsp=9902" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="https://balboapark.org/parks-trails-gardens/kate-o-sessions-cactus-garden-balboa-park/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Info</span></a>
+          <div class="rideshare-btns">
+            <a href="https://m.uber.com/?action=setPickup&destination=2144%20Pan%20American%20Road%20W%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+              UBER
+            </a>
+            <a href="https://lyft.com/ride?id=lyft&destination[address]=Kate%20O.%20Sessions%20Cactus%20Garden%2C%20San%20Diego" target="_blank" class="lyft-btn" title="Ride with Lyft">
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+              Lyft
+            </a>
+          </div>
+        </div>
+        
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Sunny stroll, quiet pockets. You start in a tucked-away garden that feels like a mini escape, full of weirdly beautiful succulents and little winding paths.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Wander the paths, pick a "favorite cactus," then take a slow lap toward the Balboa Park Club area for that old-San-Diego charm.</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>Bring a small iced coffee or sparkling water and make it a "walk-and-sip" start</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Hours:</strong> Open daily, 24 hours. Best enjoyed during daylight.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> Balboa Park Desert Garden – same outdoorsy, calm vibe with a slightly different loop.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1509587584298-0f3b3a3a1797?w=400" alt="Cactus Garden">
+                  <div class="photo-label">Cactus Garden</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400" alt="Paths">
+                  <div class="photo-label">Winding Paths</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" alt="Succulents">
+                  <div class="photo-label">Succulents</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-cactus" placeholder="Did you find a favorite cactus? Any hidden gems? (e.g., 'The tall cacti near the back were stunning, great photo spot')" oninput="saveNotes('cactus')"></textarea>
+                <div class="notes-saved" id="saved-cactus">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stop 2: Organ Concert -->
+      <div class="stop" data-number="2">
+        <h3 class="stop-title">🎵 Spreckels Organ Pavilion (Free Concert)</h3>
+        <div class="stop-location">📍 2125 Pan American E Rd, San Diego, CA 92101</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=Spreckels%20Organ%20Pavilion%2C%202125%20Pan%20American%20E%20Rd%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=Spreckels%20Organ%20Pavilion%2C%202125%20Pan%20American%20E%20Rd%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="https://www.spreckelsorgan.org/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Website</span></a>
+          <div class="rideshare-btns">
+            <a href="https://m.uber.com/?action=setPickup&destination=Spreckels%20Organ%20Pavilion%2C%20San%20Diego" target="_blank" class="uber-btn" title="Ride with Uber">
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+              UBER
+            </a>
+            <a href="https://lyft.com/ride?id=lyft&destination[address]=Spreckels%20Organ%20Pavilion%2C%20San%20Diego" target="_blank" class="lyft-btn" title="Ride with Lyft">
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+              Lyft
+            </a>
+          </div>
+        </div>
+        
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Classic SD, effortless, a little magical. You sit in an ornate outdoor pavilion and let the music do the heavy lifting – instantly makes the day feel special without trying too hard.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Grab seats a bit early (aim for 1:45pm), people-watch, then enjoy the one-hour concert (rain or shine). It's completely free!</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>Bring a light layer or small blanket so you can settle in and actually relax</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Concert Time:</strong> Sundays at 2:00 PM (about 1 hour). Free admission, no reservation needed.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> Spanish Village Art Center (open 11am-4pm) for a colorful wander through working artist studios and demos.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Pavilion">
+                  <div class="photo-label">Organ Pavilion</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400" alt="Architecture">
+                  <div class="photo-label">Architecture</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=400" alt="Concert">
+                  <div class="photo-label">Outdoor Concert</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-organ" placeholder="How was the concert? Any favorite pieces? (e.g., 'The acoustics were incredible, loved the classical pieces')" oninput="saveNotes('organ')"></textarea>
+                <div class="notes-saved" id="saved-organ">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stop 3: The Balboa Bar & Grill -->
+      <div class="stop" data-number="3">
+        <h3 class="stop-title">🍔 The Balboa Bar & Grill</h3>
+        <div class="stop-location">📍 1863 5th Ave, San Diego, CA 92101</div>
+        <div class="stop-phone">☎️ (619) 955-8525</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=1863%205th%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=1863%205th%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="tel:+16199558525" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+          <a href="https://www.thebalboabarandgrill.com/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+          <div class="rideshare-btns">
+            <a href="https://m.uber.com/?action=setPickup&destination=1863%205th%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+              UBER
+            </a>
+            <a href="https://lyft.com/ride?id=lyft&destination[address]=1863%205th%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+              Lyft
+            </a>
+          </div>
+        </div>
+        
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Cozy-dim, burger date, classic cocktails. You shift into an easy "night date" mode: warm lighting, a classic bar feel, and burgers/fries that hit without being a huge production.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Split fries, each pick a burger or sandwich, then linger a little at the table so it doesn't feel rushed.</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>Order one cocktail to share first, then decide if you want your own after</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Hours:</strong> Sunday 12:00 PM - 10:00 PM. Walk-in friendly – going earlier keeps it smoother.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> CUCINA urbana (Bankers Hill) for a more dressed-up Italian dinner. <a href="https://www.opentable.com/r/cucina-urbana-san-diego" target="_blank">Reserve on OpenTable →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="Burger">
+                  <div class="photo-label">Burgers</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400" alt="Interior">
+                  <div class="photo-label">Bar Interior</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400" alt="Cocktails">
+                  <div class="photo-label">Classic Cocktails</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-balboa" placeholder="Favorite burger? How was the vibe? (e.g., 'The classic burger was perfect, great old-school bar atmosphere')" oninput="saveNotes('balboa')"></textarea>
+                <div class="notes-saved" id="saved-balboa">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stop 4: WetStone Wine Bar -->
+      <div class="stop" data-number="4">
+        <h3 class="stop-title">🍷 WetStone Wine Bar</h3>
+        <div class="stop-location">📍 1927 Fourth Ave, San Diego, CA 92101</div>
+        <div class="stop-phone">☎️ (619) 255-2856</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=1927%20Fourth%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=1927%20Fourth%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="tel:+16192552856" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+          <a href="https://www.wetstonewinebar.com/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+          <div class="rideshare-btns">
+            <a href="https://m.uber.com/?action=setPickup&destination=1927%20Fourth%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+              UBER
+            </a>
+            <a href="https://lyft.com/ride?id=lyft&destination[address]=1927%20Fourth%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+              Lyft
+            </a>
+          </div>
+        </div>
+        
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Candlelit, intimate, slow sip. This feels like the "we planned this" part: a small, cozy room where you can actually talk and wind down.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Do the dessert pairing (house-made dessert + a small fortified-wine pour) and share bites slowly. Keep it simple and split one pairing, then add a small savory plate only if you're still hungry.</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>Ask for their dessert wine recommendations – they know their pairings</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Hours:</strong> Sunday 4:00 PM - 9:00 PM. Worth checking for a table reservation on busy nights.
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> Grab dessert at CUCINA urbana (gelato/coffee finish) and keep the night moving.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400" alt="Wine">
+                  <div class="photo-label">Wine Selection</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400" alt="Dessert">
+                  <div class="photo-label">Dessert Pairing</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400" alt="Ambiance">
+                  <div class="photo-label">Cozy Ambiance</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-wetstone" placeholder="Favorite dessert wine? How was the pairing? (e.g., 'The port + chocolate pairing was incredible, ask for the house dessert')" oninput="saveNotes('wetstone')"></textarea>
+                <div class="notes-saved" id="saved-wetstone">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stop 5: Charade Speakeasy -->
+      <div class="stop" data-number="5">
+        <h3 class="stop-title">🥃 Charade Speakeasy</h3>
+        <div class="stop-location">📍 1867 Fifth Ave, San Diego, CA 92101</div>
+        <div class="stop-phone">☎️ (702) 862-0030</div>
+        <div class="btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=1867%20Fifth%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          <a href="https://maps.apple.com/?q=1867%20Fifth%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+          <a href="tel:+17028620030" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+          <a href="https://www.charadespeakeasy.com/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="info"></i><span class="tooltip-text">Website</span></a>
+          <a href="https://www.opentable.com/r/charade-san-diego" target="_blank" class="btn reserve-btn tooltip"><i data-lucide="bookmark"></i><span class="tooltip-text">Reserve</span></a>
+          <div class="rideshare-btns">
+            <a href="https://m.uber.com/?action=setPickup&destination=1867%20Fifth%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn" title="Ride with Uber">
+              <svg viewBox="0 0 512 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M74.878 115.579L86.2082 83.9756H97.5384L74.878 144.337H63.5478L40.8873 83.9756H52.2175L63.5478 115.579L69.2129 133.579L74.878 115.579Z" fill="white"/></svg>
+              UBER
+            </a>
+            <a href="https://lyft.com/ride?id=lyft&destination[address]=1867%20Fifth%20Ave%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn" title="Ride with Lyft">
+              <svg viewBox="0 0 410 158" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M122.094 52.0537H97.6582L78.9411 98.6668L60.224 52.0537H35.7881L67.2015 121.482L52.0376 155.482H76.4735L122.094 52.0537Z" fill="white"/></svg>
+              Lyft
+            </a>
+          </div>
+        </div>
+        
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="info"></i> Details & What to Do</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="vibe">Hidden door, theatrical, flirty. You end with something genuinely different: a speakeasy-style room with cocktails and a "what's going to happen tonight?" vibe.</div>
+              <div class="detail-section">
+                <div class="detail-title">What you do:</div>
+                <p>Pick one fun cocktail each (or one cocktail + one mocktail), soak in the atmosphere, and let the night feel like its own little world.</p>
+              </div>
+              <div class="detail-section">
+                <div class="detail-title">You might like:</div>
+                <ul>
+                  <li>Dress a touch sharper for this stop – it matches the vibe</li>
+                </ul>
+              </div>
+              <div class="time-note">
+                <strong>⏰ Hours:</strong> Sunday 6:00 PM - 10:00 PM. Adults only. Reservations strongly recommended!
+              </div>
+              <div class="backup">
+                <strong>Backup:</strong> Stay at The Balboa for one last classic cocktail at the main bar.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expandable-section">
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+            <i data-lucide="chevron-down" class="expandable-arrow"></i>
+          </div>
+          <div class="expandable-content">
+            <div class="expandable-inner">
+              <div class="photo-gallery">
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400" alt="Cocktails">
+                  <div class="photo-label">Craft Cocktails</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400" alt="Interior">
+                  <div class="photo-label">Speakeasy Vibe</div>
+                </div>
+                <div class="photo-item">
+                  <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=400" alt="Ambiance">
+                  <div class="photo-label">Moody Ambiance</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-section">
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <textarea class="notes-textarea" id="notes-charade" placeholder="Favorite cocktail? How was the atmosphere? (e.g., 'The signature cocktail was amazing, loved the theatrical vibe')" oninput="saveNotes('charade')"></textarea>
+                <div class="notes-saved" id="saved-charade">✓ Notes saved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="budget">
+        <h3 class="budget-title">💰 Estimated Budget</h3>
+        <div class="budget-items">
+          <div class="budget-item">
+            <div class="budget-label">Park + Gardens + Concert</div>
+            <div class="budget-value">Free!</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-label">Dinner (The Balboa)</div>
+            <div class="budget-value">$45-85</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-label">Dessert + Wine Pairing</div>
+            <div class="budget-value">$20-45</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-label">Speakeasy Drinks</div>
+            <div class="budget-value">$25-55</div>
+          </div>
+        </div>
+        <div class="budget-total">Total: $90-185 (closer to ~$100 with 1 drink each, splitting dessert)</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Loading Screen
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loadingScreen').classList.add('hidden');
+      }, 6000);
+    });
+
+    lucide.createIcons();
+
+    // Countdown Timer
+    const targetDate = new Date('2026-03-01T13:00:00').getTime();
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      
+      if (distance < 0) {
+        document.getElementById('countdown').innerHTML = '<div style="background: linear-gradient(135deg, #ff6b9d, #c44569); color: white; padding: 15px 30px; border-radius: 25px; font-weight: 500;">🎉 This date has passed! Hope it was magical! 💕</div>';
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Expandable Sections
+    function toggleExpand(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.expandable-arrow');
+      
+      content.classList.toggle('expanded');
+      arrow.classList.toggle('expanded');
+    }
+
+    // Notes Persistence
+    function saveNotes(stopId) {
+      const textarea = document.getElementById('notes-' + stopId);
+      const savedMsg = document.getElementById('saved-' + stopId);
+      
+      localStorage.setItem('balboa-notes-' + stopId, textarea.value);
+      
+      savedMsg.classList.add('show');
+      setTimeout(() => savedMsg.classList.remove('show'), 2000);
+    }
+
+    // Load saved notes on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const stopIds = ['cactus', 'organ', 'balboa', 'wetstone', 'charade'];
+      stopIds.forEach(stopId => {
+        const saved = localStorage.getItem('balboa-notes-' + stopId);
+        if (saved) {
+          const textarea = document.getElementById('notes-' + stopId);
+          if (textarea) textarea.value = saved;
+        }
+      });
+    });
+
+    // Checklist persistence
+    document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(function(checkbox) {
+      const key = 'balboa-checklist-' + checkbox.id;
+      checkbox.checked = localStorage.getItem(key) === 'true';
+      
+      checkbox.addEventListener('change', function() {
+        localStorage.setItem(key, this.checked);
+        if (this.checked) {
+          this.parentElement.classList.add('checked');
+        } else {
+          this.parentElement.classList.remove('checked');
+        }
+      });
+      
+      if (checkbox.checked) {
+        checkbox.parentElement.classList.add('checked');
+      }
+    });
+
+    // Tooltip positioning
+    document.querySelectorAll('.tooltip').forEach(tooltip => {
+      tooltip.addEventListener('mouseenter', function(e) {
+        const tooltipText = this.querySelector('.tooltip-text');
+        if (tooltipText) {
+          const rect = this.getBoundingClientRect();
+          tooltipText.style.left = (rect.left + rect.width / 2 - 60) + 'px';
+          tooltipText.style.top = (rect.top - 45) + 'px';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
