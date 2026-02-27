@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Options - March 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ffeef8 0%, #e8f4fd 50%, #fff5f7 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loading-heart {
+      font-size: 4rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .loading-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #4a2c3e;
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.8;
+      margin-top: 30px;
+      padding: 0 20px;
+    }
+    .loading-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 107, 157, 0.2);
+      border-radius: 2px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    .loading-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #4285f4);
+      border-radius: 2px;
+      animation: loading 6s ease-out forwards;
+    }
+    @keyframes loading {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe4f1 100%);
+      color: #4a2c3e;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(219, 112, 147, 0.15);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+      padding: 60px 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .header::before {
+      content: "💕";
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+    .header::after {
+      content: "✨";
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 2rem;
+      opacity: 0.3;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+
+    /* Infographic Banner */
+    .infographic-banner {
+      background: linear-gradient(135deg, #fff5f7 0%, #ffeef8 100%);
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ffe4f1;
+    }
+    .infographic-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #c44569;
+      margin-bottom: 20px;
+    }
+    .infographic-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(219, 112, 147, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .infographic-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 40px rgba(219, 112, 147, 0.25);
+    }
+
+    /* Plan Selector */
+    .plan-selector {
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ffe4f1;
+    }
+    .plan-selector-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #c44569;
+      margin-bottom: 15px;
+    }
+    .plan-selector-note {
+      font-size: 0.9rem;
+      color: #5a3c4e;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .plan-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .plan-btn {
+      padding: 15px 30px;
+      border: 2px solid #ff6b9d;
+      background: white;
+      color: #c44569;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .plan-btn:hover {
+      background: #fff5f7;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 107, 157, 0.2);
+    }
+    .plan-btn.active {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
+    }
+    .plan-btn-date {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    /* Plan Content */
+    .plan-content {
+      display: none;
+    }
+    .plan-content.active {
+      display: block;
+    }
+
+    .content {
+      padding: 50px 40px;
+    }
+
+    /* Countdown Timer */
+    .countdown-section {
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid #ffe4f1;
+    }
+    .countdown-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #c44569;
+      margin-bottom: 20px;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 25px;
+      min-width: 90px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.1);
+      border: 2px solid #ffe4f1;
+    }
+    .countdown-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ff6b9d;
+      line-height: 1;
+    }
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    /* Calendar Section */
+    .calendar-section {
+      background: white;
+      border: 2px solid #ffe4f1;
+      border-radius: 16px;
+      padding: 20px 25px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+    .calendar-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .calendar-icon {
+      font-size: 2rem;
+    }
+    .calendar-text h4 {
+      font-family: 'Playfair Display', serif;
+      color: #c44569;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+    .calendar-text p {
+      color: #5a3c4e;
+      font-size: 0.85rem;
+    }
+    .calendar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+    .calendar-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+    }
+
+    /* Checklist */
+    .checklist-section {
+      background: linear-gradient(135deg, #e8f4fd 0%, #fff5f7 50%, #ffeef8 100%);
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+    }
+    .checklist-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #2c5f8d;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .checklist-title::before {
+      content: "📋";
+      font-size: 1.5rem;
+    }
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      padding: 15px 18px;
+      border-radius: 12px;
+      border-left: 4px solid #ff6b9d;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .checklist-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .checklist-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: #ff6b9d;
+      cursor: pointer;
+    }
+    .checklist-item label {
+      color: #4a2c3e;
+      font-size: 0.95rem;
+      cursor: pointer;
+      flex: 1;
+    }
+    .checklist-item label strong {
+      color: #2c5f8d;
+    }
+    .checklist-item.checked {
+      opacity: 0.6;
+      background: #f8f8f8;
+    }
+    .checklist-item.checked label {
+      text-decoration: line-through;
+    }
+
+    .meta {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 16px;
+      border-left: 4px solid #ff6b9d;
+    }
+    .meta-item {
+      flex: 1;
+    }
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c44569;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .meta-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4a2c3e;
+    }
+    .summary {
+      background: #fff;
+      padding: 35px;
+      border-radius: 16px;
+      border: 2px solid #ffe4f1;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 15px rgba(219, 112, 147, 0.08);
+    }
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #c44569;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .summary-title::before {
+      content: "🌹";
+      font-size: 1.5rem;
+    }
+    .summary p {
+      font-size: 1.05rem;
+      color: #5a3c4e;
+      line-height: 1.8;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #c44569;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stop {
+      background: linear-gradient(135deg, #fff 0%, #fffbfc 100%);
+      padding: 35px;
+      border-radius: 20px;
+      margin-bottom: 35px;
+      border: 2px solid #ffe4f1;
+      position: relative;
+      box-shadow: 0 8px 25px rgba(219, 112, 147, 0.1);
+    }
+    .stop::before {
+      content: attr(data-number);
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(196, 69, 105, 0.3);
+    }
+    .stop-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #4a2c3e;
+      margin-bottom: 8px;
+      margin-top: 10px;
+    }
+    .stop-location {
+      color: #c44569;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .stop-phone {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .vibe {
+      background: linear-gradient(135deg, #e8f4fd, #fff5f7);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border-left: 3px solid #4285f4;
+      font-style: italic;
+      color: #5a3c4e;
+    }
+    .detail-section {
+      margin: 20px 0;
+    }
+    .detail-title {
+      font-weight: 600;
+      color: #c44569;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .detail-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .detail-section li {
+      padding-left: 25px;
+      position: relative;
+      margin-bottom: 8px;
+      color: #5a3c4e;
+    }
+    .detail-section li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #ff6b9d;
+      font-weight: 600;
+    }
+    .detail-section p {
+      color: #5a3c4e;
+      margin-bottom: 8px;
+    }
+    .backup {
+      background: #fff9e6;
+      border: 2px solid #ffd966;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #8b6914;
+    }
+    .backup strong {
+      color: #d4a017;
+    }
+    .time-note {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #2c5f8d;
+    }
+    .time-note strong {
+      color: #1a4a6e;
+    }
+
+    /* Menu Picks Section */
+    .menu-picks {
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px 0;
+      border: 1px solid #ffe4f1;
+    }
+    .menu-picks-title {
+      font-weight: 600;
+      color: #c44569;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+    .partner-section {
+      margin-bottom: 15px;
+    }
+    .partner-label {
+      font-weight: 500;
+      color: #4a2c3e;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+    .partner-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .partner-section li {
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 6px;
+      color: #5a3c4e;
+      font-size: 0.9rem;
+    }
+    .partner-section li::before {
+      content: "•";
+      position: absolute;
+      left: 5px;
+      color: #ff6b9d;
+    }
+
+    /* Expandable Sections */
+    .expandable-section {
+      margin: 15px 0;
+    }
+    .expandable-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #fff5f7, #ffeef8);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #ffe4f1;
+    }
+    .expandable-header:hover {
+      background: linear-gradient(135deg, #ffeef8, #ffe4f1);
+    }
+    .expandable-title {
+      font-weight: 500;
+      color: #c44569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .expandable-arrow {
+      transition: transform 0.3s ease;
+      color: #ff6b9d;
+    }
+    .expandable-arrow.expanded {
+      transform: rotate(180deg);
+    }
+    .expandable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .expandable-content.expanded {
+      max-height: 2000px;
+    }
+    .expandable-inner {
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 8px;
+      border: 1px solid #ffe4f1;
+    }
+
+    /* Photo Gallery */
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .photo-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .photo-item:hover {
+      transform: scale(1.03);
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Notes Section */
+    .notes-section {
+      margin-top: 15px;
+    }
+    .notes-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px 15px;
+      border: 2px solid #ffe4f1;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: #4a2c3e;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    .notes-textarea:focus {
+      outline: none;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+    .notes-textarea::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+    .notes-saved {
+      font-size: 0.75rem;
+      color: #4285f4;
+      margin-top: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .notes-saved.show {
+      opacity: 1;
+    }
+
+    .btns {
+      margin: 15px 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .dir-btn {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+    }
+    .dir-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
+    }
+    .ph-btn {
+      background: #4a2c3e;
+      color: #fff;
+    }
+    .ph-btn:hover {
+      background: #5a3c4e;
+    }
+    .menu-btn {
+      background: #fff5f7;
+      color: #c44569;
+      border: 2px solid #c44569;
+    }
+    .menu-btn:hover {
+      background: #ffeef8;
+    }
+    .reserve-btn {
+      background: linear-gradient(135deg, #ff6b9d, #c44569);
+      color: #fff;
+    }
+    .reserve-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(196, 69, 105, 0.3);
+    }
+
+    /* Ride Share Buttons */
+    .rideshare-btns {
+      display: flex;
+      gap: 8px;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 1px solid #ffe4f1;
+    }
+    .uber-btn, .lyft-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .uber-btn {
+      background: #000000;
+      color: #ffffff;
+    }
+    .uber-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .lyft-btn {
+      background: #FF00BF;
+      color: #ffffff;
+    }
+    .lyft-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 0, 191, 0.4);
+    }
+
+    .tooltip {
+      position: relative;
+    }
+    .tooltip-text {
+      visibility: hidden;
+      width: 120px;
+      background-color: #4a2c3e;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 8px;
+      position: fixed;
+      z-index: 99999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.75rem;
+      pointer-events: none;
+    }
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    .budget {
+      background: linear-gradient(135deg, #c44569, #ff6b9d);
+      color: #fff;
+      padding: 35px;
+      border-radius: 20px;
+      margin-top: 50px;
+      text-align: center;
+    }
+    .budget-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+    .budget-items {
+      display: flex;
+      justify-content: space-around;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+    .budget-item {
+      text-align: center;
+      margin: 10px;
+    }
+    .budget-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    .budget-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .budget-total {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .weather {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 30px 0;
+      color: #2c5f8d;
+    }
+    @media (max-width: 768px) {
+      .meta {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .budget-items {
+        flex-direction: column;
+        gap: 15px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .countdown {
+        gap: 10px;
+      }
+      .countdown-item {
+        min-width: 70px;
+        padding: 15px 18px;
+      }
+      .countdown-number {
+        font-size: 1.8rem;
+      }
+      .calendar-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .calendar-info {
+        flex-direction: column;
+      }
+      .btns {
+        gap: 6px;
+      }
+      .rideshare-btns {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .plan-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      .plan-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-heart">💕</div>
+    <p class="loading-text">Great dates take longer than a TikTok scroll… ❤️<br>we refuse to send you to a boring spot.</p>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo">💕 DateFlo</div>
+      <h1>Your Date Options</h1>
+      <p class="subtitle">Two perfect plans, two different vibes – pick your adventure! ✨</p>
+    </div>
+
+    <!-- Infographic Banner -->
+    <div class="infographic-banner">
+      <h3 class="infographic-title">📊 Date Overview</h3>
+      <img src="https://github.com/ene120/sparks/blob/master/Alyssa's%20Date%20Plan.png?raw=true" alt="Date Plan Overview" class="infographic-image">
+    </div>
+
+    <!-- Plan Selector -->
+    <div class="plan-selector">
+      <h3 class="plan-selector-title">Choose Your Date Plan</h3>
+      <p class="plan-selector-note">Click on an option below to see the full day plan for that date</p>
+      <div class="plan-buttons">
+        <button class="plan-btn active" onclick="selectPlan(1)">
+          <span>🌿 Option 1</span>
+          <span class="plan-btn-date">Saturday, Mar 7</span>
+        </button>
+        <button class="plan-btn" onclick="selectPlan(2)">
+          <span>🌅 Option 2</span>
+          <span class="plan-btn-date">Sunday, Mar 8</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== OPTION 1 ==================== -->
+    <div class="plan-content active" id="plan1">
+      <!-- Countdown Timer -->
+      <div class="countdown-section">
+        <h3 class="countdown-title">⏰ Countdown to Your Little Italy Date</h3>
+        <div class="countdown" id="countdown1">
+          <div class="countdown-item">
+            <div class="countdown-number" id="days1">0</div>
+            <div class="countdown-label">Days</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-number" id="hours1">0</div>
+            <div class="countdown-label">Hours</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-number" id="minutes1">0</div>
+            <div class="countdown-label">Minutes</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-number" id="seconds1">0</div>
+            <div class="countdown-label">Seconds</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <!-- Calendar Section -->
+        <div class="calendar-section">
+          <div class="calendar-info">
+            <span class="calendar-icon">📅</span>
+            <div class="calendar-text">
+              <h4>Add to Google Calendar</h4>
+              <p>Save your Little Italy + Old Town date!</p>
+            </div>
+          </div>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Little%20Italy%20Stroll%20%2B%20Old%20Town%20Sushi%20Night&dates=20260307T120000/20260307T200000&details=Matcha%2C%20waterfront%20stroll%2C%20Harney%20Sushi%2C%20Tako%2C%20Stella%20Jean%27s&location=Little%20Italy%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+            <i data-lucide="calendar-plus"></i>
+            Add to Calendar
+          </a>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist-section">
+          <h3 class="checklist-title">Important Checklist</h3>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="opt1-check1">
+              <label for="opt1-check1"><strong>Reserve Takō on OpenTable</strong> – Main dinner reservation</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="opt1-check2">
+              <label for="opt1-check2"><strong>Arrive at Parakeet Cafe by 12:00-12:30pm</strong> – Beat the lunch rush</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="opt1-check3">
+              <label for="opt1-check3"><strong>Bring a light layer</strong> – Evenings cool off near the coast</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="opt1-check4">
+              <label for="opt1-check4"><strong>Ask for quieter table at Harney Sushi</strong> – Loud music is a known issue</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-item">
+            <div class="meta-label">Date</div>
+            <div class="meta-value">Saturday, March 7, 2026</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Time</div>
+            <div class="meta-value">12:00 PM - 8:00 PM</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">~7 hours</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <h2 class="summary-title">Option 1: Little Italy Stroll + Old Town Sushi Night</h2>
+          <p>Matcha and a bright, walkable neighborhood start, a relaxed waterfront wander and shopping, then a dressed-up sushi evening with a fun dessert finish. A smooth 7-ish hour day with one long, easy walk block, then a focused dinner block (no rushing).</p>
+        </div>
+
+        <div class="weather">
+          <strong>🌤️ Weather:</strong> Evenings near the coast usually cool off fast. A light layer helps, especially after dinner when you're just walking and chatting.
+        </div>
+
+        <h2 class="section-title">✨ The Date Plan</h2>
+
+        <!-- Stop 1: Parakeet Cafe -->
+        <div class="stop" data-number="1">
+          <h3 class="stop-title">🍵 Parakeet Cafe Little Italy</h3>
+          <div class="stop-location">📍 1680 India Street, San Diego, CA 92101</div>
+          <div class="stop-phone">☎️ (619) 292-0848</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=1680%20India%20Street%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=1680%20India%20Street%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+16192920848" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://www.parakeetcafe.com/little-italy-menu/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=1680%20India%20Street%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="uber-btn">UBER</a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=1680%20India%20Street%2C%20San%20Diego%2C%20CA%2092101" target="_blank" class="lyft-btn">Lyft</a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & Menu Picks</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Sunny, polished-casual, fresh. You start with matcha and something light that feels "put together" without being heavy, then linger just long enough to feel unhurried.</div>
+                
+                <div class="menu-picks">
+                  <div class="menu-picks-title">🍵 Menu Picks</div>
+                  <div class="partner-section">
+                    <div class="partner-label">🍵 Shared (you both love matcha):</div>
+                    <ul>
+                      <li>Iced matcha latte with oat milk (easy dairy workaround)</li>
+                    </ul>
+                  </div>
+                  <div class="partner-section">
+                    <div class="partner-label">🌶️ Partner A (spicy/flavor-forward):</div>
+                    <ul>
+                      <li>Shakshuka (big flavor, not greasy)</li>
+                      <li>Avocado toast with serrano and seeds (bright, punchy)</li>
+                      <li>Red chilaquiles (spicy-leaning option)</li>
+                    </ul>
+                  </div>
+                  <div class="partner-section">
+                    <div class="partner-label">🍱 Partner B (sushi-loving, lactose sensitive):</div>
+                    <ul>
+                      <li>Smoked salmon and egg toast (ask for creamy components on side)</li>
+                      <li>Breakfast burrito (request minimal dairy)</li>
+                      <li>Harvest toast (lighter, easy to customize)</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <p>Grabbing one pastry to share and saving the "real appetite" for sushi later.</p>
+                </div>
+                <div class="time-note">
+                  <strong>⏰ Hours:</strong> Daily 7:00 AM - 5:00 PM. Arriving closer to 12:00-12:30 tends to keep it simple.
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Tea Bazaar (same neighborhood, easy swap for a calm tea-and-matcha stop). <a href="https://www.teabazaarca.com/our-store" target="_blank">View Website →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400" alt="Matcha">
+                    <div class="photo-label">Matcha Latte</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400" alt="Cafe">
+                    <div class="photo-label">Cafe Interior</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400" alt="Avocado Toast">
+                    <div class="photo-label">Avocado Toast</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt1-notes-parakeet" placeholder="Favorite menu item? How was the matcha? (e.g., 'The shakshuka was incredible, ask for extra bread')" oninput="saveNotes('opt1-parakeet')"></textarea>
+                  <div class="notes-saved" id="saved-opt1-parakeet">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 2: Little Italy Waterfront -->
+        <div class="stop" data-number="2">
+          <h3 class="stop-title">🌊 Little Italy Waterfront Stroll</h3>
+          <div class="stop-location">📍 India Street & Waterfront, San Diego, CA</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=Little%20Italy%20Waterfront%2C%20San%20Diego%2C%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Breezy, explore-y, photo-worthy. You take a slow neighborhood lap: window-shop, pop into one boutique, and end by the water for a "we're really out today" feeling.</div>
+                <div class="detail-section">
+                  <div class="detail-title">What to do:</div>
+                  <p>Pick one mini mission together (one fun snack to bring home, one small thing for the apartment) so it feels intentional.</p>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <p>A quick sit on a bench with the matcha still in hand before continuing.</p>
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> If the main streets feel too busy, shift two blocks away to quieter side streets and keep the same vibe without the crowd.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Waterfront">
+                    <div class="photo-label">Waterfront Views</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400" alt="Shopping">
+                    <div class="photo-label">Shopping Street</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Boutiques">
+                    <div class="photo-label">Local Boutiques</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt1-notes-stroll" placeholder="Any fun shops discovered? Favorite photo spots? (e.g., 'Found a cute boutique on Kettner, great window displays')" oninput="saveNotes('opt1-stroll')"></textarea>
+                  <div class="notes-saved" id="saved-opt1-stroll">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 3: Harney Sushi -->
+        <div class="stop" data-number="3">
+          <h3 class="stop-title">🍣 Harney Sushi (Old Town)</h3>
+          <div class="stop-location">📍 3964 Harney Street, San Diego, CA 92110</div>
+          <div class="stop-phone">☎️ (619) 295-3272</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=3964%20Harney%20Street%2C%20San%20Diego%2C%20CA%2092110" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=3964%20Harney%20Street%2C%20San%20Diego%2C%20CA%2092110" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+16192953272" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://www.harneysushi.com/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <a href="https://www.opentable.com/r/harney-sushi-old-town" target="_blank" class="btn reserve-btn tooltip"><i data-lucide="bookmark"></i><span class="tooltip-text">Reserve</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=3964%20Harney%20Street%2C%20San%20Diego%2C%20CA%2092110" target="_blank" class="uber-btn">UBER</a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=3964%20Harney%20Street%2C%20San%20Diego%2C%20CA%2092110" target="_blank" class="lyft-btn">Lyft</a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & Menu Picks</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Upbeat, local, familiar. You swing through Old Town for a short, shared bite so nobody gets "hangry" before dinner.</div>
+                
+                <div class="menu-picks">
+                  <div class="menu-picks-title">🍣 Menu Picks (keep it light here)</div>
+                  <div class="partner-section">
+                    <div class="partner-label">🌶️ Partner A:</div>
+                    <ul>
+                      <li>Yellowtail-forward bite (ask for citrus/ponzu style)</li>
+                      <li>Spicy roll (ask for sauce on the side)</li>
+                      <li>Light sashimi appetizer</li>
+                    </ul>
+                  </div>
+                  <div class="partner-section">
+                    <div class="partner-label">🍱 Partner B (lactose sensitive):</div>
+                    <ul>
+                      <li>Simple nigiri (skip anything with "cream cheese")</li>
+                      <li>Edamame (confirm no butter/dairy additions)</li>
+                      <li>Basic roll (tuna/salmon/yellowtail, no creamy sauces)</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <p>Sitting outside or asking for a quieter table since loud music is a known dealbreaker.</p>
+                </div>
+                <div class="time-note">
+                  <strong>⏰ Hours:</strong> Daily 4:00 PM - 10:00 PM. Treat this as a short stop; the "main" reservation is next.
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Skip straight to dinner and just add one extra starter there.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400" alt="Sushi">
+                    <div class="photo-label">Fresh Sushi</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=400" alt="Rolls">
+                    <div class="photo-label">Specialty Rolls</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=400" alt="Nigiri">
+                    <div class="photo-label">Nigiri Selection</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt1-notes-harney" placeholder="Favorite roll? How was the vibe? (e.g., 'The yellowtail was amazing, asked for quieter table and it was perfect')" oninput="saveNotes('opt1-harney')"></textarea>
+                  <div class="notes-saved" id="saved-opt1-harney">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 4: Takō -->
+        <div class="stop" data-number="4">
+          <h3 class="stop-title">🥢 Takō (Main Dinner)</h3>
+          <div class="stop-location">📍 2662 Juan Street, San Diego, CA 92110</div>
+          <div class="stop-phone">☎️ (619) 260-8226</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=2662%20Juan%20Street%2C%20San%20Diego%2C%20CA%2092110" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=2662%20Juan%20Street%2C%20San%20Diego%2C%20CA%2092110" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+16192608226" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://www.tako-sd.com/menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <a href="https://www.opentable.com/r/tako-san-diego" target="_blank" class="btn reserve-btn tooltip"><i data-lucide="bookmark"></i><span class="tooltip-text">Reserve</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=2662%20Juan%20Street%2C%20San%20Diego%2C%20CA%2092110" target="_blank" class="uber-btn">UBER</a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=2662%20Juan%20Street%2C%20San%20Diego%2C%20CA%2092110" target="_blank" class="lyft-btn">Lyft</a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & Menu Picks</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Speakeasy-cool, intimate, grown-up. Takō is your main sit-down dinner: darker, moodier, and more "night date" than a casual meal.</div>
+                
+                <div class="menu-picks">
+                  <div class="menu-picks-title">🥢 Menu Picks</div>
+                  <div class="partner-section">
+                    <div class="partner-label">🌶️ Partner A (bright + spicy lean):</div>
+                    <ul>
+                      <li>Sushi set or nigiri focus (keep it citrusy where possible)</li>
+                      <li>Spicy-forward roll or dish (ask what's best that night)</li>
+                      <li>One "chef special" bite for the new-experience feel</li>
+                    </ul>
+                  </div>
+                  <div class="partner-section">
+                    <div class="partner-label">🍱 Partner B (lactose sensitive):</div>
+                    <ul>
+                      <li>Nigiri assortment (clean, simple)</li>
+                      <li>Roll without creamy sauces (confirm no dairy-based aioli)</li>
+                      <li>A cooked item that avoids butter-heavy prep (ask the server)</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <p>One sake or cocktail here since you're both 21+, and keeping the rest of the budget for dessert.</p>
+                </div>
+                <div class="time-note">
+                  <strong>⏰ Reservation:</strong> Book on OpenTable so dinner is guaranteed. This is the "main event" of the night!
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> If you want to stay in Old Town without a mood shift, extend the Harney Sushi stop into a full dinner.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400" alt="Interior">
+                    <div class="photo-label">Moody Interior</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400" alt="Sushi">
+                    <div class="photo-label">Fresh Sushi</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400" alt="Cocktails">
+                    <div class="photo-label">Craft Cocktails</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt1-notes-tako" placeholder="Favorite dish? How was the ambiance? (e.g., 'The chef special was incredible, perfect date night vibe')" oninput="saveNotes('opt1-tako')"></textarea>
+                  <div class="notes-saved" id="saved-opt1-tako">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 5: Stella Jean's -->
+        <div class="stop" data-number="5">
+          <h3 class="stop-title">🍦 Stella Jean's Ice Cream</h3>
+          <div class="stop-location">📍 4195 Voltaire St, San Diego, CA 92107</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=4195%20Voltaire%20St%2C%20San%20Diego%2C%20CA%2092107" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=4195%20Voltaire%20St%2C%20San%20Diego%2C%20CA%2092107" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="https://www.stellajeans.com/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=4195%20Voltaire%20St%2C%20San%20Diego%2C%20CA%2092107" target="_blank" class="uber-btn">UBER</a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=4195%20Voltaire%20St%2C%20San%20Diego%2C%20CA%2092107" target="_blank" class="lyft-btn">Lyft</a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & Menu Picks</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Sweet, cozy, happy-ending. Stella Jean's is a great finish because it's easy to do dairy-free and still feel like a treat.</div>
+                
+                <div class="menu-picks">
+                  <div class="menu-picks-title">🍦 Menu Picks (vegan-friendly focus)</div>
+                  <div class="partner-section">
+                    <div class="partner-label">Both Partners:</div>
+                    <ul>
+                      <li>Vegan Mango Sticky Rice</li>
+                      <li>Vegan Calamansi Creamsicle</li>
+                      <li>Ask what the fruit-forward vegan flavor is that day</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="backup">
+                  <strong>Backup:</strong> Salt & Straw (Little Italy) for vegan scoops if you'd rather finish closer to where you started. <a href="https://saltandstraw.com/pages/locations" target="_blank">View Locations →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400" alt="Ice Cream">
+                    <div class="photo-label">Artisan Ice Cream</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=400" alt="Vegan">
+                    <div class="photo-label">Vegan Options</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=400" alt="Scoops">
+                    <div class="photo-label">Fresh Scoops</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt1-notes-stellajean" placeholder="Favorite flavor? How was the vegan option? (e.g., 'The Mango Sticky Rice was incredible, perfect end to the night')" oninput="saveNotes('opt1-stellajean')"></textarea>
+                  <div class="notes-saved" id="saved-opt1-stellajean">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="budget">
+          <h3 class="budget-title">💰 Estimated Budget (Option 1)</h3>
+          <div class="budget-items">
+            <div class="budget-item">
+              <div class="budget-label">Matcha + Light Lunch</div>
+              <div class="budget-value">$25-45</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Sushi Bites + Main Dinner</div>
+              <div class="budget-value">$55-110</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Dessert</div>
+              <div class="budget-value">$10-25</div>
+            </div>
+          </div>
+          <div class="budget-total">Total: $90-180 (lower end doable with lighter dinner order)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== OPTION 2 ==================== -->
+    <div class="plan-content" id="plan2">
+      <!-- Countdown Timer -->
+      <div class="countdown-section">
+        <h3 class="countdown-title">⏰ Countdown to Your Convoy Date</h3>
+        <div class="countdown" id="countdown2">
+          <div class="countdown-item">
+            <div class="countdown-number" id="days2">0</div>
+            <div class="countdown-label">Days</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-number" id="hours2">0</div>
+            <div class="countdown-label">Hours</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-number" id="minutes2">0</div>
+            <div class="countdown-label">Minutes</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-number" id="seconds2">0</div>
+            <div class="countdown-label">Seconds</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <!-- Calendar Section -->
+        <div class="calendar-section">
+          <div class="calendar-info">
+            <span class="calendar-icon">📅</span>
+            <div class="calendar-text">
+              <h4>Add to Google Calendar</h4>
+              <p>Save your Convoy + Sky Deck date!</p>
+            </div>
+          </div>
+          <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Convoy%20Matcha%20%2B%20Sky%20Deck%20Dinner&dates=20260308T120000/20260308T190000&details=Labora%20Cafe%2C%20Shopping%2C%20Glass%20Box%2C%20Sunset%2C%20Stella%20Jean%27s&location=Convoy%2C%20San%20Diego%2C%20CA&sf=true&output=xml" target="_blank" class="calendar-btn">
+            <i data-lucide="calendar-plus"></i>
+            Add to Calendar
+          </a>
+        </div>
+
+        <!-- Checklist -->
+        <div class="checklist-section">
+          <h3 class="checklist-title">Important Checklist</h3>
+          <div class="checklist-items">
+            <div class="checklist-item">
+              <input type="checkbox" id="opt2-check1">
+              <label for="opt2-check1"><strong>Reserve Glass Box on OpenTable</strong> – Main dinner at Sky Deck</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="opt2-check2">
+              <label for="opt2-check2"><strong>Arrive at Labora Cafe by 12:00pm</strong> – No-stress matcha start</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="opt2-check3">
+              <label for="opt2-check3"><strong>Bring a light hoodie/jacket</strong> – For sunset by the water</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="opt2-check4">
+              <label for="opt2-check4"><strong>Request quieter table at Glass Box</strong> – Avoid the loudest bar zone</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-item">
+            <div class="meta-label">Date</div>
+            <div class="meta-value">Sunday, March 8, 2026</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Time</div>
+            <div class="meta-value">12:00 PM - 7:00 PM</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">~7 hours</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <h2 class="summary-title">Option 2: Convoy Matcha + Sky Deck Dinner + Sunset</h2>
+          <p>A matcha-first start with a calm cafe vibe, a shopping-and-snacking wander, then a reservation-backed sushi dinner in a parking-friendly complex, ending with sunset and a dairy-free dessert option. A relaxed 7-hour day with one big "main event" dinner and a simple sunset finish.</p>
+        </div>
+
+        <div class="weather">
+          <strong>🌤️ Weather:</strong> For sunset by the water, a light hoodie or jacket helps a lot, even if midday feels warm.
+        </div>
+
+        <h2 class="section-title">✨ The Date Plan</h2>
+
+        <!-- Stop 1: Labora Cafe -->
+        <div class="stop" data-number="1">
+          <h3 class="stop-title">🍵 Labora Cafe</h3>
+          <div class="stop-location">📍 8055 Clairemont Mesa Blvd #101, San Diego, CA 92111</div>
+          <div class="stop-phone">☎️ 1-888-569-0660</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=8055%20Clairemont%20Mesa%20Blvd%20%23101%2C%20San%20Diego%2C%20CA%2092111" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=8055%20Clairemont%20Mesa%20Blvd%20%23101%2C%20San%20Diego%2C%20CA%2092111" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="https://laboracafe.com/menu" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=8055%20Clairemont%20Mesa%20Blvd%2C%20San%20Diego%2C%20CA%2092111" target="_blank" class="uber-btn">UBER</a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=8055%20Clairemont%20Mesa%20Blvd%2C%20San%20Diego%2C%20CA%2092111" target="_blank" class="lyft-btn">Lyft</a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & Menu Picks</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Modern, calm, cozy. Labora Cafe is open daily 8:00 AM to 9:00 PM, which makes it easy for a no-stress start.</div>
+                
+                <div class="menu-picks">
+                  <div class="menu-picks-title">🍵 Menu Picks</div>
+                  <div class="partner-section">
+                    <div class="partner-label">🍵 Partner A:</div>
+                    <ul>
+                      <li>Amber 26 matcha latte (their highlighted sip)</li>
+                      <li>Any flavored matcha latte with your preferred sweetness level</li>
+                      <li>Matcha-forward specialty drink (menu rotates)</li>
+                    </ul>
+                  </div>
+                  <div class="partner-section">
+                    <div class="partner-label">🍱 Partner B (lactose sensitive):</div>
+                    <ul>
+                      <li>Matcha latte with oat milk</li>
+                      <li>Vietnamese coffee + oat milk option if you want a caffeine pivot</li>
+                      <li>A lighter espresso drink (avoid milk-heavy builds unless swapped)</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <p>Sitting for 20 minutes longer than usual. This is the "no rushing" anchor.</p>
+                </div>
+                <div class="time-note">
+                  <strong>⏰ Hours:</strong> Daily 8:00 AM - 9:00 PM. Easy for any start time.
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Matcha Cafe Maiko (Kearny Mesa) for matcha desserts and soft serve. <a href="https://www.matchacafe-maiko.com/eng/store/index.html?country=usa&region=ca&target=ca-sandiego" target="_blank">View Website →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400" alt="Matcha">
+                    <div class="photo-label">Matcha Latte</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400" alt="Cafe">
+                    <div class="photo-label">Cafe Vibe</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400" alt="Interior">
+                    <div class="photo-label">Modern Interior</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt2-notes-labora" placeholder="Favorite drink? How was the vibe? (e.g., 'The Amber 26 was incredible, loved the calm atmosphere')" oninput="saveNotes('opt2-labora')"></textarea>
+                  <div class="notes-saved" id="saved-opt2-labora">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 2: Shopping Stroll -->
+        <div class="stop" data-number="2">
+          <h3 class="stop-title">🛍️ Shopping Stroll (Convoy Area)</h3>
+          <div class="stop-location">📍 Kearny Mesa / Convoy District, San Diego, CA</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=Convoy%20District%2C%20San%20Diego%2C%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Playful, browse-y, low pressure. You pick a nearby shopping pocket (books, skincare, snacks) and keep it simple: one store each, one shared snack, then back out.</div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <p>Choosing one small "take-home" snack from an Asian market so the day has a memory baked in.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=400" alt="Shopping">
+                    <div class="photo-label">Asian Market</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=400" alt="Snacks">
+                    <div class="photo-label">Snack Finds</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400" alt="Shopping">
+                    <div class="photo-label">Browse Together</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt2-notes-shopping" placeholder="Any fun finds? Favorite snack to take home? (e.g., 'Found great mochi snacks at the market, perfect souvenir')" oninput="saveNotes('opt2-shopping')"></textarea>
+                  <div class="notes-saved" id="saved-opt2-shopping">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 3: Glass Box -->
+        <div class="stop" data-number="3">
+          <h3 class="stop-title">🍜 Glass Box (Sky Deck Dinner)</h3>
+          <div class="stop-location">📍 3790 Townsgate Dr, San Diego, CA 92130</div>
+          <div class="stop-phone">☎️ (858) 289-4800</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=3790%20Townsgate%20Dr%2C%20San%20Diego%2C%20CA%2092130" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=3790%20Townsgate%20Dr%2C%20San%20Diego%2C%20CA%2092130" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="tel:+18582894800" class="btn ph-btn tooltip"><i data-lucide="phone"></i><span class="tooltip-text">Call</span></a>
+            <a href="https://www.glassboxsd.com/" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <a href="https://www.opentable.com/r/glass-box-asian-coastal-inspired-kitchen-and-bar-san-diego" target="_blank" class="btn reserve-btn tooltip"><i data-lucide="bookmark"></i><span class="tooltip-text">Reserve</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=3790%20Townsgate%20Dr%2C%20San%20Diego%2C%20CA%2092130" target="_blank" class="uber-btn">UBER</a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=3790%20Townsgate%20Dr%2C%20San%20Diego%2C%20CA%2092130" target="_blank" class="lyft-btn">Lyft</a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & Menu Picks</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Stylish, fun, slightly dressed-up. Glass Box is inside Sky Deck at Del Mar Highlands and takes reservations on OpenTable. It's also a good match for noodles + sushi cravings (Happy Hour up to 6pm can help value).</div>
+                
+                <div class="menu-picks">
+                  <div class="menu-picks-title">🍜 Menu Picks</div>
+                  <div class="partner-section">
+                    <div class="partner-label">🌶️ Partner A (spicy + noodles):</div>
+                    <ul>
+                      <li>Taiwanese Beef Noodle Soup</li>
+                      <li>Longevity Noodle</li>
+                      <li>Salmon Lemon Roll (bright, citrusy)</li>
+                    </ul>
+                  </div>
+                  <div class="partner-section">
+                    <div class="partner-label">🍱 Partner B (lactose sensitive + sushi lean):</div>
+                    <ul>
+                      <li>Cucumber Wrap (ponzu-based, no rice)</li>
+                      <li>A simple nigiri set or sashimi set (ask the server for clean picks)</li>
+                      <li>Edamame (choose yuzu garlic or spicy garlic rather than anything creamy)</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <p>Requesting a table that's not right next to the loudest bar zone, since noise is a known date-killer.</p>
+                </div>
+                <div class="time-note">
+                  <strong>⏰ Hours:</strong> Happy Hour up to 6:00 PM – great for value! Book on OpenTable so dinner is locked.
+                </div>
+                <div class="backup">
+                  <strong>Backup:</strong> Rakiraki Convoy for ramen/noodles with reservations. <a href="https://www.opentable.com/r/rakiraki-convoy-san-diego" target="_blank">Reserve on OpenTable →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400" alt="Noodles">
+                    <div class="photo-label">Noodle Dishes</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400" alt="Sushi">
+                    <div class="photo-label">Fresh Sushi</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400" alt="Interior">
+                    <div class="photo-label">Sky Deck Vibe</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt2-notes-glassbox" placeholder="Favorite dish? How was Happy Hour? (e.g., 'The Taiwanese Beef Noodle Soup was amazing, great Happy Hour deals')" oninput="saveNotes('opt2-glassbox')"></textarea>
+                  <div class="notes-saved" id="saved-opt2-glassbox">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 4: Sunset Walk -->
+        <div class="stop" data-number="4">
+          <h3 class="stop-title">🌅 Sunset Walk</h3>
+          <div class="stop-location">📍 Nearby Beach Viewpoint, San Diego, CA</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=Sunset%20Cliffs%20Natural%20Park%2C%20San%20Diego%2C%20CA" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Scenic, calm, connected. You head to a nearby beach viewpoint for sunset, keep phones mostly away, and just let the day land.</div>
+                <div class="detail-section">
+                  <div class="detail-title">You might like:</div>
+                  <p>Bringing whatever drink you didn't finish at dinner for a casual sip while you watch the sky.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400" alt="Sunset">
+                    <div class="photo-label">Beach Sunset</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="View">
+                    <div class="photo-label">Coastal Views</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1476673160081-cf065607f449?w=400" alt="Evening">
+                    <div class="photo-label">Golden Hour</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt2-notes-sunset" placeholder="How was the sunset? Any special moments? (e.g., 'Perfect spot for sunset, phones away just talking')" oninput="saveNotes('opt2-sunset')"></textarea>
+                  <div class="notes-saved" id="saved-opt2-sunset">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop 5: Stella Jean's University Heights -->
+        <div class="stop" data-number="5">
+          <h3 class="stop-title">🍦 Stella Jean's Ice Cream (University Heights)</h3>
+          <div class="stop-location">📍 4404 Park Blvd, Ste B, San Diego, CA 92116</div>
+          <div class="stop-phone">☎️ (619) 501-8252</div>
+          <div class="btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=4404%20Park%20Blvd%20Ste%20B%2C%20San%20Diego%2C%20CA%2092116" target="_blank" class="btn dir-btn tooltip"><i data-lucide="map"></i><span class="tooltip-text">Directions</span></a>
+            <a href="https://maps.apple.com/?q=4404%20Park%20Blvd%20Ste%20B%2C%20San%20Diego%2C%20CA%2092116" target="_blank" class="btn dir-btn tooltip"><i data-lucide="navigation"></i><span class="tooltip-text">Apple Maps</span></a>
+            <a href="https://www.stellajeans.com/locations" target="_blank" class="btn menu-btn tooltip"><i data-lucide="utensils"></i><span class="tooltip-text">Menu</span></a>
+            <div class="rideshare-btns">
+              <a href="https://m.uber.com/?action=setPickup&destination=4404%20Park%20Blvd%2C%20San%20Diego%2C%20CA%2092116" target="_blank" class="uber-btn">UBER</a>
+              <a href="https://lyft.com/ride?id=lyft&destination[address]=4404%20Park%20Blvd%2C%20San%20Diego%2C%20CA%2092116" target="_blank" class="lyft-btn">Lyft</a>
+            </div>
+          </div>
+          
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="info"></i> Details & Menu Picks</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="vibe">Sweet, cozy, easy. Stella Jean's is a strong closer because vegan options are a known win there, and it fits the lactose intolerance constraint well.</div>
+                
+                <div class="menu-picks">
+                  <div class="menu-picks-title">🍦 Menu Picks (vegan-friendly focus)</div>
+                  <div class="partner-section">
+                    <div class="partner-label">Both Partners:</div>
+                    <ul>
+                      <li>Vegan Mango Sticky Rice</li>
+                      <li>Vegan Calamansi Creamsicle</li>
+                      <li>A vegan special (staff can point you to the safest scoop)</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="backup">
+                  <strong>Backup:</strong> Salt & Straw for vegan options. <a href="https://saltandstraw.com/pages/locations" target="_blank">View Locations →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="expandable-section">
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span class="expandable-title"><i data-lucide="image"></i> Photos</span>
+              <i data-lucide="chevron-down" class="expandable-arrow"></i>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-inner">
+                <div class="photo-gallery">
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400" alt="Ice Cream">
+                    <div class="photo-label">Artisan Ice Cream</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=400" alt="Vegan">
+                    <div class="photo-label">Vegan Options</div>
+                  </div>
+                  <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=400" alt="Scoops">
+                    <div class="photo-label">Fresh Scoops</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-section">
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleExpand(this)">
+                <span class="expandable-title"><i data-lucide="pencil"></i> Your Notes</span>
+                <i data-lucide="chevron-down" class="expandable-arrow"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="expandable-inner">
+                  <textarea class="notes-textarea" id="opt2-notes-stellajean" placeholder="Favorite flavor? Perfect ending? (e.g., 'The Calamansi Creamsicle was refreshing, perfect end to a great day')" oninput="saveNotes('opt2-stellajean')"></textarea>
+                  <div class="notes-saved" id="saved-opt2-stellajean">✓ Notes saved</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="budget">
+          <h3 class="budget-title">💰 Estimated Budget (Option 2)</h3>
+          <div class="budget-items">
+            <div class="budget-item">
+              <div class="budget-label">Matcha Start</div>
+              <div class="budget-value">$15-30</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Dinner (Glass Box)</div>
+              <div class="budget-value">$55-120</div>
+            </div>
+            <div class="budget-item">
+              <div class="budget-label">Dessert</div>
+              <div class="budget-value">$10-25</div>
+            </div>
+          </div>
+          <div class="budget-total">Total: $80-175 (Happy Hour timing can help with budget!)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Loading Screen
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loadingScreen').classList.add('hidden');
+      }, 6000);
+    });
+
+    lucide.createIcons();
+
+    // Plan Selector
+    function selectPlan(planNum) {
+      // Update buttons
+      document.querySelectorAll('.plan-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === planNum - 1);
+      });
+      
+      // Update content
+      document.getElementById('plan1').classList.toggle('active', planNum === 1);
+      document.getElementById('plan2').classList.toggle('active', planNum === 2);
+      
+      // Re-initialize icons for newly visible content
+      lucide.createIcons();
+    }
+
+    // Countdown Timer for Option 1
+    const targetDate1 = new Date('2026-03-07T12:00:00').getTime();
+    
+    function updateCountdown1() {
+      const now = new Date().getTime();
+      const distance = targetDate1 - now;
+      
+      if (distance < 0) {
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days1').textContent = days;
+      document.getElementById('hours1').textContent = hours;
+      document.getElementById('minutes1').textContent = minutes;
+      document.getElementById('seconds1').textContent = seconds;
+    }
+    
+    // Countdown Timer for Option 2
+    const targetDate2 = new Date('2026-03-08T12:00:00').getTime();
+    
+    function updateCountdown2() {
+      const now = new Date().getTime();
+      const distance = targetDate2 - now;
+      
+      if (distance < 0) {
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days2').textContent = days;
+      document.getElementById('hours2').textContent = hours;
+      document.getElementById('minutes2').textContent = minutes;
+      document.getElementById('seconds2').textContent = seconds;
+    }
+    
+    updateCountdown1();
+    updateCountdown2();
+    setInterval(updateCountdown1, 1000);
+    setInterval(updateCountdown2, 1000);
+
+    // Expandable Sections
+    function toggleExpand(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.expandable-arrow');
+      
+      content.classList.toggle('expanded');
+      arrow.classList.toggle('expanded');
+    }
+
+    // Notes Persistence
+    function saveNotes(stopId) {
+      const textarea = document.getElementById('notes-' + stopId);
+      const savedMsg = document.getElementById('saved-' + stopId);
+      
+      localStorage.setItem('alyssa-options-notes-' + stopId, textarea.value);
+      
+      savedMsg.classList.add('show');
+      setTimeout(() => savedMsg.classList.remove('show'), 2000);
+    }
+
+    // Load saved notes on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const stopIds = [
+        'opt1-parakeet', 'opt1-stroll', 'opt1-harney', 'opt1-tako', 'opt1-stellajean',
+        'opt2-labora', 'opt2-shopping', 'opt2-glassbox', 'opt2-sunset', 'opt2-stellajean'
+      ];
+      stopIds.forEach(stopId => {
+        const saved = localStorage.getItem('alyssa-options-notes-' + stopId);
+        if (saved) {
+          const textarea = document.getElementById('notes-' + stopId);
+          if (textarea) textarea.value = saved;
+        }
+      });
+    });
+
+    // Checklist persistence for Option 1
+    ['opt1-check1', 'opt1-check2', 'opt1-check3', 'opt1-check4'].forEach(function(id) {
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        const key = 'alyssa-opt1-' + id;
+        checkbox.checked = localStorage.getItem(key) === 'true';
+        
+        checkbox.addEventListener('change', function() {
+          localStorage.setItem(key, this.checked);
+          if (this.checked) {
+            this.parentElement.classList.add('checked');
+          } else {
+            this.parentElement.classList.remove('checked');
+          }
+        });
+        
+        if (checkbox.checked) {
+          checkbox.parentElement.classList.add('checked');
+        }
+      }
+    });
+
+    // Checklist persistence for Option 2
+    ['opt2-check1', 'opt2-check2', 'opt2-check3', 'opt2-check4'].forEach(function(id) {
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        const key = 'alyssa-opt2-' + id;
+        checkbox.checked = localStorage.getItem(key) === 'true';
+        
+        checkbox.addEventListener('change', function() {
+          localStorage.setItem(key, this.checked);
+          if (this.checked) {
+            this.parentElement.classList.add('checked');
+          } else {
+            this.parentElement.classList.remove('checked');
+          }
+        });
+        
+        if (checkbox.checked) {
+          checkbox.parentElement.classList.add('checked');
+        }
+      }
+    });
+
+    // Tooltip positioning
+    document.querySelectorAll('.tooltip').forEach(tooltip => {
+      tooltip.addEventListener('mouseenter', function(e) {
+        const tooltipText = this.querySelector('.tooltip-text');
+        if (tooltipText) {
+          const rect = this.getBoundingClientRect();
+          tooltipText.style.left = (rect.left + rect.width / 2 - 60) + 'px';
+          tooltipText.style.top = (rect.top - 45) + 'px';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
