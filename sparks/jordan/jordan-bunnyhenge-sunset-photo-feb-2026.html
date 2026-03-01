@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jordan's Bunnyhenge Sunset Photo Date - February 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #fff5f7 0%, #ffe4c4 50%, #ffeef8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loading-heart {
+      font-size: 4rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .loading-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #4a2c3e;
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.8;
+      margin-top: 30px;
+      padding: 0 20px;
+    }
+    .loading-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 107, 157, 0.2);
+      border-radius: 2px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    .loading-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #ffa64d);
+      border-radius: 2px;
+      animation: loading 6s ease-out forwards;
+    }
+    @keyframes loading {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #fff5f7 0%, #ffeef8 50%, #ffe4c4 100%);
+      color: #4a2c3e;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(219, 112, 147, 0.15);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff8c69 0%, #ff6b9d 50%, #c44569 100%);
+      padding: 60px 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .header::before {
+      content: "🐰";
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      font-size: 2rem;
+      opacity: 0.4;
+    }
+    .header::after {
+      content: "🌅";
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 2rem;
+      opacity: 0.4;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+
+    /* Sunset Timer Section */
+    .sunset-timer-section {
+      background: linear-gradient(135deg, #ffe4c4 0%, #fff5f7 100%);
+      padding: 40px;
+      text-align: center;
+      border-bottom: 1px solid #ffe4c4;
+    }
+    .sunset-timer-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #c44569;
+      margin-bottom: 10px;
+    }
+    .sunset-time {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #ff8c69;
+      margin-bottom: 10px;
+    }
+    .sunset-label {
+      font-size: 0.9rem;
+      color: #5a3c4e;
+      margin-bottom: 25px;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 25px;
+      min-width: 90px;
+      box-shadow: 0 4px 15px rgba(255, 140, 105, 0.15);
+      border: 2px solid #ffe4c4;
+    }
+    .countdown-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ff8c69;
+      line-height: 1;
+    }
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    .content {
+      padding: 50px 40px;
+    }
+
+    /* Calendar Section */
+    .calendar-section {
+      background: white;
+      border: 2px solid #ffe4c4;
+      border-radius: 16px;
+      padding: 20px 25px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(255, 140, 105, 0.08);
+    }
+    .calendar-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .calendar-icon {
+      font-size: 2rem;
+    }
+    .calendar-text h4 {
+      font-family: 'Playfair Display', serif;
+      color: #c44569;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+    .calendar-text p {
+      color: #5a3c4e;
+      font-size: 0.85rem;
+    }
+    .calendar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+    .calendar-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+    }
+
+    /* Checklist */
+    .checklist-section {
+      background: linear-gradient(135deg, #ffe4c4 0%, #fff5f7 50%, #ffeef8 100%);
+      border: 2px solid #ff8c69;
+      border-radius: 16px;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+    }
+    .checklist-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #c44569;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .checklist-title::before {
+      content: "📷";
+      font-size: 1.5rem;
+    }
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      padding: 15px 18px;
+      border-radius: 12px;
+      border-left: 4px solid #ff8c69;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .checklist-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .checklist-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: #ff8c69;
+      cursor: pointer;
+    }
+    .checklist-item label {
+      color: #4a2c3e;
+      font-size: 0.95rem;
+      cursor: pointer;
+      flex: 1;
+    }
+    .checklist-item label strong {
+      color: #c44569;
+    }
+    .checklist-item.checked {
+      opacity: 0.6;
+      background: #f8f8f8;
+    }
+    .checklist-item.checked label {
+      text-decoration: line-through;
+    }
+
+    /* Parking Section */
+    .parking-section {
+      background: linear-gradient(135deg, #e8f4fd 0%, #fff9e6 100%);
+      border: 2px solid #4285f4;
+      border-radius: 16px;
+      padding: 25px 30px;
+      margin-bottom: 40px;
+    }
+    .parking-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #2c5f8d;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .parking-title::before {
+      content: "🅿️";
+      font-size: 1.5rem;
+    }
+    .parking-content {
+      color: #4a2c3e;
+      font-size: 0.95rem;
+    }
+    .parking-content p {
+      margin-bottom: 10px;
+    }
+    .parking-tip {
+      background: white;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border-left: 4px solid #ffd966;
+      margin-top: 12px;
+    }
+    .parking-tip strong {
+      color: #d4a017;
+    }
+
+    .meta {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: linear-gradient(135deg, #fff5f7, #ffe4c4);
+      border-radius: 16px;
+      border-left: 4px solid #ff8c69;
+    }
+    .meta-item {
+      flex: 1;
+    }
+    .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c44569;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .meta-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4a2c3e;
+    }
+    .summary {
+      background: #fff;
+      padding: 35px;
+      border-radius: 16px;
+      border: 2px solid #ffe4c4;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 15px rgba(255, 140, 105, 0.08);
+    }
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: #c44569;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .summary-title::before {
+      content: "🐰";
+      font-size: 1.5rem;
+    }
+    .summary p {
+      font-size: 1.05rem;
+      color: #5a3c4e;
+      line-height: 1.8;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #c44569;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .stop {
+      background: linear-gradient(135deg, #fff 0%, #fffbfc 100%);
+      padding: 35px;
+      border-radius: 20px;
+      margin-bottom: 35px;
+      border: 2px solid #ffe4c4;
+      position: relative;
+      box-shadow: 0 8px 25px rgba(255, 140, 105, 0.1);
+    }
+    .stop::before {
+      content: attr(data-number);
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: linear-gradient(135deg, #ff8c69, #ff6b9d);
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(255, 140, 105, 0.3);
+    }
+    .stop-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #4a2c3e;
+      margin-bottom: 8px;
+      margin-top: 10px;
+    }
+    .stop-time {
+      color: #ff8c69;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .stop-location {
+      color: #c44569;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .stop-phone {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .vibe {
+      background: linear-gradient(135deg, #ffe4c4, #fff5f7);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border-left: 3px solid #ff8c69;
+      font-style: italic;
+      color: #5a3c4e;
+    }
+    .detail-section {
+      margin: 20px 0;
+    }
+    .detail-title {
+      font-weight: 600;
+      color: #c44569;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .detail-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .detail-section li {
+      padding-left: 25px;
+      position: relative;
+      margin-bottom: 8px;
+      color: #5a3c4e;
+    }
+    .detail-section li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #ff8c69;
+      font-weight: 600;
+    }
+    .detail-section p {
+      color: #5a3c4e;
+      margin-bottom: 8px;
+    }
+    .photo-tip {
+      background: #fff9e6;
+      border: 2px solid #ffd966;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #8b6914;
+    }
+    .photo-tip strong {
+      color: #d4a017;
+    }
+    .time-note {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: #2c5f8d;
+    }
+    .time-note strong {
+      color: #1a4a6e;
+    }
+
+    /* Photo Shot Cards */
+    .shot-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 15px 0;
+    }
+    .shot-card {
+      background: linear-gradient(135deg, #fff5f7, #ffe4c4);
+      border: 2px solid #ffe4c4;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .shot-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 140, 105, 0.15);
+    }
+    .shot-card-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .shot-card-title {
+      font-weight: 600;
+      color: #c44569;
+      font-size: 0.95rem;
+      margin-bottom: 5px;
+    }
+    .shot-card-desc {
+      font-size: 0.85rem;
+      color: #5a3c4e;
+    }
+
+    /* Expandable Sections */
+    .expandable-section {
+      margin: 15px 0;
+    }
+    .expandable-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #fff5f7, #ffe4c4);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #ffe4c4;
+    }
+    .expandable-header:hover {
+      background: linear-gradient(135deg, #ffe4c4, #ffe4f1);
+    }
+    .expandable-title {
+      font-weight: 500;
+      color: #c44569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .expandable-arrow {
+      transition: transform 0.3s ease;
+      color: #ff8c69;
+    }
+    .expandable-arrow.expanded {
+      transform: rotate(180deg);
+    }
+    .expandable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .expandable-content.expanded {
+      max-height: 2000px;
+    }
+    .expandable-inner {
+      padding: 15px;
+      background: white;
+      border-radius: 10px;
+      margin-top: 8px;
+      border: 1px solid #ffe4c4;
+    }
+
+    /* Photo Gallery */
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .photo-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .photo-item:hover {
+      transform: scale(1.03);
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 6px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Notes Section */
+    .notes-section {
+      margin-top: 15px;
+    }
+    .notes-textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px 15px;
+      border: 2px solid #ffe4c4;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: #4a2c3e;
+      resize: vertical;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    .notes-textarea:focus {
+      outline: none;
+      border-color: #ff8c69;
+      box-shadow: 0 0 0 3px rgba(255, 140, 105, 0.1);
+    }
+    .notes-textarea::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+    .notes-saved {
+      font-size: 0.75rem;
+      color: #ff8c69;
+      margin-top: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .notes-saved.show {
+      opacity: 1;
+    }
+
+    /* Direction Buttons Section */
+    .direction-btns {
+      margin: 15px 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .direction-btn-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .direction-btn-label {
+      font-size: 0.85rem;
+      color: #888;
+      font-weight: 500;
+    }
+    .dir-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 2px solid transparent;
+    }
+    .google-btn {
+      background: linear-gradient(135deg, #4285f4, #34a853);
+      color: #fff;
+    }
+    .google-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+    }
+    .apple-btn {
+      background: linear-gradient(135deg, #333, #000);
+      color: #fff;
+    }
+    .apple-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .ph-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: #4a2c3e;
+      color: #fff;
+    }
+    .ph-btn:hover {
+      background: #5a3c4e;
+      transform: translateY(-2px);
+    }
+    .menu-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: #fff5f7;
+      color: #c44569;
+      border: 2px solid #c44569;
+    }
+    .menu-btn:hover {
+      background: #ffeef8;
+      transform: translateY(-2px);
+    }
+
+    /* Ride Share Buttons */
+    .rideshare-btns {
+      display: flex;
+      gap: 8px;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 1px solid #ffe4c4;
+    }
+    .uber-btn, .lyft-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 38px;
+      padding: 0 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .uber-btn {
+      background: #000000;
+      color: #ffffff;
+    }
+    .uber-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .lyft-btn {
+      background: #FF00BF;
+      color: #ffffff;
+    }
+    .lyft-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 0, 191, 0.4);
+    }
+
+    /* Planetary Parade Banner */
+    .planetary-banner {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 16px;
+      padding: 25px 30px;
+      margin: 30px 0;
+      color: #fff;
+      text-align: center;
+    }
+    .planetary-banner h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #ffd700;
+    }
+    .planetary-banner p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    .planetary-emojis {
+      font-size: 2rem;
+      margin-top: 15px;
+      letter-spacing: 8px;
+    }
+
+    .budget {
+      background: linear-gradient(135deg, #ff8c69, #ff6b9d);
+      color: #fff;
+      padding: 35px;
+      border-radius: 20px;
+      margin-top: 50px;
+      text-align: center;
+    }
+    .budget-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+    .budget-items {
+      display: flex;
+      justify-content: center;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+    .budget-item {
+      text-align: center;
+      margin: 10px 20px;
+    }
+    .budget-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    .budget-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .budget-total {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .weather {
+      background: #e8f4fd;
+      border: 2px solid #c4e1f5;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 30px 0;
+      color: #2c5f8d;
+    }
+    @media (max-width: 768px) {
+      .meta {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .budget-items {
+        flex-direction: column;
+        gap: 15px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .sunset-time {
+        font-size: 2.5rem;
+      }
+      .countdown {
+        gap: 10px;
+      }
+      .countdown-item {
+        min-width: 70px;
+        padding: 15px 18px;
+      }
+      .countdown-number {
+        font-size: 1.8rem;
+      }
+      .calendar-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .calendar-info {
+        flex-direction: column;
+      }
+      .direction-btns {
+        gap: 8px;
+      }
+      .rideshare-btns {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .shot-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-heart">🐰</div>
+    <p class="loading-text">Perfect timing for golden hour… 🌅<br>Jordan's sunset photo adventure awaits!</p>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo">💕 DateFlo</div>
+      <h1>Jordan's Bunnyhenge Sunset Date</h1>
+      <p class="subtitle">Golden hour magic at Newport Beach 📸✨</p>
+    </div>
+
+    <!-- Sunset Timer -->
+    <div class="sunset-timer-section">
+      <h3 class="sunset-timer-title">🌅 Sunset Today</h3>
+      <div class="sunset-time" id="sunsetTime">5:47 PM</div>
+      <p class="sunset-label">Newport Beach, CA</p>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">0</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">0</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">0</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">0</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Calendar Section -->
+      <div class="calendar-section">
+        <div class="calendar-info">
+          <span class="calendar-icon">📅</span>
+          <div class="calendar-text">
+            <h4>Add to Google Calendar</h4>
+            <p>Never miss golden hour!</p>
+          </div>
+        </div>
+        <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Jordan%27s%20Bunnyhenge%20Sunset%20Photo%20Date&dates=20260227T170700/20260227T190700&details=Golden%20hour%20photography%20at%20Newport%20Beach%20Civic%20Center%20Park.%20Sunset%20at%205%3A47pm.%20Bring%20camera%21&location=100%20Civic%20Center%20Dr%2C%20Newport%20Beach%2C%20CA%2092660&sf=true&output=xml" target="_blank" class="calendar-btn">
+          <i data-lucide="calendar-plus"></i>
+          Add to Calendar
+        </a>
+      </div>
+
+      <!-- Checklist -->
+      <div class="checklist-section">
+        <h3 class="checklist-title">Photo Date Checklist</h3>
+        <div class="checklist-items">
+          <div class="checklist-item">
+            <input type="checkbox" id="check1">
+            <label for="check1"><strong>Charge camera/phone</strong> – Golden hour goes fast!</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check2">
+            <label for="check2"><strong>Bring a light jacket</strong> – It cools down after sunset</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check3">
+            <label for="check3"><strong>Arrive by 5:07pm</strong> – Full golden hour loop</label>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" id="check4">
+            <label for="check4"><strong>Check parking payment</strong> – Some spots require payment until 6pm</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parking Section -->
+      <div class="parking-section">
+        <h3 class="parking-title">Parking at Newport Beach Civic Center</h3>
+        <div class="parking-content">
+          <p><strong>Address:</strong> 100 Civic Center Dr, Newport Beach, CA 92660</p>
+          <p><strong>Options:</strong> City parking lots and street parking available</p>
+          <p><strong>Important:</strong> If parking in a City paid area, many spots require payment <strong>until 6:00pm</strong> – check the pay-station/signage or use a parking app.</p>
+          <div class="parking-tip">
+            <strong>💡 Pro tip:</strong> Since sunset is at 5:47pm and you'll stay through twilight (~6:12pm), you might need to pay for parking. Budget $2-5 for ~2 hours if using paid lots.
+          </div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div class="meta-item">
+          <div class="meta-label">Date</div>
+          <div class="meta-value">Thursday, February 27, 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Start Time</div>
+          <div class="meta-value">5:07 PM</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Duration</div>
+          <div class="meta-value">~60-70 min</div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <h2 class="summary-title">Jordan's Golden Hour Adventure</h2>
+        <p>A magical 60-minute sunset photography session at one of Orange County's quirkiest landmarks. Giant bunny sculptures, golden hour light, a scenic bridge walk, and if you stay a little longer – a planetary parade in the twilight sky. Perfect timing: sunset is at 5:47pm today!</p>
+      </div>
+
+      <div class="weather">
+        <strong>🌤️ Golden Hour Conditions:</strong> Civil twilight runs until ~6:12pm, giving you gorgeous soft light even after the sun dips. The afterglow is often the most photogenic time for silhouette shots!
+      </div>
+
+      <h2 class="section-title">📸 The Photo Plan</h2>
+
+      <!-- Stop 1: Arrival -->
+      <div class="stop" data-number="1">
+        <h3 class="stop-title">🚗 Arrival & Positioning</h3>
+        <div class="stop-time">⏰ 5:07 PM - 5:15 PM</div>
+        <div class="stop-location">📍 100 Civic Center Dr, Newport Beach, CA 92660</div>
+        
+        <div class="direction-btns">
+          <div class="direction-btn-group">
+            <span class="direction-btn-label">Directions:</span>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=100%20Civic%20Center%20Dr%2C%20Newport%20Beach%2C%20CA%2092660" target="_blank" class="dir-btn google-btn">
+              <i data-lucide="map"></i> Google Maps
+            </a>
+            <a href="https://maps.apple.com/?daddr=100%20Civic%20Center%20Dr%2C%20Newport%20Beach%2C%20CA%2092660&dirflg=d" target="_blank" class="dir-btn apple-btn">
+              <i data-lucide="navigation"></i> Apple Maps
+            </a>
+          </div>
+          <div class="rideshare-btns">
+            <a href="https://m.uber.com/?action=setPickup&destination[formatted_address]=100%20Civic%20Center%20Dr%2C%20Newport%20Beach%2C%20CA%2092660" target="_blank" class="uber-btn">UBER</a>
+            <a href="https://lyft.com/ride?id=lyft&destination[address]=100%20Civic%20Center%20Dr%2C%20Newport%20Beach%2C%20CA%2092660" target="_blank" class="lyft-btn">Lyft</a>
+          </div>
+        </div>
+        
+        <div class="vibe">Get oriented, find parking, and walk to the Bunnyhenge installation. Take a moment to scout the light and plan your shots.</div>
+        
+        <div class="time-note">
+          <strong>⏰ Timing matters:</strong> Arriving by 5:15pm gives you a full 30+ minutes of golden hour before peak sunset.
+        </div>
+      </div>
+
+      <!-- Stop 2: Golden Hour Loop -->
+      <div class="stop" data-number="2">
+        <h3 class="stop-title">🐰 Bunnyhenge Golden Hour Loop</h3>
+        <div class="stop-time">⏰ 5:15 PM - 5:35 PM</div>
+        
+        <div class="vibe">Do one quick clockwise lap for your must-have shots. The low sun creates dramatic shadows and warm tones on the bunny sculptures.</div>
+        
+        <div class="detail-section">
+          <div class="detail-title">📷 Essential Shots:</div>
+        </div>
+        
+        <div class="shot-cards">
+          <div class="shot-card">
+            <div class="shot-card-icon">🌟</div>
+            <div class="shot-card-title">Wide Shot</div>
+            <div class="shot-card-desc">Shows the full circle of bunnies</div>
+          </div>
+          <div class="shot-card">
+            <div class="shot-card-icon">💍</div>
+            <div class="shot-card-title">Through the Ring</div>
+            <div class="shot-card-desc">Shoot between two bunnies toward center</div>
+          </div>
+          <div class="shot-card">
+            <div class="shot-card-icon">📐</div>
+            <div class="shot-card-title">Low Angle</div>
+            <div class="shot-card-desc">Make them look huge and dramatic</div>
+          </div>
+        </div>
+        
+        <div class="photo-tip">
+          <strong>💡 Pro tip:</strong> Golden hour light changes fast. Shoot your wide establishing shots first, then move to creative angles. The warm light will intensify as you get closer to sunset.
+        </div>
+      </div>
+
+      <!-- Stop 3: Bridge Walk -->
+      <div class="stop" data-number="3">
+        <h3 class="stop-title">🌉 Scenic Bridge Detour</h3>
+        <div class="stop-time">⏰ 5:35 PM - 5:50 PM</div>
+        
+        <div class="direction-btns">
+          <div class="direction-btn-group">
+            <span class="direction-btn-label">Trail:</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=Civic%20Center%20Park%20Bridge%20Newport%20Beach" target="_blank" class="dir-btn google-btn">
+              <i data-lucide="map"></i> Google Maps
+            </a>
+          </div>
+        </div>
+        
+        <div class="vibe">Walk a short stretch of the park's loop trail and cross the bridge for elevated views back toward the park, city, and ocean. A lovely breather between photo sessions.</div>
+        
+        <div class="detail-section">
+          <div class="detail-title">What you'll see:</div>
+          <ul>
+            <li>Elevated views of the Civic Center and surrounding park</li>
+            <li>Glimpses of the ocean in the distance</li>
+            <li>The city skyline bathed in golden light</li>
+          </ul>
+        </div>
+        
+        <div class="time-note">
+          <strong>⏰ Running late?</strong> Skip the bridge and spend the whole time cycling between wide → detail → silhouette shots at Bunnyhenge.
+        </div>
+      </div>
+
+      <!-- Stop 4: Sunset Peak -->
+      <div class="stop" data-number="4">
+        <h3 class="stop-title">🌅 Sunset Peak & Afterglow</h3>
+        <div class="stop-time">⏰ 5:50 PM - 6:07 PM</div>
+        
+        <div class="vibe">The golden hour crescendo. Get back to the bunnies and shoot 5:45–5:55pm for peak color and silhouettes. Sunset is at 5:47pm sharp!</div>
+        
+        <div class="detail-section">
+          <div class="detail-title">📷 Sunset shot sequence:</div>
+          <ul>
+            <li><strong>5:45-5:47pm:</strong> Last golden rays hitting the sculptures</li>
+            <li><strong>5:47pm:</strong> Sunset moment – sky color peaks</li>
+            <li><strong>5:47-5:55pm:</strong> Silhouette shots against the colorful sky</li>
+            <li><strong>5:55-6:07pm:</strong> Softer twilight light, romantic mood</li>
+          </ul>
+        </div>
+        
+        <div class="photo-tip">
+          <strong>💡 Stay through twilight:</strong> Civil twilight runs until ~6:12pm. The soft, even light after sunset is often MORE photogenic than the actual sunset moment. Don't leave early!
+        </div>
+      </div>
+
+      <!-- Planetary Parade Banner -->
+      <div class="planetary-banner">
+        <h3>🪐 Bonus: Planetary Parade Tonight!</h3>
+        <p>If you can stretch ~10 minutes past your hour, there's a "planetary parade" best viewed about <strong>30 minutes after sunset</strong> (around 6:17pm). Six planets visible in the night sky!</p>
+        <div class="planetary-emojis">🪐🌍✨🌟💫</div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="stop" data-number="5">
+        <h3 class="stop-title">📝 Jordan's Photo Notes</h3>
+        <div class="notes-section">
+          <textarea class="notes-textarea" id="photoNotes" placeholder="Favorite shots? Camera settings used? Best angles discovered? (e.g., 'Low angle from the east side was incredible, f/2.8 for shallow depth of field')" oninput="saveNotes()"></textarea>
+          <div class="notes-saved" id="savedNotes">✓ Notes saved</div>
+        </div>
+      </div>
+
+      <div class="budget">
+        <h3 class="budget-title">💰 Estimated Budget</h3>
+        <div class="budget-items">
+          <div class="budget-item">
+            <div class="budget-label">Parking (if paid)</div>
+            <div class="budget-value">$2-5</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-label">Park Entry</div>
+            <div class="budget-value">FREE</div>
+          </div>
+        </div>
+        <div class="budget-total">Total: $0-5 🎉</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Loading Screen
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loadingScreen').classList.add('hidden');
+      }, 6000);
+    });
+
+    lucide.createIcons();
+
+    // Countdown Timer (Today at 5:07 PM)
+    const now = new Date();
+    const targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 7, 0);
+    
+    // If it's already past 5:07 PM today, show the countdown for "now"
+    const isPastStart = now > targetDate;
+    
+    function updateCountdown() {
+      const currentTime = new Date().getTime();
+      let distance;
+      
+      if (isPastStart) {
+        // Show time until sunset
+        const sunsetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 47, 0);
+        distance = sunsetTime - currentTime;
+        
+        if (distance < 0) {
+          document.getElementById('countdown').innerHTML = '<div class="countdown-item"><div class="countdown-number">🌅</div><div class="countdown-label">Golden Hour Now!</div></div>';
+          return;
+        }
+      } else {
+        distance = targetDate - currentTime;
+      }
+      
+      if (distance < 0) {
+        document.getElementById('countdown').innerHTML = '<div class="countdown-item"><div class="countdown-number">🌅</div><div class="countdown-label">Golden Hour!</div></div>';
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Notes Persistence
+    function saveNotes() {
+      const textarea = document.getElementById('photoNotes');
+      const savedMsg = document.getElementById('savedNotes');
+      
+      localStorage.setItem('jordan-bunnyhenge-photo-notes', textarea.value);
+      
+      savedMsg.classList.add('show');
+      setTimeout(() => savedMsg.classList.remove('show'), 2000);
+    }
+
+    // Load saved notes
+    document.addEventListener('DOMContentLoaded', function() {
+      const saved = localStorage.getItem('jordan-bunnyhenge-photo-notes');
+      if (saved) {
+        document.getElementById('photoNotes').value = saved;
+      }
+    });
+
+    // Checklist persistence
+    ['check1', 'check2', 'check3', 'check4'].forEach(function(id) {
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        const key = 'jordan-bunnyhenge-' + id;
+        checkbox.checked = localStorage.getItem(key) === 'true';
+        
+        checkbox.addEventListener('change', function() {
+          localStorage.setItem(key, this.checked);
+          if (this.checked) {
+            this.parentElement.classList.add('checked');
+          } else {
+            this.parentElement.classList.remove('checked');
+          }
+        });
+        
+        if (checkbox.checked) {
+          checkbox.parentElement.classList.add('checked');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
